@@ -1,6 +1,7 @@
 // LAYOUT
 import { headerTemplate } from './Layouts/header/header'
 import { sidebarTemplate } from './Layouts/sidebar/sidebar'
+import { mainTemplate } from './Layouts/main/main'
 
 export class View {
   constructor () {
@@ -13,10 +14,12 @@ export class View {
   renderApp = () => {
     const header = headerTemplate()
     const sidebar = sidebarTemplate()
+    const main = mainTemplate()
 
     const App = `
     ${header}
     ${sidebar}
+    ${main}
     `
 
     this.app.innerHTML = App
