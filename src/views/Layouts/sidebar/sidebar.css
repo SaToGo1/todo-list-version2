@@ -1,0 +1,13 @@
+.nav {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border: 1px solid black;
+    /* background-color: ; */
+}
+
+.nav__hr {
+    width: 80%;
+}
