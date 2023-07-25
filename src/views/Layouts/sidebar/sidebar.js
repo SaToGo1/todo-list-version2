@@ -6,9 +6,9 @@ export function sidebarTemplate () {
 
   return (`
     <nav class="${navClass}">
-      <p>Sections</p>
+      <h2>Sections</h2>
       <hr class="${navHrClass}">
-      <p>Projects</p>
+      <h2>Projects</h2>
     </nav>
   `)
 }

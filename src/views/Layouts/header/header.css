@@ -1,12 +1,13 @@
 .header {
     height: 50px;
 
-    border: 1px solid black;
-
+    display: flex;
+    align-items: center;
     grid-area: header;
-    /* background-color: red; */
-    /* box-shadow: 0px 1px 5px red; */
-    /* position: relative; */
+    background-color: var(--color-secondary);
+    box-shadow: 0px 1px 5px var(--color-main);
+    
+    z-index: 100;
 }
 
 .header__h1 {

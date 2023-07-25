@@ -6,6 +6,9 @@ import { mainTemplate } from './Layouts/main/main'
 export class View {
   constructor () {
     this.app = document.getElementById('app')
+
+    this.renderApp()
+    this.nav = document.querySelector('.nav')
   }
 
   /**

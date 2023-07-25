@@ -6,7 +6,7 @@ export function headerTemplate () {
 
   return (`
     <header class="${headerClass}">
-      <h1 class="${h1Class}">ToDo List</h1>
+      <h1 class="${h1Class}">To-Do List V2</h1>
     </header>
   `)
 }
