@@ -3,12 +3,12 @@ import { headerTemplate } from './Layouts/header/header'
 import { sidebarTemplate } from './Layouts/sidebar/sidebar'
 import { mainTemplate } from './Layouts/main/main'
 
-export class View {
+export default class View {
   constructor () {
     this.app = document.getElementById('app')
 
     this.renderApp()
-    this.nav = document.querySelector('.nav')
+    this.nav = document.querySelector('.nav') // ???
   }
 
   /**
