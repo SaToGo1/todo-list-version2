@@ -1,5 +1,5 @@
 // mockData.js
-import { randomUUID } from 'crypto';
+import { randomUUID } from 'crypto'
 
 const sections = [
   { id: randomUUID(), name: 'home' },
