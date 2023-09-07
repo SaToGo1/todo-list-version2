@@ -8,3 +8,7 @@ export default class Task {
     this.completed = completed
   }
 }
+
+// This will go into taskMODEL.js
+// getTasksForSection(sectionName)
+// which will filter the tasks with section conditions.

@@ -2,7 +2,7 @@
 // model.js
 // import TaskModel from './tasks/taskmodel.js'
 // import ProjectModel from './projects/projectmodel.js'
-import SectionModel from './sections/sectionModel.js'
+import SectionModel from './sections/model-section.js'
 
 const sectionModel = new SectionModel()
 

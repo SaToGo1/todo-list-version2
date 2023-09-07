@@ -1,14 +1,32 @@
 import './sidebar.css'
 
+const sectionsClass = 'nav__sectionsDiv'
+
 export function sidebarTemplate () {
   const navClass = 'nav'
   const navHrClass = 'nav__hr'
 
   return (`
     <nav class="${navClass}">
-      <h2>Sections</h2>
+      <div class="${sectionsClass}">
+        <h2>Sections</h2>
+      </div>
       <hr class="${navHrClass}">
       <h2>Projects</h2>
     </nav>
   `)
+}
+
+export function sidebarSectionTemplate ({ divDom, sectionNames }) {
+  let sectionDiv = `
+    <div class="${sectionsClass}">
+      <h2>Sections</h2>
+  `
+  sectionNames.forEach(name => {
+    sectionDiv += `<button>${name}</button>`
+  })
+
+  sectionDiv += '</div>'
+
+  divDom.innerHTML = sectionDiv
 }

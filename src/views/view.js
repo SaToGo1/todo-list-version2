@@ -1,6 +1,6 @@
 // LAYOUT
 import { headerTemplate } from './Layouts/header/header'
-import { sidebarTemplate } from './Layouts/sidebar/sidebar'
+import { sidebarTemplate, sidebarSectionTemplate } from './Layouts/sidebar/sidebar'
 import { mainTemplate } from './Layouts/main/main'
 
 export default class View {
@@ -14,7 +14,7 @@ export default class View {
   /**
    * Render the whole application.
    */
-  renderApp = () => {
+  renderApp () {
     const header = headerTemplate()
     const sidebar = sidebarTemplate()
     const main = mainTemplate()
@@ -26,5 +26,9 @@ export default class View {
     `
 
     this.app.innerHTML = App
+  }
+
+  renderSections ({ divDom, sectionNames }) {
+    sidebarSectionTemplate({ divDom, sectionNames })
   }
 }
