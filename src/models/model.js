@@ -1,9 +1,13 @@
-import Task from './tasks/task.js'
-import Project from './projects/project.js'
-import Section from './sections/section.js'
+// IDEA
+// model.js
+// import TaskModel from './tasks/taskmodel.js'
+// import ProjectModel from './projects/projectmodel.js'
+import SectionModel from './sections/sectionModel.js'
+
+const sectionModel = new SectionModel()
 
 export {
-  Task,
-  Project,
-  Section
+//   TaskModel,
+//   ProjectModel,
+  sectionModel
 }
