@@ -36,3 +36,26 @@
     flex-direction: column;
     gap: 5px;
 }
+
+.nav__addProjectButton {
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    align-self: center;
+
+    background-color: var(--color-accent);
+
+    border: 0px solid black;
+    border-radius: 50%;
+    cursor: pointer;
+
+    margin: 10px 0px;
+}
+
+    .nav__addProjectButton:hover {
+        outline: 1px solid var(--color-shadow);
+    }
+
+.nav__addProjectIcon {
+    width: 35px;
+}

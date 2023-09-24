@@ -1,4 +1,5 @@
 import './sidebar.css'
+import addProjectIcon from './asset/plus.svg'
 
 const sectionsClass = 'nav__sectionsDiv'
 const projectsClass = 'nav__projectsDiv'
@@ -6,6 +7,8 @@ const projectsClass = 'nav__projectsDiv'
 export function sidebarTemplate () {
   const navClass = 'nav'
   const navHrClass = 'nav__hr'
+
+  const addProjectButton = addProjectButtonTemplate()
 
   return (`
     <nav class="${navClass}">
@@ -15,11 +18,15 @@ export function sidebarTemplate () {
       <hr class="${navHrClass}">
       <div class="${projectsClass}">
         <h2>Projects</h2>
+        ${addProjectButton}
       </div>
     </nav>
   `)
 }
 
+/* ###########
+   # Sections #
+   ########### */
 export function sidebarSectionTemplate ({ divDom, sectionNames }) {
   let sectionDiv = `
     <div class="${sectionsClass}">
@@ -33,4 +40,19 @@ export function sidebarSectionTemplate ({ divDom, sectionNames }) {
   sectionDiv += '</div>'
 
   divDom.innerHTML = sectionDiv
+}
+
+/* ###########
+   # Projects #
+   ########### */
+const addProjectButtonTemplate = () => {
+  const classButton = 'nav__addProjectButton'
+  const idButton = 'addProject'
+
+  const classIcon = 'nav__addProjectIcon'
+  return `
+  <button class="${classButton}" id="${idButton}">
+    <img src="${addProjectIcon}" alt="addProject" class="${classIcon}">
+  </button>
+  `
 }
