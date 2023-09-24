@@ -26,7 +26,8 @@ export function sidebarSectionTemplate ({ divDom, sectionNames }) {
       <h2>Sections</h2>
   `
   sectionNames.forEach(name => {
-    sectionDiv += `<button>${name}</button>`
+    const id = `navSection__button-${name}`
+    sectionDiv += `<button id=${id}>${name}</button>`
   })
 
   sectionDiv += '</div>'

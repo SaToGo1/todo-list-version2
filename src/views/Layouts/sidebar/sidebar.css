@@ -14,3 +14,25 @@
 .nav h2 {
     margin: 0;
 }
+
+/**************/
+/** Sections **/
+/**************/
+.nav__sectionsDiv {
+    width: 250px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/**************/
+/** Projects **/
+/**************/
+.nav__projectsDiv {
+    width: 250px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
