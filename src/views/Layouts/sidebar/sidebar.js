@@ -1,6 +1,7 @@
 import './sidebar.css'
 
 const sectionsClass = 'nav__sectionsDiv'
+const projectsClass = 'nav__projectsDiv'
 
 export function sidebarTemplate () {
   const navClass = 'nav'
@@ -12,7 +13,9 @@ export function sidebarTemplate () {
         <h2>Sections</h2>
       </div>
       <hr class="${navHrClass}">
-      <h2>Projects</h2>
+      <div class="${projectsClass}">
+        <h2>Projects</h2>
+      </div>
     </nav>
   `)
 }
