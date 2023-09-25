@@ -4,10 +4,10 @@ import addProjectIcon from './asset/plus.svg'
 const sectionsClass = 'nav__sectionsDiv'
 const projectsClass = 'nav__projectsDiv'
 
-export function sidebarTemplate () {
-  const navClass = 'nav'
-  const navHrClass = 'nav__hr'
+const navClass = 'nav'
+const navHrClass = 'nav__hr'
 
+export function sidebarTemplate () {
   const addProjectButton = addProjectButtonTemplate()
 
   return (`

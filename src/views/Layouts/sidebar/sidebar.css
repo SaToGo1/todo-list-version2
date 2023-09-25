@@ -50,6 +50,10 @@
     cursor: pointer;
 
     margin: 10px 0px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
     .nav__addProjectButton:hover {
@@ -58,4 +62,5 @@
 
 .nav__addProjectIcon {
     width: 35px;
+    height: 35px;
 }
