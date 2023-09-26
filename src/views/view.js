@@ -1,7 +1,13 @@
 // LAYOUT
 import { headerTemplate } from './Layouts/header/header'
-import { sidebarTemplate, sidebarSectionRender, addProjectConfirmationRender } from './Layouts/sidebar/sidebar'
 import { mainTemplate } from './Layouts/main/main'
+
+import {
+  sidebarTemplate,
+  sidebarSectionRender,
+  renderAddProjectConfirmation,
+  renderAddProjectButton
+} from './Layouts/sidebar/sidebar'
 
 export default class View {
   constructor () {
@@ -39,6 +45,10 @@ export default class View {
    # Projects #
    ########### */
   renderConfirmation ({ div }) {
-    addProjectConfirmationRender({ div })
+    renderAddProjectConfirmation({ div })
+  }
+
+  renderAddProjectButton ({ div }) {
+    renderAddProjectButton({ div })
   }
 }

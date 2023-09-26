@@ -61,7 +61,7 @@ const confirmationDiv = 'nav__Confirmation'
 const confirmationInput = 'navConfirmation__input'
 const confirmationAccept = 'navConfirmation__accept'
 const confirmationCancel = 'navConfirmation__cancel'
-export function addProjectConfirmationRender ({ div }) {
+export function renderAddProjectConfirmation ({ div }) {
   const template = `
   <div class="${confirmationDiv}">
     <label>Project Name:</label>
@@ -76,5 +76,16 @@ export function addProjectConfirmationRender ({ div }) {
     div.insertAdjacentHTML('beforeend', template)
   } else {
     console.error('Add Project button not found, sidebar.js')
+  }
+}
+
+export function renderAddProjectButton ({ div }) {
+  const addProjectButton = addProjectButtonTemplate()
+  const confirmationDiv = document.querySelector('.nav__Confirmation')
+  if (div) {
+    div.removeChild(confirmationDiv)
+    div.insertAdjacentHTML('beforeend', addProjectButton)
+  } else {
+    console.error('Confirmation Div not found, sidebar.js')
   }
 }

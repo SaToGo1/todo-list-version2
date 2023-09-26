@@ -5,7 +5,7 @@ export default class ControllerSection {
     this.sectionDiv = document.querySelector('.nav__sectionsDiv')
   }
 
-  initializeControllerSection () {
+  initializeControllerSection = () => {
     const sectionNames = this.sectionModel.getSectionNames()
     this.view.renderSections({ div: this.sectionDiv, sectionNames })
 
