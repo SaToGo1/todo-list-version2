@@ -17,11 +17,12 @@ export default class Controller {
   }
 
   initializeController = () => {
+    // SECTION
     this.controllerSection.initializeControllerSection()
+    // PROJECTS
     this.controllerProjects.initializeControllerProjects()
-    // controller Section.
-    // controller Project.
-    // controller Tasks.
+    // TASKS.
+    // ...
     return 0
   }
 }

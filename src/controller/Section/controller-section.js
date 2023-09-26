@@ -7,7 +7,7 @@ export default class ControllerSection {
 
   initializeControllerSection () {
     const sectionNames = this.sectionModel.getSectionNames()
-    this.view.renderSections({ divDom: this.sectionDiv, sectionNames })
+    this.view.renderSections({ div: this.sectionDiv, sectionNames })
 
     // eventclick
   }

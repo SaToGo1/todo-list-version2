@@ -27,7 +27,7 @@ export function sidebarTemplate () {
 /* ###########
    # Sections #
    ########### */
-export function sidebarSectionTemplate ({ divDom, sectionNames }) {
+export function sidebarSectionRender ({ div, sectionNames }) {
   let sectionDiv = `
     <div class="${sectionsClass}">
       <h2>Sections</h2>
@@ -39,7 +39,7 @@ export function sidebarSectionTemplate ({ divDom, sectionNames }) {
 
   sectionDiv += '</div>'
 
-  divDom.innerHTML = sectionDiv
+  div.innerHTML = sectionDiv
 }
 
 /* ###########
@@ -55,4 +55,26 @@ const addProjectButtonTemplate = () => {
     <img src="${addProjectIcon}" alt="addProject" class="${classIcon}">
   </button>
   `
+}
+
+const confirmationDiv = 'nav__Confirmation'
+const confirmationInput = 'navConfirmation__input'
+const confirmationAccept = 'navConfirmation__accept'
+const confirmationCancel = 'navConfirmation__cancel'
+export function addProjectConfirmationRender ({ div }) {
+  const template = `
+  <div class="${confirmationDiv}">
+    <label>Project Name:</label>
+    <input type="text" class="${confirmationInput}" maxlength="20" minlength="1">
+    <button class="${confirmationAccept}">Accept</button>
+    <button class="${confirmationCancel}">Cancel</button
+  </div>`
+
+  const button = document.querySelector('.nav__addProjectButton')
+  if (button) {
+    div.removeChild(button)
+    div.insertAdjacentHTML('beforeend', template)
+  } else {
+    console.error('Add Project button not found, sidebar.js')
+  }
 }
