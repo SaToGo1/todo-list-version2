@@ -6,7 +6,8 @@ import {
   sidebarTemplate,
   sidebarSectionRender,
   renderAddProjectConfirmation,
-  renderAddProjectButton
+  renderAddProjectButton,
+  renderProject
 } from './Layouts/sidebar/sidebar'
 
 export default class View {
@@ -20,7 +21,7 @@ export default class View {
   /**
    * Render the whole application.
    */
-  renderApp () {
+  renderApp = () => {
     const header = headerTemplate()
     const sidebar = sidebarTemplate()
     const main = mainTemplate()
@@ -37,18 +38,22 @@ export default class View {
   /* ###########
    # Sections #
    ########### */
-  renderSections ({ div, sectionNames }) {
+  renderSections = ({ div, sectionNames }) => {
     sidebarSectionRender({ div, sectionNames })
   }
 
   /* ###########
    # Projects #
    ########### */
-  renderConfirmation ({ div }) {
+  renderConfirmation = ({ div }) => {
     renderAddProjectConfirmation({ div })
   }
 
-  renderAddProjectButton ({ div }) {
+  renderAddProjectButton = ({ div }) => {
     renderAddProjectButton({ div })
+  }
+
+  renderProject = ({ div, id, name }) => {
+    renderProject({ div, id, name })
   }
 }

@@ -23,8 +23,12 @@ export default class ControllerProjects {
       console.log('accept')
       const name = document.querySelector('.navConfirmation__input').value
 
-      const { id, isAdded } = this.projectModel.createProjects({ name })
-      this.view.renderAddProjectButton({ div: this.projectsDiv })
+      const { id, isStored } = this.projectModel.createProjects({ name })
+
+      if (isStored) {
+        this.view.renderProject({ div: this.projectsDiv, id, name })
+        this.view.renderAddProjectButton({ div: this.projectsDiv })
+      }
     }
     // CANCEL
     if (event.target.className === 'navConfirmation__cancel') {

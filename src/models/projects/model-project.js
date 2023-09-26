@@ -15,7 +15,7 @@ export default class ProjectModel {
 
     return {
       id,
-      isAdded: true
+      isStored: true
     }
   }
 }

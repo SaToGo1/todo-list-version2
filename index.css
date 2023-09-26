@@ -13,6 +13,8 @@
 
   --color-positive: #98FB98;
   --color-negative:  #FFC0CB;
+
+  --color-grey-light: #F9F9F9;
 }
 
 *, *:before, *:after {

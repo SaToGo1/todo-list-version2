@@ -1,5 +1,6 @@
 import './sidebar.css'
 import addProjectIcon from './asset/plus.svg'
+import projectTag from './asset/tag.svg'
 
 const sectionsClass = 'nav__sectionsDiv'
 const projectsClass = 'nav__projectsDiv'
@@ -7,6 +8,7 @@ const projectsClass = 'nav__projectsDiv'
 const navClass = 'nav'
 const navHrClass = 'nav__hr'
 
+const navContainer = 'nav__container'
 export function sidebarTemplate () {
   const addProjectButton = addProjectButtonTemplate()
 
@@ -34,7 +36,7 @@ export function sidebarSectionRender ({ div, sectionNames }) {
   `
   sectionNames.forEach(name => {
     const id = `navSection__button-${name}`
-    sectionDiv += `<button id=${id}>${name}</button>`
+    sectionDiv += `<button class="${navContainer}" id=${id}>${name}</button>`
   })
 
   sectionDiv += '</div>'
@@ -82,10 +84,20 @@ export function renderAddProjectConfirmation ({ div }) {
 export function renderAddProjectButton ({ div }) {
   const addProjectButton = addProjectButtonTemplate()
   const confirmationDiv = document.querySelector('.nav__Confirmation')
-  if (div) {
+  if (confirmationDiv) {
     div.removeChild(confirmationDiv)
     div.insertAdjacentHTML('beforeend', addProjectButton)
   } else {
     console.error('Confirmation Div not found, sidebar.js')
   }
+}
+
+export function renderProject ({ div, id, name }) {
+  const template = `
+  <div class="nav__container" data-project-id="${id}">
+    <img src="${projectTag}" alt="Project color: ..." class="nav__icon">
+    <button class="nav__button">${name}</button>
+  </div>`
+
+  div.insertAdjacentHTML('beforeend', template)
 }
