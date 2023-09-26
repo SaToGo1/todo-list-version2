@@ -16,6 +16,7 @@
     "extends": "./node_modules/standard/eslintrc.json"
   },
   "dependencies": {
-    "normalize.css": "^8.0.1"
+    "normalize.css": "^8.0.1",
+    "uuid": "^9.0.1"
   }
 }
