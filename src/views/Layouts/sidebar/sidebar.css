@@ -25,14 +25,17 @@
     height: 40px;
     max-width: 170px;
 
-    background-color: var(--color-secondary);
+    background-color: transparent;
     border: none;
 
     border-radius: 5px;
 
     cursor: pointer;
-}
 
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
 /**************/
 /** Sections **/
 /**************/
@@ -63,7 +66,7 @@
 
     background-color: var(--color-accent);
 
-    border: 0px solid black;
+    border: 0px;
     border-radius: 50%;
     cursor: pointer;
 
@@ -75,13 +78,13 @@
 }
 
     .nav__addProjectButton:hover {
-        outline: 1px solid var(--color-shadow);
+        outline: 3px solid #EEE;
     }
 
-.nav__addProjectIcon {
-    width: 35px;
-    height: 35px;
-}
+    .nav__addProjectIcon {
+        width: 35px;
+        height: 35px;
+    }
 
 .nav__container {
     padding: 10px 20px;
@@ -98,14 +101,54 @@
 
     cursor: pointer;
 }
+    .nav__container:hover {
+        background-color: var(--color-grey-light);
+        outline: 1px solid var(--color-accent);
+    }
 
-.nav__container:hover {
-    background-color: var(--color-grey-light);
-    outline: 1px solid var(--color-accent);
+    .nav__container-active {
+        margin-left: 5px; /* try with padding */
+        background-color: var(--color-grey-light);
+        outline: 1px solid var(--color-accent);
+    }
+
+.nav__Confirmation {
+    background-color: var(--color-secondary);
+    border: none;
+
+    border-radius: 5px;
 }
 
-.nav__container-active {
-    margin-left: 5px; /* try with padding */
-    background-color: var(--color-grey-light);
-    outline: 1px solid var(--color-accent);
-}
+    .navConfirmation__input{
+        margin-top: 4px;
+        padding: 4px 8px;
+        width: 100%;
+    }
+
+    .navConfirmation__accept{
+        background-color: var(--color-positive);
+        margin-top: 5px;
+        margin-right: 5px;
+    }
+
+        .navConfirmation__accept:hover{
+            background-color: rgb(0, 178, 0);
+        }
+
+        .navConfirmation__accept:active{
+            background-color: rgb(0, 138, 0);
+        }
+
+    .navConfirmation__cancel{
+        background-color: var(--color-negative);
+        margin-top: 5px;
+        margin-left: 5px;
+    }
+
+        .navConfirmation__cancel:hover{
+            background-color: rgb(190, 0, 0);
+        }
+
+        .navConfirmation__cancel:active{
+            background-color: rgb(150, 0, 0);
+        }

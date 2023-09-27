@@ -9,6 +9,9 @@ const navClass = 'nav'
 const navHrClass = 'nav__hr'
 
 const navContainer = 'nav__container'
+
+const navIcon = 'nav__icon'
+const navButton = 'nav__button'
 export function sidebarTemplate () {
   const addProjectButton = addProjectButtonTemplate()
 
@@ -49,27 +52,27 @@ export function sidebarSectionRender ({ div, sectionNames }) {
    ########### */
 const addProjectButtonTemplate = () => {
   const classButton = 'nav__addProjectButton'
-  const idButton = 'addProject'
 
   const classIcon = 'nav__addProjectIcon'
   return `
-  <button class="${classButton}" id="${idButton}">
-    <img src="${addProjectIcon}" alt="addProject" class="${classIcon}">
+  <button class="${classButton}" id="${classButton}">
+    <img src="${addProjectIcon}" alt="addProject" class="${classIcon}" id="${classIcon}">
   </button>
   `
 }
 
-const confirmationDiv = 'nav__Confirmation'
-const confirmationInput = 'navConfirmation__input'
-const confirmationAccept = 'navConfirmation__accept'
-const confirmationCancel = 'navConfirmation__cancel'
 export function renderAddProjectConfirmation ({ div }) {
+  const confirmationDiv = 'nav__Confirmation'
+  const confirmationInput = 'navConfirmation__input'
+  const confirmationAccept = 'navConfirmation__accept'
+  const confirmationCancel = 'navConfirmation__cancel'
+
   const template = `
   <div class="${confirmationDiv}">
     <label>Project Name:</label>
-    <input type="text" class="${confirmationInput}" maxlength="20" minlength="1">
-    <button class="${confirmationAccept}">Accept</button>
-    <button class="${confirmationCancel}">Cancel</button
+    <input type="text" class="${confirmationInput}" maxlength="40" minlength="1">
+    <button class="${confirmationAccept} ${navButton}" id="${confirmationAccept}">Accept</button>
+    <button class="${confirmationCancel} ${navButton}" id="${confirmationCancel}">Cancel</button
   </div>`
 
   const button = document.querySelector('.nav__addProjectButton')
@@ -94,9 +97,9 @@ export function renderAddProjectButton ({ div }) {
 
 export function renderProject ({ div, id, name }) {
   const template = `
-  <div class="nav__container" data-project-id="${id}">
-    <img src="${projectTag}" alt="Project color: ..." class="nav__icon">
-    <button class="nav__button">${name}</button>
+  <div class="${navContainer}" data-project-id="${id}">
+    <img src="${projectTag}" alt="Project color: ..." class="${navIcon}">
+    <button class="${navButton}">${name}</button>
   </div>`
 
   div.insertAdjacentHTML('beforeend', template)

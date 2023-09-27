@@ -11,15 +11,16 @@ export default class ControllerProjects {
 
   _ProjectDivHandler = (event) => {
     // CLICK on add new Project
-    if (event.target.className === 'nav__addProjectButton' ||
-        event.target.className === 'nav__addProjectIcon') {
+    console.log(event.target.id)
+    if (event.target.id === 'nav__addProjectButton' ||
+        event.target.id === 'nav__addProjectIcon') {
       this.view.renderConfirmation({ div: this.projectsDiv })
     }
 
     // Handle click on Accept or Cancel in the confirmation Div
     // that appears after clicking the add new Project button.
     // ACCEPT
-    if (event.target.className === 'navConfirmation__accept') {
+    if (event.target.id === 'navConfirmation__accept') {
       console.log('accept')
       const name = document.querySelector('.navConfirmation__input').value
 
@@ -31,7 +32,7 @@ export default class ControllerProjects {
       }
     }
     // CANCEL
-    if (event.target.className === 'navConfirmation__cancel') {
+    if (event.target.id === 'navConfirmation__cancel') {
       console.log('cancel')
       this.view.renderAddProjectButton({ div: this.projectsDiv })
     }
