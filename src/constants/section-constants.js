@@ -1,0 +1,5 @@
+export const HOME_SECTION = 'Home'
+export const TODAY_SECTION = 'Today'
+export const TOMORROW_SECTION = 'Tomorrow'
+export const WEEK_SECTION = 'Week'
+export const MONTH_SECTION = 'Month'

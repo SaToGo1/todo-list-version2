@@ -35,10 +35,9 @@ export function sidebarTemplate () {
 export function sidebarSectionRender ({ div, sectionNames }) {
   let sectionDiv = `
     <div class="${sectionsClass}">
-      <h2>Sections</h2>
   `
   sectionNames.forEach(name => {
-    const id = `navSection__button-${name}`
+    const id = `navSection__${name}`
     sectionDiv += `<button class="${navContainer}" id=${id}>${name}</button>`
   })
 

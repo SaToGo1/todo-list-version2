@@ -1,4 +1,5 @@
 import Section from './section.js'
+import * as SectionConstants from '../../constants/section-constants.js'
 
 export default class SectionModel {
   constructor () {
@@ -7,11 +8,11 @@ export default class SectionModel {
   }
 
   initialize () {
-    const home = new Section({ name: 'Home' })
-    const today = new Section({ name: 'Today' })
-    const tomorrow = new Section({ name: 'Tomorrow' })
-    const week = new Section({ name: 'Week' })
-    const month = new Section({ name: 'Month' })
+    const home = new Section({ name: SectionConstants.HOME_SECTION })
+    const today = new Section({ name: SectionConstants.TODAY_SECTION })
+    const tomorrow = new Section({ name: SectionConstants.TOMORROW_SECTION })
+    const week = new Section({ name: SectionConstants.WEEK_SECTION })
+    const month = new Section({ name: SectionConstants.MONTH_SECTION })
 
     this.sections = [home, today, tomorrow, week, month]
   }

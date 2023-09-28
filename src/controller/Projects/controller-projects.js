@@ -10,8 +10,9 @@ export default class ControllerProjects {
   }
 
   _ProjectDivHandler = (event) => {
-    this._ClickOnAddProjectButton(event)
-    this._ClickOnConfirmationDiv(event)
+    if (this._ClickOnAddProjectButton(event)) return 0
+    else if (this._ClickOnConfirmationDiv(event)) return 0
+    else console.log('test')
   }
 
   _ClickOnAddProjectButton = (event) => {
@@ -19,7 +20,10 @@ export default class ControllerProjects {
     if (event.target.id === 'nav__addProjectButton' ||
     event.target.id === 'nav__addProjectIcon') {
       this.view.renderConfirmation({ div: this.projectsDiv })
+      return true
     }
+
+    return false
   }
 
   _ClickOnConfirmationDiv = (event) => {
@@ -34,12 +38,16 @@ export default class ControllerProjects {
       if (isStored) {
         this.view.renderProject({ div: this.projectsDiv, id, name })
         this.view.renderAddProjectButton({ div: this.projectsDiv })
+        return true
       }
     }
 
     // CANCEL BUTTON
     if (event.target.id === 'navConfirmation__cancel') {
       this.view.renderAddProjectButton({ div: this.projectsDiv })
+      return true
     }
+
+    return false
   }
 }
