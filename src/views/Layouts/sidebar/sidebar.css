@@ -36,6 +36,33 @@
     overflow: hidden;
     white-space: nowrap;
 }
+
+.nav__container {
+    padding: 10px 20px;
+    width: 250px;
+    height: 40px;
+
+    background-color: var(--color-secondary);
+    border: none;
+
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+}
+    .nav__container:hover {
+        background-color: var(--color-grey-light);
+        outline: 1px solid var(--color-accent);
+    }
+
+    .nav__container-active {
+        margin-left: 5px; /* try with padding */
+        background-color: var(--color-grey-light);
+        outline: 1px solid var(--color-accent);
+    }
+
 /**************/
 /** Sections **/
 /**************/
@@ -84,32 +111,6 @@
     .nav__addProjectIcon {
         width: 35px;
         height: 35px;
-    }
-
-.nav__container {
-    padding: 10px 20px;
-    width: 250px;
-    height: 40px;
-
-    background-color: var(--color-secondary);
-    border: none;
-
-    border-radius: 5px;
-
-    display: flex;
-    align-items: center;
-
-    cursor: pointer;
-}
-    .nav__container:hover {
-        background-color: var(--color-grey-light);
-        outline: 1px solid var(--color-accent);
-    }
-
-    .nav__container-active {
-        margin-left: 5px; /* try with padding */
-        background-color: var(--color-grey-light);
-        outline: 1px solid var(--color-accent);
     }
 
 .nav__Confirmation {

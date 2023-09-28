@@ -1,4 +1,4 @@
-import './main.css'
+import './mainPage.css'
 
 export function mainTemplate () {
   const mainClass = 'main'

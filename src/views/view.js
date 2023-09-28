@@ -1,6 +1,6 @@
 // LAYOUT
 import { headerTemplate } from './Layouts/header/header'
-import { mainTemplate } from './Layouts/main/main'
+import { mainTemplate } from './Layouts/main/mainPage.js'
 
 import {
   sidebarTemplate,
