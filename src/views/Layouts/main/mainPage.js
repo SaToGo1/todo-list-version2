@@ -63,11 +63,11 @@ const mainTaskDate = 'main__taskDate'
 const mainTaskDelete = 'main__taskDelete'
 function renderTask ({ task }) {
   return `
-  <div class="${mainTaskClass}" id="${mainTaskClass}" data-task-id="${task.id}">
+  <div class="${mainTaskClass}" data-task-id="${task.id}">
     <span class="${mainTaskIcon}"></span>
     <p class="${mainTaskText}">${task.title}</p>
     <input type="date" class="${mainTaskDate}" value="${task.date}">
-    <button class="${mainTaskDelete}" id="${mainTaskDelete}">X</button>
+    <button class="${mainTaskDelete}">X</button>
   </div>
   `
 }
