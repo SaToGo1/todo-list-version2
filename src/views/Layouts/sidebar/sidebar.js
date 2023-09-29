@@ -1,6 +1,6 @@
 import './sidebar.css'
-import addProjectIcon from './asset/plus.svg'
-import projectTag from './asset/tag.svg'
+import addProjectIcon from '../asset/plus.svg'
+import projectTag from '../asset/tag.svg'
 
 const sectionsClass = 'nav__sectionsDiv'
 const projectsClass = 'nav__projectsDiv'
@@ -49,23 +49,21 @@ export function sidebarSectionRender ({ div, sectionNames }) {
 /* ###########
    # Projects #
    ########### */
+export const addProjectButtonClass = 'nav__addProjectButton'
+export const addProjectIconClass = 'nav__addProjectIcon'
 const addProjectButtonTemplate = () => {
-  const classButton = 'nav__addProjectButton'
-
-  const classIcon = 'nav__addProjectIcon'
   return `
-  <button class="${classButton}" id="${classButton}">
-    <img src="${addProjectIcon}" alt="addProject" class="${classIcon}" id="${classIcon}">
+  <button class="${addProjectButtonClass}" id="${addProjectButtonClass}">
+    <img src="${addProjectIcon}" alt="addProject" class="${addProjectIconClass}" id="${addProjectIconClass}">
   </button>
   `
 }
 
+const confirmationDiv = 'nav__Confirmation'
+const confirmationInput = 'navConfirmation__input'
+export const confirmationAccept = 'navConfirmation__accept'
+export const confirmationCancel = 'navConfirmation__cancel'
 export function renderAddProjectConfirmation ({ div }) {
-  const confirmationDiv = 'nav__Confirmation'
-  const confirmationInput = 'navConfirmation__input'
-  const confirmationAccept = 'navConfirmation__accept'
-  const confirmationCancel = 'navConfirmation__cancel'
-
   const template = `
   <div class="${confirmationDiv}">
     <label>Project Name:</label>

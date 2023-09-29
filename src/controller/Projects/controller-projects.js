@@ -1,3 +1,11 @@
+// CONSTANTS with class/Id strings
+import {
+  confirmationAccept,
+  confirmationCancel,
+  addProjectButtonClass,
+  addProjectIconClass
+} from '../../views/Layouts/sidebar/sidebar'
+
 export default class ControllerProjects {
   constructor ({ view, projectModel }) {
     this.view = view
@@ -17,8 +25,8 @@ export default class ControllerProjects {
 
   _ClickOnAddProjectButton = (event) => {
     // CLICK on add new Project
-    if (event.target.id === 'nav__addProjectButton' ||
-    event.target.id === 'nav__addProjectIcon') {
+    if (event.target.id === addProjectButtonClass ||
+    event.target.id === addProjectIconClass) {
       this.view.renderConfirmation({ div: this.projectsDiv })
       return true
     }
@@ -30,7 +38,7 @@ export default class ControllerProjects {
     // Handle click on Accept or Cancel in the confirmation Div
     // that appears after clicking the add new Project button.
     // ACCEPT BUTTON
-    if (event.target.id === 'navConfirmation__accept') {
+    if (event.target.id === confirmationAccept) {
       const name = document.querySelector('.navConfirmation__input').value
 
       const { id, isStored } = this.projectModel.createProjects({ name })
@@ -43,7 +51,7 @@ export default class ControllerProjects {
     }
 
     // CANCEL BUTTON
-    if (event.target.id === 'navConfirmation__cancel') {
+    if (event.target.id === confirmationCancel) {
       this.view.renderAddProjectButton({ div: this.projectsDiv })
       return true
     }
