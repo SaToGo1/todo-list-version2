@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import './mainPage.css'
 import addProjectIcon from '../asset/plusBlue.svg'
 
@@ -18,13 +19,14 @@ export function mainTemplate () {
 //
 //     `)
 // }
-const mainAddTaskDiv = 'main__addTaskDiv'
-const mainAddTaskButton = 'main__addTaskButton'
-const mainAddTaskInput = 'main__addTaskInput'
-const mainAddTaskIcon = 'main__addTaskIcon'
+export const mainAddTaskDiv = 'main__addTaskDiv'
+export const mainAddTaskDiv_focus = 'main__addTaskDiv-focus'
+export const mainAddTaskButton = 'main__addTaskButton'
+export const mainAddTaskInput = 'main__addTaskInput'
+export const mainAddTaskIcon = 'main__addTaskIcon'
 export function inputTaskBar () {
   return `
-    <div class=${mainAddTaskDiv}>
+    <div class=${mainAddTaskDiv} id=${mainAddTaskDiv}>
       <button class=${mainAddTaskButton} id="${mainAddTaskButton}">
         <img class="${mainAddTaskIcon}" id="${mainAddTaskIcon}" 
           src="${addProjectIcon}"

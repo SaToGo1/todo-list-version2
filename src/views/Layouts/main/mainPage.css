@@ -12,31 +12,35 @@
     border-radius: 50px;
 }
 
-.main__addTaskButton{
-    background-color: var(--color-secondary);
-    /* padding: 10px 0px 10px 20px; */
-    border: none;
+    .main__addTaskDiv-focus{
+        outline: 2px solid var(--color-accent);
+    }
 
-    outline: none;
-    width: 40px;
-    cursor: pointer;
-    border-radius: 50px;
-}
+    .main__addTaskButton{
+        background-color: var(--color-secondary);
+        /* padding: 10px 0px 10px 20px; */
+        border: none;
 
-.main__addTaskInput {
-    width: 100%;
-    padding: 10px 5px 10px 0px;
+        outline: none;
+        width: 40px;
+        cursor: pointer;
+        border-radius: 50px;
+    }
 
-    background-color: var(--color-secondary);
-    border: none;
-    outline: none;
-    border-radius: 50px;
+    .main__addTaskInput {
+        width: 100%;
+        padding: 10px 5px 10px 0px;
 
-    font-size: 1.2em;
-}
+        background-color: var(--color-secondary);
+        border: none;
+        outline: none;
+        border-radius: 50px;
 
-.main__addTaskIcon {
-    width: 40px;
-    /* box-shadow: 5px 5px 10px black; */
-    text-shadow: 5px 5px 10px black;
-}
+        font-size: 1.2em;
+    }
+
+    .main__addTaskIcon {
+        width: 40px;
+        /* box-shadow: 5px 5px 10px black; */
+        text-shadow: 5px 5px 10px black;
+    }

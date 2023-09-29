@@ -1,27 +1,31 @@
 // CONTROLLER MODULES
-import ControllerSection from './Section/controller-section'
-import ControllerProjects from './Projects/controller-projects'
+import ControllerSection from './section/controller-section'
+import ControllerProjects from './projects/controller-projects'
+import ControllerMain from './main/controller-main'
 
 // MODEL MODULES
 import {
   sectionModel,
-  projectModel
+  projectModel,
+  taskModel
 } from '../models/model.js'
 
 export default class Controller {
   constructor (view) {
     this.view = view
 
-    this.controllerSection = new ControllerSection({ view, sectionModel })
+    this.controllerSections = new ControllerSection({ view, sectionModel })
     this.controllerProjects = new ControllerProjects({ view, projectModel })
+    this.controllerMain = new ControllerMain({ view, taskModel })
   }
 
   initializeController = () => {
     // SECTION
-    this.controllerSection.initializeControllerSection()
+    this.controllerSections.initializeControllerSection()
     // PROJECTS
     this.controllerProjects.initializeControllerProjects()
     // TASKS.
+    this.controllerMain.initializeControllerMain()
     // ...
     return 0
   }
