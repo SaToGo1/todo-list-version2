@@ -73,7 +73,14 @@
     padding: 10px 20px;
 }
 
-    .main__taskIcon{
+.main__taskList {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+    .main__taskIcon {
         width: 20px;
         height: 20px;
         border: 1px solid black;
@@ -82,13 +89,13 @@
         flex-shrink: 0;
     }
 
-    .main__taskText{
+    .main__taskText {
         max-width: 85%;
         overflow-wrap: break-word;
         margin: 0;
     }
 
-    .main__taskDate{
+    .main__taskDate {
         flex-shrink: 0;
         margin-left: auto;
     }

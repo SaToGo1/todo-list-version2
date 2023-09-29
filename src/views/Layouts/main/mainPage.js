@@ -38,22 +38,27 @@ function inputTaskBar () {
   `
 }
 
+const mainTaskList = 'main__taskList'
 export function renderPage ({ div, completedTasks, notCompletedTasks, name }) {
   const template = `
   <main class="${mainClass}">
     <h2>${name}</h2>
     ${inputTaskBar()}
     <h3>Tasks</h3>
+    <div class="${mainTaskList}">
       ${notCompletedTasks.map(task => {
         return renderTask({ task })
-      })}
+      }).join('')}
+    </div>
     <h3>Completed</h3>
-    ${completedTasks.map(task => {
-      return renderTask({ task })
-    })}
+    <div class="${mainTaskList}">
+      ${completedTasks.map(task => {
+        return renderTask({ task })
+      }).join('')}
+    </div>
   </main>`
 
-  div.innerHTML = `${template}`
+  div.innerHTML = template
 }
 
 const mainTaskClass = 'main__task'
