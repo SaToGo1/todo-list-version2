@@ -43,10 +43,14 @@ export function renderPage ({ div, completedTasks, notCompletedTasks, name }) {
   <main class="${mainClass}">
     <h2>${name}</h2>
     ${inputTaskBar()}
-    <h3>Tasks Projects</h3>
-      <p>${notCompletedTasks[0].title}</p>
-    <h3>Completed Tasks</h3>
-      <p>${completedTasks[0].title}</p>
+    <h3>Tasks</h3>
+      ${notCompletedTasks.map(task => {
+        return renderTask({ task })
+      })}
+    <h3>Completed</h3>
+    ${completedTasks.map(task => {
+      return renderTask({ task })
+    })}
   </main>`
 
   div.innerHTML = `${template}`
@@ -58,12 +62,14 @@ const mainTaskText = 'main__taskText'
 const mainTaskDate = 'main__taskDate'
 const mainTaskDelete = 'main__taskDelete'
 function renderTask ({ task }) {
+  // this variable is temporal,
+  const taskCompleted = task.completed ? 'Completed' : 'not completed'
   return `
-  <div class="${mainTaskClass}" id="${mainTaskClass}">
-    <span class="${mainTaskIcon}"></span>
-    <p class="${mainTaskText}">Today</p>
-    <input type="date" class="${mainTaskDate}">
-    <button class="${mainTaskDelete}">X</button>
+  <div class="${mainTaskClass}" id="${mainTaskClass}" data-task-id="${task.id}">
+    <span class="${mainTaskIcon}">${taskCompleted}</span>
+    <p class="${mainTaskText}">${task.title}</p>
+    <input type="date" class="${mainTaskDate}" value="${task.date}">
+    <button class="${mainTaskDelete}" id="${mainTaskDelete}">X</button>
   </div>
   `
 }
