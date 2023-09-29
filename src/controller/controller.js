@@ -14,8 +14,8 @@ export default class Controller {
   constructor (view) {
     this.view = view
 
-    this.controllerSections = new ControllerSection({ view, sectionModel })
-    this.controllerProjects = new ControllerProjects({ view, projectModel })
+    this.controllerSections = new ControllerSection({ view, sectionModel, taskModel })
+    this.controllerProjects = new ControllerProjects({ view, projectModel, taskModel })
     this.controllerMain = new ControllerMain({ view, taskModel })
   }
 

@@ -16,7 +16,6 @@ export default class ControllerMain {
   }
 
   initializeControllerMain = () => {
-    console.log('controllerMain initialized')
     this.mainDiv.addEventListener('focusin', this._addTaskBarFocusOutline)
     this.mainDiv.addEventListener('focusout', this._addTaskBarFocusOutline)
     // this.mainDiv.addEventListener('click', this._MainDivHandler)

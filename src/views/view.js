@@ -1,6 +1,10 @@
 // LAYOUT
 import { headerTemplate } from './Layouts/header/header'
-import { mainTemplate } from './Layouts/main/mainPage.js'
+
+import {
+  mainTemplate,
+  renderPage
+} from './Layouts/main/mainPage.js'
 
 import {
   sidebarTemplate,
@@ -35,16 +39,16 @@ export default class View {
     this.app.innerHTML = App
   }
 
-  /* ###########
-   # Sections #
-   ########### */
+  /* ############
+     # Sections #
+     ############ */
   renderSections = ({ div, sectionNames }) => {
     sidebarSectionRender({ div, sectionNames })
   }
 
-  /* ###########
-   # Projects #
-   ########### */
+  /* ############
+     # Projects #
+     ############ */
   renderConfirmation = ({ div }) => {
     renderAddProjectConfirmation({ div })
   }
@@ -55,5 +59,12 @@ export default class View {
 
   renderProject = ({ div, id, name }) => {
     renderProject({ div, id, name })
+  }
+
+  /* ###########
+     # Main    #
+     ########### */
+  renderPage = ({ div, completedTasks, notCompletedTasks, name }) => {
+    renderPage({ div, completedTasks, notCompletedTasks, name })
   }
 }

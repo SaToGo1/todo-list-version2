@@ -7,10 +7,13 @@ import {
 } from '../../views/Layouts/sidebar/sidebar'
 
 export default class ControllerProjects {
-  constructor ({ view, projectModel }) {
+  constructor ({ view, projectModel, taskModel }) {
     this.view = view
     this.projectModel = projectModel
+    this.taskModel = taskModel
+
     this.projectsDiv = document.querySelector('.nav__projectsDiv')
+    this.mainDiv = document.querySelector('.main')
   }
 
   initializeControllerProjects = () => {

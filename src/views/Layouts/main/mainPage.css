@@ -3,6 +3,20 @@
     background-color: var(--color-main);
 }
 
+.main h2, .main h3, .main p {
+    margin: 0px;
+}
+
+.main h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.main h3 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
 .main__addTaskDiv {
     display: flex;
     gap: 10px;
