@@ -58,3 +58,54 @@
         /* box-shadow: 5px 5px 10px black; */
         text-shadow: 5px 5px 10px black;
     }
+
+.main__task{
+    background-color: var(--color-secondary);
+    min-height: 40px;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+
+    border-radius: 5px;
+
+    padding: 10px 20px;
+}
+
+    .main__taskIcon{
+        width: 20px;
+        height: 20px;
+        border: 1px solid black;
+        border-radius: 50%;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+
+    .main__taskText{
+        max-width: 85%;
+        overflow-wrap: break-word;
+        margin: 0;
+    }
+
+    .main__taskDate{
+        flex-shrink: 0;
+        margin-left: auto;
+    }
+
+    .main__taskDelete {
+        height: 22px;
+        background-color: inherit;
+        border: none;
+    
+        padding: 0px 5px;
+    
+        cursor: pointer;
+        color: var(--color-negative);
+
+        text-shadow: 0px 0px 1px black;
+    }
+
+    .main__taskDelete:hover {
+        color: var(--color-delete-hover);
+    }

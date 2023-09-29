@@ -15,6 +15,9 @@
   --color-negative:  #FFC0CB;
 
   --color-grey-light: #F9F9F9;
+
+    --color-delete-hover: #FF6347;
+    /* --color-delete-hover2: #D32F2F;  */
 }
 
 *, *:before, *:after {
