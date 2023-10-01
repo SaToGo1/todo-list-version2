@@ -14,7 +14,7 @@ export default class ProjectModel {
     this.projects.push(newProject)
 
     return {
-      id,
+      newProject,
       isStored: true
     }
   }

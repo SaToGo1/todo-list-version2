@@ -34,19 +34,21 @@ function inputTaskBarTemplate () {
 }
 
 const mainTaskList = 'main__taskList'
+const mainTaskListCompleted = 'main__taskListCompleted'
+const mainTaskListNotCompleted = 'main__taskListNotCompleted'
 export function renderPage ({ div, completedTasks, notCompletedTasks, name }) {
   const template = `
   <main class="${mainClass}">
     <h2>${name}</h2>
     ${inputTaskBarTemplate()}
     <h3>Tasks</h3>
-    <div class="${mainTaskList}">
+    <div class="${mainTaskList}" id="${mainTaskListNotCompleted}">
       ${notCompletedTasks.map(task => {
         return taskTemplate({ task })
       }).join('')}
     </div>
     <h3>Completed</h3>
-    <div class="${mainTaskList}">
+    <div class="${mainTaskList}" id="${mainTaskListCompleted}">
       ${completedTasks.map(task => {
         return taskTemplate({ task })
       }).join('')}
@@ -70,4 +72,18 @@ function taskTemplate ({ task }) {
     <button class="${mainTaskDelete}">X</button>
   </div>
   `
+}
+
+export function renderTask ({ task }) {
+  let div
+
+  // render on completed list or not completed list.
+  if (task.completed) {
+    div = document.querySelector(`#${mainTaskListCompleted}`)
+  } else {
+    div = document.querySelector(`#${mainTaskListNotCompleted}`)
+  }
+  const template = taskTemplate({ task })
+
+  div.insertAdjacentHTML('beforeend', template)
 }

@@ -68,6 +68,6 @@ export default class ControllerSection {
   }
 
   _todayLoad = () => {
-    
+    // ...
   }
 }

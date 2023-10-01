@@ -19,12 +19,11 @@ export default class TaskModel {
   createTask = ({ taskTitle }) => {
     const id = uuidv4()
     const newTask = new Task({ id, title: taskTitle })
-    console.log('new Task: ', newTask)
 
     this.tasks.push(newTask)
 
     return {
-      id,
+      newTask,
       isStored: true
     }
   }

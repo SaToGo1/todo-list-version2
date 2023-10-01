@@ -51,8 +51,13 @@ export default class ControllerMain {
     if (event.target.id === mainAddTaskButton ||
     event.target.id === mainAddTaskIcon) {
       const taskTitle = document.querySelector(`#${mainAddTaskInput}`).value
-      console.log('trying to add the next task: ', taskTitle)
-      this.taskModel.createTask({ taskTitle })
+      const { newTask, isStored } = this.taskModel.createTask({ taskTitle })
+
+      if (isStored) {
+        this.view.renderTask({ task: newTask })
+      } else {
+        console.error('Task Not Stored')
+      }
     }
   }
 }
