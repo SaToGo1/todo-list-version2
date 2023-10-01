@@ -23,7 +23,7 @@ export default class ControllerProjects {
   _ProjectDivHandler = (event) => {
     if (this._ClickOnAddProjectButton(event)) return 0
     else if (this._ClickOnConfirmationDiv(event)) return 0
-    else console.log('test')
+    else console.log('controller-projects.js:  ', 'click on Confirm input/div')
   }
 
   _ClickOnAddProjectButton = (event) => {

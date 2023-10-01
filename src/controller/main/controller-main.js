@@ -18,6 +18,8 @@ export default class ControllerMain {
   initializeControllerMain = () => {
     this.mainDiv.addEventListener('focusin', this._addTaskBarFocusOutline)
     this.mainDiv.addEventListener('focusout', this._addTaskBarFocusOutline)
+
+    this.mainDiv.addEventListener('click', this._handleClick)
     // this.mainDiv.addEventListener('click', this._MainDivHandler)
   }
 
@@ -36,6 +38,21 @@ export default class ControllerMain {
       } else if (event.type === 'focusout') {
         document.querySelector(`#${mainAddTaskDiv}`).classList.remove(mainAddTaskDiv_focus)
       }
+    }
+  }
+
+  _handleClick = (event) => {
+    // ADD TASK BAR -> add a task
+    this._handleAddTask(event)
+  }
+
+  _handleAddTask = (event) => {
+    // click on the + button on the ADD TASK BAR
+    if (event.target.id === mainAddTaskButton ||
+    event.target.id === mainAddTaskIcon) {
+      const taskTitle = document.querySelector(`#${mainAddTaskInput}`).value
+      console.log('trying to add the next task: ', taskTitle)
+      this.taskModel.createTask({ taskTitle })
     }
   }
 }

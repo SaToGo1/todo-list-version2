@@ -18,6 +18,9 @@ export default class ControllerSection {
   }
 
   initializeControllerSection = () => {
+    // Home by default
+    this._homeLoad()
+
     const sectionNames = this.sectionModel.getSectionNames()
     this.view.renderSections({ div: this.sectionDiv, sectionNames })
 
@@ -26,20 +29,9 @@ export default class ControllerSection {
   }
 
   _SectionDivHandler = (event) => {
-    const tasks = this.taskModel.getAllTasks()
-    let completedTasks, notCompletedTasks
-
     switch (event.target.id) {
       case `navSection__${HOME_SECTION}`:
-        console.log('Home Clicked')
-        completedTasks = filterCompletedTasks(tasks)
-        notCompletedTasks = filterNotCompletedTasks(tasks)
-        this.view.renderPage({
-          div: this.mainDiv,
-          completedTasks,
-          notCompletedTasks,
-          name: HOME_SECTION
-        })
+        this._homeLoad()
         break
 
       case `navSection__${TODAY_SECTION}`:
@@ -61,5 +53,21 @@ export default class ControllerSection {
       default:
         break
     }
+  }
+
+  _homeLoad = () => {
+    const tasks = this.taskModel.getAllTasks()
+    const completedTasks = filterCompletedTasks(tasks)
+    const notCompletedTasks = filterNotCompletedTasks(tasks)
+    this.view.renderPage({
+      div: this.mainDiv,
+      completedTasks,
+      notCompletedTasks,
+      name: HOME_SECTION
+    })
+  }
+
+  _todayLoad = () => {
+    
   }
 }
