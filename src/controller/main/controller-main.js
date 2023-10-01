@@ -20,12 +20,7 @@ export default class ControllerMain {
     this.mainDiv.addEventListener('focusout', this._addTaskBarFocusOutline)
 
     this.mainDiv.addEventListener('click', this._handleClick)
-    // this.mainDiv.addEventListener('click', this._MainDivHandler)
   }
-
-  // _MainDivHandler = (event) => {
-  //   this._addTaskBarFocus(event)
-  // }
 
   _addTaskBarFocusOutline = (event) => {
     if (event.target.id === mainAddTaskDiv ||
@@ -42,7 +37,7 @@ export default class ControllerMain {
   }
 
   _handleClick = (event) => {
-    // ADD TASK BAR -> add a task
+    // ADD TASK BAR -> adds a task on click
     this._handleAddTask(event)
   }
 
