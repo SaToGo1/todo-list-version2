@@ -29,6 +29,32 @@ export default class TaskModel {
   }
 }
 
+// MOCK DATA WILL BE DELETED
+const today = new Date().toISOString().split('T')[0]
+
+const tomorrow = new Date()
+tomorrow.setDate(tomorrow.getDate() + 1)
+const tomorrowDate = tomorrow.toISOString().split('T')[0]
+
+// Get the current date
+const currentDate = new Date()
+// Generate a random day within the current month
+
+const randomDayMonth = Math.floor(Math.random() * (new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate())) + 1
+// Set the date to the random day
+const randomDateMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), randomDayMonth)
+const MonthDate = randomDateMonth.toISOString().split('T')[0]
+
+// Calculate the start of the week (Sunday)
+const startOfWeek = new Date(currentDate)
+startOfWeek.setDate(currentDate.getDate() - currentDate.getDay())
+// Generate a random day within the current week
+const randomDayWeek = Math.floor(Math.random() * 7)
+const randomDateWeek = new Date(startOfWeek)
+randomDateWeek.setDate(startOfWeek.getDate() + randomDayWeek)
+
+const WeekDate = randomDateWeek.toISOString().split('T')[0]
+
 const mocktasks = [
   new Task({
     id: '1',
@@ -76,6 +102,54 @@ const mocktasks = [
     title: 'Task 6',
     description: 'Description 6',
     date: '2023-07-20',
+    completed: true
+  }),
+  new Task({
+    id: '7',
+    projectID: 'project3',
+    title: 'Task 7 TODAY',
+    description: 'Description 7',
+    date: today,
+    completed: false
+  }),
+  new Task({
+    id: '8',
+    projectID: 'project3',
+    title: 'Task 8 TODAY',
+    description: 'Description 8',
+    date: today,
+    completed: false
+  }),
+  new Task({
+    id: '9',
+    projectID: 'project4',
+    title: 'Task 9 TODAY',
+    description: 'Description 9',
+    date: today,
+    completed: true
+  }),
+  new Task({
+    id: '10',
+    projectID: 'project5',
+    title: 'Task 10 Tomorrow',
+    description: 'Description 10',
+    date: tomorrowDate,
+    completed: false
+  }),
+  new Task({
+    id: '11',
+    projectID: 'project5',
+    title: 'Task 11 Week',
+    description: 'Description 11',
+    date: WeekDate,
+    completed: false
+  }),
+  new Task({
+    id: '12',
+    projectID: 'project6',
+    title: 'Task 12 Month',
+    description: 'Description 12',
+    date: MonthDate,
     completed: true
   })
 ]
