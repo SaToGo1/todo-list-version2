@@ -7,11 +7,16 @@ import {
 } from '../../views/Layouts/sidebar/sidebar'
 
 export default class ControllerProjects {
-  constructor ({ view, projectModel, taskModel }) {
+  constructor ({ view, projectModel, taskModel, setCurrentProject }) {
+    // CLASSES
     this.view = view
     this.projectModel = projectModel
     this.taskModel = taskModel
 
+    // CALLBAKCS
+    this.setCurrentProject = setCurrentProject
+
+    // DOM
     this.projectsDiv = document.querySelector('.nav__projectsDiv')
     this.mainDiv = document.querySelector('.main')
   }
@@ -44,12 +49,15 @@ export default class ControllerProjects {
     if (event.target.id === confirmationAccept) {
       const name = document.querySelector('.navConfirmation__input').value
 
-      const { id, isStored } = this.projectModel.createProjects({ name })
+      const { newProject, isStored } = this.projectModel.createProjects({ name })
+      const id = newProject.id
 
       if (isStored) {
         this.view.renderProject({ div: this.projectsDiv, id, name })
         this.view.renderAddProjectButton({ div: this.projectsDiv })
         return true
+      } else {
+        console.error('Project Not Stored')
       }
     }
 

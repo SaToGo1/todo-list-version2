@@ -16,9 +16,9 @@ export default class TaskModel {
     return this.tasks
   }
 
-  createTask = ({ taskTitle }) => {
+  createTask = ({ taskTitle, projectID = null, description = '', date = '' }) => {
     const id = uuidv4()
-    const newTask = new Task({ id, title: taskTitle })
+    const newTask = new Task({ id, projectID, title: taskTitle, description, date, completed: false })
 
     this.tasks.push(newTask)
 

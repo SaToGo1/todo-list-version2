@@ -14,8 +14,14 @@ export default class Controller {
   constructor (view) {
     this.view = view
 
-    this.controllerSections = new ControllerSection({ view, sectionModel, taskModel })
-    this.controllerProjects = new ControllerProjects({ view, projectModel, taskModel })
+    // Initialize the current section to home
+    this.currentSection = 'home'
+
+    // Initialize the current project to null (no project selected initially)
+    this.currentProject = null
+
+    this.controllerSections = new ControllerSection({ view, sectionModel, taskModel, setCurrentSection: this.setCurrentSection })
+    this.controllerProjects = new ControllerProjects({ view, projectModel, taskModel, setCurrentProject: this.setCurrentProject })
     this.controllerMain = new ControllerMain({ view, taskModel })
   }
 
@@ -28,5 +34,25 @@ export default class Controller {
     this.controllerMain.initializeControllerMain()
     // ...
     return 0
+  }
+
+  setCurrentSection = (section) => {
+    this.currentProject = null
+    this.currentSection = section
+    console.log('set current section: ', this.currentSection)
+  }
+
+  getCurrentSection = () => {
+    return this.currentSection
+  }
+
+  setCurrentProject = (projectId) => {
+    this.currentSection = ''
+    this.currentProject = projectId
+    console.log('set current projectID: ', this.currentProject)
+  }
+
+  getCurrentProject = () => {
+    return this.currentProject
   }
 }
