@@ -6,7 +6,12 @@ import {
   MONTH_SECTION
 } from '../../constants/section-constants.js'
 
-import { filterCompletedTasks, filterNotCompletedTasks } from '../filterTasks/filterTasks.js'
+import {
+  filterCompletedTasks,
+  filterNotCompletedTasks,
+  filterBySection
+} from '../filterTasks/filterTasks.js'
+
 export default class ControllerSection {
   constructor ({ view, sectionModel, taskModel, setCurrentSection }) {
     // CLASSES
@@ -24,7 +29,8 @@ export default class ControllerSection {
 
   initializeControllerSection = () => {
     // Home by default
-    this._homeLoad()
+    this._sectionLoad(HOME_SECTION)
+    this.setCurrentSection(HOME_SECTION)
 
     const sectionNames = this.sectionModel.getSectionNames()
     this.view.renderSections({ div: this.sectionDiv, sectionNames })
@@ -33,51 +39,78 @@ export default class ControllerSection {
     this.sectionDiv.addEventListener('click', this._SectionDivHandler)
   }
 
+  // _SectionDivHandler = (event) => {
+  //   switch (event.target.id) {
+  //     case `navSection__${HOME_SECTION}-click`:
+  //       this._sectionLoad(HOME_SECTION)
+  //       this.setCurrentSection(HOME_SECTION)
+  //       this.view.activePageStyle({ div: event.target })
+  //       break
+
+  //     case `navSection__${TODAY_SECTION}`:
+  //       this._sectionLoad(TODAY_SECTION)
+  //       this.setCurrentSection(TODAY_SECTION)
+  //       break
+
+  //     case `navSection__${TOMORROW_SECTION}`:
+  //       this._sectionLoad(TOMORROW_SECTION)
+  //       this.setCurrentSection(TOMORROW_SECTION)
+  //       break
+
+  //     case `navSection__${WEEK_SECTION}`:
+  //       this._sectionLoad(WEEK_SECTION)
+  //       this.setCurrentSection(WEEK_SECTION)
+  //       break
+
+  //     case `navSection__${MONTH_SECTION}`:
+  //       this._sectionLoad(MONTH_SECTION)
+  //       this.setCurrentSection(MONTH_SECTION)
+  //       break
+
+  //     default:
+  //       break
+  //   }
+  // }
+
   _SectionDivHandler = (event) => {
-    switch (event.target.id) {
-      case `navSection__${HOME_SECTION}`:
-        this._homeLoad()
-        this.setCurrentSection(HOME_SECTION)
-        break
+    // HOME
+    if (event.target.classList.contains(`navSection__${HOME_SECTION}-click`)) {
+      this._sectionLoad(HOME_SECTION)
+      this.setCurrentSection(HOME_SECTION)
+      this.view.activePageStyle({ div: event.target })
 
-      case `navSection__${TODAY_SECTION}`:
-        console.log('Today Clicked')
-        this.setCurrentSection(TODAY_SECTION)
-        break
+    // TODAY
+    } else if (event.target.classList.contains(`navSection__${TODAY_SECTION}-click`)) {
+      this._sectionLoad(TODAY_SECTION)
+      this.setCurrentSection(TODAY_SECTION)
 
-      case `navSection__${TOMORROW_SECTION}`:
-        console.log('Tomorrow Clicked')
-        this.setCurrentSection(TOMORROW_SECTION)
-        break
+    // TOMORROW
+    } else if (event.target.classList.contains(`navSection__${TOMORROW_SECTION}-click`)) {
+      this._sectionLoad(TOMORROW_SECTION)
+      this.setCurrentSection(TOMORROW_SECTION)
 
-      case `navSection__${WEEK_SECTION}`:
-        console.log('Week Clicked')
-        this.setCurrentSection(WEEK_SECTION)
-        break
+    // WEEK
+    } else if (event.target.classList.contains(`navSection__${WEEK_SECTION}-click`)) {
+      this._sectionLoad(WEEK_SECTION)
+      this.setCurrentSection(WEEK_SECTION)
 
-      case `navSection__${MONTH_SECTION}`:
-        console.log('Month Clicked')
-        this.setCurrentSection(MONTH_SECTION)
-        break
-
-      default:
-        break
+    // MONTH
+    } else if (event.target.classList.contains(`navSection__${MONTH_SECTION}-click`)) {
+      this._sectionLoad(MONTH_SECTION)
+      this.setCurrentSection(MONTH_SECTION)
     }
   }
 
-  _homeLoad = () => {
-    const tasks = this.taskModel.getAllTasks()
-    const completedTasks = filterCompletedTasks(tasks)
-    const notCompletedTasks = filterNotCompletedTasks(tasks)
+  _sectionLoad = (section) => {
+    let tasks = this.taskModel.getAllTasks()
+    tasks = filterBySection({ tasks, section })
+    const completedTasks = filterCompletedTasks({ tasks })
+    const notCompletedTasks = filterNotCompletedTasks({ tasks })
     this.view.renderPage({
       div: this.mainDiv,
       completedTasks,
       notCompletedTasks,
-      name: HOME_SECTION
+      name: section
     })
-  }
-
-  _todayLoad = () => {
-    // ...
   }
 }

@@ -1,7 +1,23 @@
 import './sidebar.css'
-import addProjectIcon from '../asset/plus.svg'
-import projectTag from '../asset/tag.svg'
 
+// ICONS
+import addProjectIcon from '../asset/plus.svg'
+import projectTagIcon from '../asset/tag.svg'
+import homeIcon from '../asset/home.png'
+import todayIcon from '../asset/today.svg'
+import weekIcon from '../asset/week.png'
+import monthIcon from '../asset/month.png'
+
+// CONSTANTS
+import {
+  // HOME_SECTION,
+  TODAY_SECTION,
+  TOMORROW_SECTION,
+  WEEK_SECTION,
+  MONTH_SECTION
+} from '../../../constants/section-constants.js'
+
+// CLASSES
 const sectionsClass = 'nav__sectionsDiv'
 const projectsClass = 'nav__projectsDiv'
 
@@ -37,8 +53,13 @@ export function sidebarSectionRender ({ div, sectionNames }) {
     <div class="${sectionsClass}">
   `
   sectionNames.forEach(name => {
-    const id = `navSection__${name}`
-    sectionDiv += `<button class="${navContainer}" id=${id}>${name}</button>`
+    const clickClass = `navSection__${name}-click`
+    const iconSrc = returnIconForSection({ name })
+    sectionDiv += `
+    <div class="${navContainer} ${clickClass}">
+      <img src="${iconSrc}" class="${navIcon} ${clickClass}" alt="${name} button">
+      <button class="${navButton} ${clickClass}">${name}</button>
+    </div>`
   })
 
   sectionDiv += '</div>'
@@ -46,6 +67,15 @@ export function sidebarSectionRender ({ div, sectionNames }) {
   div.innerHTML = sectionDiv
 }
 
+function returnIconForSection ({ name }) {
+  if (name === TODAY_SECTION) return todayIcon
+  else if (name === TOMORROW_SECTION) return projectTagIcon // change this
+  else if (name === WEEK_SECTION) return weekIcon
+  else if (name === MONTH_SECTION) return monthIcon
+
+  // Return Home
+  return homeIcon
+}
 /* ###########
    # Projects #
    ########### */
@@ -54,7 +84,7 @@ export const addProjectIconClass = 'nav__addProjectIcon'
 const addProjectButtonTemplate = () => {
   return `
   <button class="${addProjectButtonClass}" id="${addProjectButtonClass}">
-    <img src="${addProjectIcon}" alt="addProject" class="${addProjectIconClass}" id="${addProjectIconClass}">
+    <img src="${addProjectIcon}" alt="add Project" class="${addProjectIconClass}" id="${addProjectIconClass}">
   </button>
   `
 }
@@ -95,9 +125,29 @@ export function renderAddProjectButton ({ div }) {
 export function renderProject ({ div, id, name }) {
   const template = `
   <div class="${navContainer}" data-project-id="${id}">
-    <img src="${projectTag}" alt="Project color: ..." class="${navIcon}">
+    <img src="${projectTagIcon}" alt="Project color: ..." class="${navIcon}">
     <button class="${navButton}">${name}</button>
   </div>`
 
   div.insertAdjacentHTML('beforeend', template)
+}
+
+const navContainerActive = 'nav__container-active'
+export function activePageStyle ({ div }) {
+  // Delete the active class of the previous active page.
+  const sidebarPages = document.querySelectorAll(`.${navContainer}`)
+  sidebarPages.forEach(Page => Page.classList.remove(navContainerActive))
+
+  let i = 5
+  // if the element selected is not the div of the section or project
+  // get the parent till we get the div of the section or project.
+  while (!div.classList.contains(navContainer)) {
+    div = div.parentNode
+    // Security measure it should never get here
+    i--
+    if (i === 0) return 0
+  }
+
+  // Add the active class to the current active Page.
+  div.classList.add(navContainerActive)
 }

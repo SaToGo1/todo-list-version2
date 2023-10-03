@@ -12,7 +12,8 @@ import {
   sidebarSectionRender,
   renderAddProjectConfirmation,
   renderAddProjectButton,
-  renderProject
+  renderProject,
+  activePageStyle
 } from './Layouts/sidebar/sidebar'
 
 export default class View {
@@ -38,6 +39,10 @@ export default class View {
     `
 
     this.app.innerHTML = App
+  }
+
+  activePageStyle = ({ div }) => {
+    activePageStyle({ div })
   }
 
   /* ############
