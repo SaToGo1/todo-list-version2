@@ -103,6 +103,7 @@ export default class ControllerProjects {
       // find the project that we clicked in the project array
       const project = projectsArr.find(project => project.id === id)
       this._projectLoad({ projectID: id, project })
+      this.view.activePageStyle({ div: event.target })
     }
   }
 

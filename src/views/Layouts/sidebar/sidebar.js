@@ -173,7 +173,10 @@ export function activePageStyle ({ div }) {
     div = div.parentNode
     // Security measure it should never get here
     i--
-    if (i === 0) return 0
+    if (i === 0) {
+      console.error('Infinite bucle on activePageStyle')
+      return 0
+    }
   }
 
   // Add the active class to the current active Page.
