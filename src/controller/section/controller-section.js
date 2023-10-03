@@ -50,21 +50,25 @@ export default class ControllerSection {
     } else if (event.target.classList.contains(`navSection__${TODAY_SECTION}-click`)) {
       this._sectionLoad(TODAY_SECTION)
       this.setCurrentSection(TODAY_SECTION)
+      this.view.activePageStyle({ div: event.target })
 
     // TOMORROW
     } else if (event.target.classList.contains(`navSection__${TOMORROW_SECTION}-click`)) {
       this._sectionLoad(TOMORROW_SECTION)
       this.setCurrentSection(TOMORROW_SECTION)
+      this.view.activePageStyle({ div: event.target })
 
     // WEEK
     } else if (event.target.classList.contains(`navSection__${WEEK_SECTION}-click`)) {
       this._sectionLoad(WEEK_SECTION)
       this.setCurrentSection(WEEK_SECTION)
+      this.view.activePageStyle({ div: event.target })
 
     // MONTH
     } else if (event.target.classList.contains(`navSection__${MONTH_SECTION}-click`)) {
       this._sectionLoad(MONTH_SECTION)
       this.setCurrentSection(MONTH_SECTION)
+      this.view.activePageStyle({ div: event.target })
     }
   }
 
