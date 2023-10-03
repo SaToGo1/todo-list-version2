@@ -5,6 +5,11 @@ import { v4 as uuidv4 } from 'uuid'
 export default class ProjectModel {
   constructor () {
     this.projects = []
+
+    // Add some mock tasks
+    this.projects.push(
+      ...mockprojects
+    )
   }
 
   createProjects = ({ name }) => {
@@ -18,4 +23,19 @@ export default class ProjectModel {
       isStored: true
     }
   }
+
+  getAllProjects () {
+    return this.projects
+  }
 }
+
+const mockprojects = [
+  new Project({
+    id: '13',
+    name: 'Test Project 13'
+  }),
+  new Project({
+    id: '14',
+    name: 'Test Project 14'
+  })
+]

@@ -151,5 +151,29 @@ const mocktasks = [
     description: 'Description 12',
     date: MonthDate,
     completed: true
+  }),
+  new Task({
+    id: '13',
+    projectID: '13',
+    title: 'Task 13 Project TEST',
+    description: 'Description 13',
+    date: '',
+    completed: true
+  }),
+  new Task({
+    id: '14',
+    projectID: '14',
+    title: 'Task 14 Project TEST',
+    description: 'Description 14',
+    date: '',
+    completed: false
+  }),
+  new Task({
+    id: '15',
+    projectID: '13',
+    title: 'Task 15 Project TEST',
+    description: 'Description 15',
+    date: '',
+    completed: false
   })
 ]

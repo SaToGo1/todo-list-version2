@@ -122,14 +122,42 @@ export function renderAddProjectButton ({ div }) {
   }
 }
 
-export function renderProject ({ div, id, name }) {
-  const template = `
-  <div class="${navContainer}" data-project-id="${id}">
+function projectTemplate ({ id, name }) {
+  return `
+  <div class="${navContainer}" id="${id} "data-project-id="${id}">
     <img src="${projectTagIcon}" alt="Project color: ..." class="${navIcon}">
     <button class="${navButton}">${name}</button>
   </div>`
+}
+
+export function renderProject ({ div, id, name }) {
+  // const template = `
+  // <div class="${navContainer}" id="${id} "data-project-id="${id}">
+  //   <img src="${projectTagIcon}" alt="Project color: ..." class="${navIcon}">
+  //   <button class="${navButton}">${name}</button>
+  // </div>`
+
+  const template = projectTemplate({ id, name })
 
   div.insertAdjacentHTML('beforeend', template)
+}
+
+export function renderAllProjects ({ div, projects }) {
+  const addProjectButton = addProjectButtonTemplate()
+  let projectDiv = `
+    <h2>Projects</h2>
+  `
+
+  projects.forEach(project => {
+    const template = projectTemplate({ id: project.id, name: project.name })
+    projectDiv += `${template}`
+  })
+
+  projectDiv += `
+    ${addProjectButton}
+  `
+
+  div.innerHTML = projectDiv
 }
 
 const navContainerActive = 'nav__container-active'

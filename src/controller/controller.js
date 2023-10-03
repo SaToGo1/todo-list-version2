@@ -39,7 +39,6 @@ export default class Controller {
   setCurrentSection = (section) => {
     this.currentProject = null
     this.currentSection = section
-    console.log('set current section: ', this.currentSection)
   }
 
   getCurrentSection = () => {
@@ -49,7 +48,6 @@ export default class Controller {
   setCurrentProject = (projectId) => {
     this.currentSection = ''
     this.currentProject = projectId
-    console.log('set current projectID: ', this.currentProject)
   }
 
   getCurrentProject = () => {

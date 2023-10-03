@@ -13,7 +13,8 @@ import {
   renderAddProjectConfirmation,
   renderAddProjectButton,
   renderProject,
-  activePageStyle
+  activePageStyle,
+  renderAllProjects
 } from './Layouts/sidebar/sidebar'
 
 export default class View {
@@ -65,6 +66,10 @@ export default class View {
 
   renderProject = ({ div, id, name }) => {
     renderProject({ div, id, name })
+  }
+
+  renderAllProjects = ({ div, projects }) => {
+    renderAllProjects({ div, projects })
   }
 
   /* ###########
