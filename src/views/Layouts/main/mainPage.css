@@ -85,7 +85,6 @@
         .main__taskIcon {
             width: 20px;
             height: 20px;
-            border: 1px solid black;
             border-radius: 50%;
             cursor: pointer;
             flex-shrink: 0;

@@ -2,6 +2,9 @@
 import './mainPage.css'
 import addProjectIcon from '../asset/plusBlue.svg'
 
+import circle from '../asset/circle.svg'
+import circleCheck from '../asset/circle-check.svg'
+
 const mainClass = 'main'
 export function mainTemplate () {
   return (`
@@ -44,13 +47,13 @@ export function renderPage ({ div, completedTasks, notCompletedTasks, name }) {
     <h3>Tasks</h3>
     <div class="${mainTaskList}" id="${mainTaskListNotCompleted}">
       ${notCompletedTasks.map(task => {
-        return taskTemplate({ task })
+        return taskTemplate({ task, completed: false })
       }).join('')}
     </div>
     <h3>Completed</h3>
     <div class="${mainTaskList}" id="${mainTaskListCompleted}">
       ${completedTasks.map(task => {
-        return taskTemplate({ task })
+        return taskTemplate({ task, completed: true })
       }).join('')}
     </div>
   </main>`
@@ -63,10 +66,16 @@ const mainTaskIcon = 'main__taskIcon'
 const mainTaskText = 'main__taskText'
 const mainTaskDate = 'main__taskDate'
 const mainTaskDelete = 'main__taskDelete'
-function taskTemplate ({ task }) {
+function taskTemplate ({ task, completed }) {
+  let icon
+  if (completed) {
+    icon = circleCheck
+  } else {
+    icon = circle
+  }
   return `
   <div class="${mainTaskClass}" data-task-id="${task.id}">
-    <span class="${mainTaskIcon}"></span>
+    <img class="${mainTaskIcon}" src="${icon}" alt="icon">
     <p class="${mainTaskText}">${task.title}</p>
     <input type="date" class="${mainTaskDate}" value="${task.date}">
     <button class="${mainTaskDelete}">X</button>
@@ -76,14 +85,17 @@ function taskTemplate ({ task }) {
 
 export function renderTask ({ task }) {
   let div
+  let completed
 
   // render on completed list or not completed list.
   if (task.completed) {
     div = document.querySelector(`#${mainTaskListCompleted}`)
+    completed = true
   } else {
     div = document.querySelector(`#${mainTaskListNotCompleted}`)
+    completed = false
   }
-  const template = taskTemplate({ task })
+  const template = taskTemplate({ task, completed })
 
   div.insertAdjacentHTML('beforeend', template)
 }
