@@ -16,6 +16,16 @@ export default class TaskModel {
     return this.tasks
   }
 
+  getTask = ({ id }) => {
+    const task = this.tasks.find(task => task.id === id)
+    const isStored = task !== undefined
+
+    return {
+      task,
+      isStored
+    }
+  }
+
   createTask = ({ taskTitle, projectID = null, description = '', date = '' }) => {
     const id = uuidv4()
     const newTask = new Task({ id, projectID, title: taskTitle, description, date, completed: false })
@@ -25,6 +35,25 @@ export default class TaskModel {
     return {
       newTask,
       isStored: true
+    }
+  }
+
+  updateTask = ({ id, updatedFields }) => {
+    const taskToUpdate = this.tasks.find(task => task.id === id)
+
+    if (taskToUpdate) {
+      // Update the specified fields
+      Object.assign(taskToUpdate, updatedFields)
+      return {
+        updatedTask: taskToUpdate,
+        isUpdated: true
+      }
+    } else {
+      // Task with the provided ID not found
+      return {
+        updatedTask: null,
+        isUpdated: false
+      }
     }
   }
 }

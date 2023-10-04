@@ -1,11 +1,18 @@
+/* eslint-disable import/no-duplicates */
 /* eslint-disable camelcase */
-// CONSTANTS with class/Id strings from addTask Bar
+
+// CONSTANTS - add task bar - classes/Ids
 import {
   mainAddTaskDiv,
   mainAddTaskButton,
   mainAddTaskInput,
   mainAddTaskIcon,
   mainAddTaskDiv_focus
+} from '../../views/Layouts/main/mainPage'
+
+// CONSTANTS - task - classes/Ids
+import {
+  mainTaskIcon
 } from '../../views/Layouts/main/mainPage'
 
 import {
@@ -55,10 +62,11 @@ export default class ControllerMain {
 
   _handleClick = (event) => {
     // ADD TASK BAR -> adds a task on click
-    this._handleAddTask(event)
+    this._AddTask(event)
+    this._completeProjectClick(event)
   }
 
-  _handleAddTask = (event) => {
+  _AddTask = (event) => {
     // click on the + button on the ADD TASK BAR
     if (event.target.id === mainAddTaskButton ||
     event.target.id === mainAddTaskIcon) {
@@ -98,6 +106,41 @@ export default class ControllerMain {
 
       default:
         return dateFunctions.today()
+    }
+  }
+
+  _completeProjectClick = (event) => {
+    if (event.target.classList.contains(mainTaskIcon)) {
+      const taskDOM = event.target.parentNode
+      const taskID = taskDOM.getAttribute('data-task-id')
+      const { task, isStored } = this.taskModel.getTask({ id: taskID })
+
+      if (!isStored) {
+        console.error('task not stored')
+        return 0
+      }
+
+      const completed = task.completed
+      const { updatedTask, isUpdated } = this.taskModel.updateTask({
+        id: taskID,
+        updatedFields: {
+          completed: !completed
+        }
+      })
+
+      if (!isUpdated) {
+        console.error('task not updated')
+        return 0
+      }
+
+      taskDOM.remove()
+      this.view.renderTask({ task: updatedTask })
+
+      const element = document.querySelector(`[data-task-id="${taskID}"]`)
+      element.classList.add('activeTask')
+      setTimeout(() => {
+        element.classList.remove('activeTask')
+      }, 2000)
     }
   }
 }

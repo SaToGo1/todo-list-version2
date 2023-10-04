@@ -16,8 +16,10 @@
 
   --color-grey-light: #F9F9F9;
 
-    --color-delete-hover: #FF6347;
-    /* --color-delete-hover2: #D32F2F;  */
+  --color-delete-hover: #FF6347;
+  /* --color-delete-hover2: #D32F2F;  */
+
+  --color-task-active: #00000020;
 }
 
 *, *:before, *:after {
