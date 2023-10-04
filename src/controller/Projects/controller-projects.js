@@ -6,6 +6,12 @@ import {
   addProjectIconClass
 } from '../../views/Layouts/sidebar/sidebar'
 
+import {
+  filterByProject,
+  filterCompletedTasks,
+  filterNotCompletedTasks
+} from '../filterTasks/filterTasks'
+
 export default class ControllerProjects {
   constructor ({ view, projectModel, taskModel, setCurrentProject }) {
     // CLASSES
@@ -23,6 +29,9 @@ export default class ControllerProjects {
 
   initializeControllerProjects = () => {
     this.projectsDiv.addEventListener('click', this._ProjectDivHandler)
+
+    const projects = this.projectModel.getAllProjects()
+    this.view.renderAllProjects({ div: this.projectsDiv, projects })
   }
 
   _ProjectDivHandler = (event) => {
@@ -32,7 +41,7 @@ export default class ControllerProjects {
     else if (this._ClickOnConfirmationDiv(event)) return 0
 
     // other
-    console.log('controller-projects.js:  ', 'click on Project div')
+    this._ClickOnProject(event)
   }
 
   _ClickOnAddProjectButton = (event) => {
@@ -72,5 +81,45 @@ export default class ControllerProjects {
     }
 
     return false
+  }
+
+  // Checks if we clicked a project
+  _ClickOnProject = (event) => {
+    const projectsArr = this.projectModel.getAllProjects()
+
+    // checks if we clicked in the project div in sidebar or in one of his sons
+    // the sons are the name of the project and the icon of the project.
+    // clicking on the son should also load the page.
+    const clickedId = event.target.id.trim()
+    const parentClickedId = event.target.parentNode.id.trim()
+
+    const isClickedIdInArray = projectsArr.some(project => project.id === clickedId)
+    const isParentClickedIdInArray = projectsArr.some(project => project.id === parentClickedId)
+
+    if (isClickedIdInArray || isParentClickedIdInArray) {
+      // gets the id whatever it is from parent or actual element clicked
+      const id = isClickedIdInArray ? clickedId : parentClickedId
+
+      // find the project that we clicked in the project array
+      const project = projectsArr.find(project => project.id === id)
+      this._projectLoad({ projectID: id, project })
+      this.view.activePageStyle({ div: event.target })
+      this.setCurrentProject({ projectId: id })
+    }
+  }
+
+  // Calls the filter functions to get all the tasks from our project
+  // and call the render function.
+  _projectLoad = ({ projectID, project }) => {
+    let tasks = this.taskModel.getAllTasks()
+    tasks = filterByProject({ tasks, projectID })
+    const completedTasks = filterCompletedTasks({ tasks })
+    const notCompletedTasks = filterNotCompletedTasks({ tasks })
+    this.view.renderPage({
+      div: this.mainDiv,
+      completedTasks,
+      notCompletedTasks,
+      name: project.name
+    })
   }
 }

@@ -104,6 +104,7 @@ export default class ControllerProjects {
       const project = projectsArr.find(project => project.id === id)
       this._projectLoad({ projectID: id, project })
       this.view.activePageStyle({ div: event.target })
+      this.setCurrentProject({ projectId: id })
     }
   }
 

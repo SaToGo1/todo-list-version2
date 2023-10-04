@@ -6,6 +6,8 @@ import {
   MONTH_SECTION
 } from '../../constants/section-constants.js'
 
+import * as dateFunctions from '../date-functions/dateFunctions.js'
+
 export function filterCompletedTasks ({ tasks }) {
   return tasks.filter(task => task.completed === true)
 }
@@ -45,41 +47,27 @@ export function filterBySection ({ tasks, section }) {
 
 function todayFilter ({ tasks }) {
   // get today date in YYYY-MM-DD format
-  const today = new Date().toISOString().split('T')[0]
+  const today = dateFunctions.today()
   return tasks.filter(task => task.date === today)
 }
 
 function tomorrowFilter ({ tasks }) {
   // get tomorrow date in YYYY-MM-DD format
-  let tomorrow = new Date()
-  tomorrow.setDate(tomorrow.getDate() + 1)
-  tomorrow = tomorrow.toISOString().split('T')[0]
+  const tomorrow = dateFunctions.tomorrow()
 
   return tasks.filter(task => task.date === tomorrow)
 }
 
 function WeekFilter ({ tasks }) {
-  const currentDate = new Date()
+  const startOfWeek = dateFunctions.startOfWeek()
+  const endOfWeek = dateFunctions.endOfWeek()
 
-  const startOfWeek = new Date(currentDate)
-  startOfWeek.setDate(currentDate.getDate() - currentDate.getDay())
-  const startOfWeekFormatted = startOfWeek.toISOString().split('T')[0]
-
-  const endOfWeek = new Date(startOfWeek)
-  endOfWeek.setDate(startOfWeek.getDate() + 6)
-  const endOfWeekFormatted = endOfWeek.toISOString().split('T')[0]
-
-  return tasks.filter(task => task.date >= startOfWeekFormatted && task.date <= endOfWeekFormatted)
+  return tasks.filter(task => task.date >= startOfWeek && task.date <= endOfWeek)
 }
 
 function MonthFilter ({ tasks }) {
-  const currentDate = new Date()
+  const startOfMonth = dateFunctions.startOfMonth()
+  const endOfMonth = dateFunctions.endOfMonth()
 
-  const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)
-  const startOfMonthFormatted = startOfMonth.toISOString().split('T')[0]
-
-  const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0)
-  const endOfMonthFormatted = endOfMonth.toISOString().split('T')[0]
-
-  return tasks.filter(task => task.date >= startOfMonthFormatted && task.date <= endOfMonthFormatted)
+  return tasks.filter(task => task.date >= startOfMonth && task.date <= endOfMonth)
 }

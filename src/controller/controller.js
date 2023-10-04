@@ -22,7 +22,7 @@ export default class Controller {
 
     this.controllerSections = new ControllerSection({ view, sectionModel, taskModel, setCurrentSection: this.setCurrentSection })
     this.controllerProjects = new ControllerProjects({ view, projectModel, taskModel, setCurrentProject: this.setCurrentProject })
-    this.controllerMain = new ControllerMain({ view, taskModel })
+    this.controllerMain = new ControllerMain({ view, taskModel, getCurrentProject: this.getCurrentProject, getCurrentSection: this.getCurrentSection })
   }
 
   initializeController = () => {
@@ -36,7 +36,7 @@ export default class Controller {
     return 0
   }
 
-  setCurrentSection = (section) => {
+  setCurrentSection = ({ section }) => {
     this.currentProject = null
     this.currentSection = section
   }
@@ -45,7 +45,7 @@ export default class Controller {
     return this.currentSection
   }
 
-  setCurrentProject = (projectId) => {
+  setCurrentProject = ({ projectId }) => {
     this.currentSection = ''
     this.currentProject = projectId
   }

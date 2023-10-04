@@ -30,7 +30,7 @@ export default class ControllerSection {
   initializeControllerSection = () => {
     // Home by default
     this._sectionLoad(HOME_SECTION)
-    this.setCurrentSection(HOME_SECTION)
+    this.setCurrentSection({ section: HOME_SECTION })
 
     const sectionNames = this.sectionModel.getSectionNames()
     this.view.renderSections({ div: this.sectionDiv, sectionNames })
@@ -39,65 +39,36 @@ export default class ControllerSection {
     this.sectionDiv.addEventListener('click', this._SectionDivHandler)
   }
 
-  // _SectionDivHandler = (event) => {
-  //   switch (event.target.id) {
-  //     case `navSection__${HOME_SECTION}-click`:
-  //       this._sectionLoad(HOME_SECTION)
-  //       this.setCurrentSection(HOME_SECTION)
-  //       this.view.activePageStyle({ div: event.target })
-  //       break
-
-  //     case `navSection__${TODAY_SECTION}`:
-  //       this._sectionLoad(TODAY_SECTION)
-  //       this.setCurrentSection(TODAY_SECTION)
-  //       break
-
-  //     case `navSection__${TOMORROW_SECTION}`:
-  //       this._sectionLoad(TOMORROW_SECTION)
-  //       this.setCurrentSection(TOMORROW_SECTION)
-  //       break
-
-  //     case `navSection__${WEEK_SECTION}`:
-  //       this._sectionLoad(WEEK_SECTION)
-  //       this.setCurrentSection(WEEK_SECTION)
-  //       break
-
-  //     case `navSection__${MONTH_SECTION}`:
-  //       this._sectionLoad(MONTH_SECTION)
-  //       this.setCurrentSection(MONTH_SECTION)
-  //       break
-
-  //     default:
-  //       break
-  //   }
-  // }
-
   _SectionDivHandler = (event) => {
     // HOME
     if (event.target.classList.contains(`navSection__${HOME_SECTION}-click`)) {
       this._sectionLoad(HOME_SECTION)
-      this.setCurrentSection(HOME_SECTION)
+      this.setCurrentSection({ section: HOME_SECTION })
       this.view.activePageStyle({ div: event.target })
 
     // TODAY
     } else if (event.target.classList.contains(`navSection__${TODAY_SECTION}-click`)) {
       this._sectionLoad(TODAY_SECTION)
-      this.setCurrentSection(TODAY_SECTION)
+      this.setCurrentSection({ section: TODAY_SECTION })
+      this.view.activePageStyle({ div: event.target })
 
     // TOMORROW
     } else if (event.target.classList.contains(`navSection__${TOMORROW_SECTION}-click`)) {
       this._sectionLoad(TOMORROW_SECTION)
-      this.setCurrentSection(TOMORROW_SECTION)
+      this.setCurrentSection({ section: TOMORROW_SECTION })
+      this.view.activePageStyle({ div: event.target })
 
     // WEEK
     } else if (event.target.classList.contains(`navSection__${WEEK_SECTION}-click`)) {
       this._sectionLoad(WEEK_SECTION)
-      this.setCurrentSection(WEEK_SECTION)
+      this.setCurrentSection({ section: WEEK_SECTION })
+      this.view.activePageStyle({ div: event.target })
 
     // MONTH
     } else if (event.target.classList.contains(`navSection__${MONTH_SECTION}-click`)) {
       this._sectionLoad(MONTH_SECTION)
-      this.setCurrentSection(MONTH_SECTION)
+      this.setCurrentSection({ section: MONTH_SECTION })
+      this.view.activePageStyle({ div: event.target })
     }
   }
 
