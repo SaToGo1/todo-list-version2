@@ -64,7 +64,7 @@ export function renderPage ({ div, completedTasks, notCompletedTasks, name }) {
 const mainTaskClass = 'main__task'
 export const mainTaskIcon = 'main__taskIcon'
 const mainTaskText = 'main__taskText'
-const mainTaskDate = 'main__taskDate'
+export const mainTaskDate = 'main__taskDate'
 const mainTaskDelete = 'main__taskDelete'
 function taskTemplate ({ task, completed }) {
   let icon

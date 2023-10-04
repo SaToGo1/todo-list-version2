@@ -12,7 +12,8 @@ import {
 
 // CONSTANTS - task - classes/Ids
 import {
-  mainTaskIcon
+  mainTaskIcon,
+  mainTaskDate
 } from '../../views/Layouts/main/mainPage'
 
 import {
@@ -44,6 +45,8 @@ export default class ControllerMain {
     this.mainDiv.addEventListener('focusout', this._addTaskBarFocusOutline)
 
     this.mainDiv.addEventListener('click', this._handleClick)
+
+    this.mainDiv.addEventListener('change', this._dateInputChange)
   }
 
   _addTaskBarFocusOutline = (event) => {
@@ -136,11 +139,35 @@ export default class ControllerMain {
       taskDOM.remove()
       this.view.renderTask({ task: updatedTask })
 
+      // Mark the task changed for 2 seconds.
       const element = document.querySelector(`[data-task-id="${taskID}"]`)
       element.classList.add('activeTask')
       setTimeout(() => {
         element.classList.remove('activeTask')
       }, 2000)
+    }
+  }
+
+  _dateInputChange = (event) => {
+    if (event.target.classList.contains(mainTaskDate)) {
+      const updatedDate = event.target.value
+
+      const taskDOM = event.target.parentNode
+      const taskID = taskDOM.getAttribute('data-task-id')
+      const { isStored } = this.taskModel.getTask({ id: taskID })
+
+      if (!isStored) {
+        console.error('task not stored on change date')
+        return 0
+      }
+
+      // const { updatedTask, isUpdated } =
+      this.taskModel.updateTask({
+        id: taskID,
+        updatedFields: {
+          date: updatedDate
+        }
+      })
     }
   }
 }
