@@ -13,11 +13,12 @@ import {
 } from '../filterTasks/filterTasks.js'
 
 export default class ControllerSection {
-  constructor ({ view, sectionModel, taskModel, setCurrentSection }) {
+  constructor ({ view, sectionModel, projectModel, taskModel, setCurrentSection }) {
     // CLASSES
     this.view = view
     this.sectionModel = sectionModel
     this.taskModel = taskModel
+    this.projectModel = projectModel
 
     // CALLBAKCS
     this.setCurrentSection = setCurrentSection
@@ -81,7 +82,8 @@ export default class ControllerSection {
       div: this.mainDiv,
       completedTasks,
       notCompletedTasks,
-      name: section
+      name: section,
+      projectModel: this.projectModel
     })
   }
 }

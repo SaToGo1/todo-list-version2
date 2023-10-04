@@ -75,11 +75,11 @@ export default class View {
   /* ###########
      # Main    #
      ########### */
-  renderPage = ({ div, completedTasks, notCompletedTasks, name }) => {
-    renderPage({ div, completedTasks, notCompletedTasks, name })
+  renderPage = ({ div, completedTasks, notCompletedTasks, name, projectModel }) => {
+    renderPage({ div, completedTasks, notCompletedTasks, name, projectModel })
   }
 
-  renderTask = ({ task }) => {
-    renderTask({ task })
+  renderTask = ({ task, project }) => {
+    renderTask({ task, project })
   }
 }

@@ -27,6 +27,10 @@ export default class ProjectModel {
   getAllProjects () {
     return this.projects
   }
+
+  getProject ({ projectID }) {
+    return this.projects.find(project => project.id === projectID)
+  }
 }
 
 const mockprojects = [

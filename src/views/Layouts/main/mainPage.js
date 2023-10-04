@@ -39,7 +39,7 @@ function inputTaskBarTemplate () {
 const mainTaskList = 'main__taskList'
 const mainTaskListCompleted = 'main__taskListCompleted'
 const mainTaskListNotCompleted = 'main__taskListNotCompleted'
-export function renderPage ({ div, completedTasks, notCompletedTasks, name }) {
+export function renderPage ({ div, completedTasks, notCompletedTasks, name, projectModel }) {
   const template = `
   <main class="${mainClass}">
     <h2>${name}</h2>
@@ -47,13 +47,15 @@ export function renderPage ({ div, completedTasks, notCompletedTasks, name }) {
     <h3>Tasks</h3>
     <div class="${mainTaskList}" id="${mainTaskListNotCompleted}">
       ${notCompletedTasks.map(task => {
-        return taskTemplate({ task, completed: false })
+        const project = projectModel.getProject({ projectID: task.projectID })
+        return taskTemplate({ task, completed: false, project })
       }).join('')}
     </div>
     <h3>Completed</h3>
     <div class="${mainTaskList}" id="${mainTaskListCompleted}">
       ${completedTasks.map(task => {
-        return taskTemplate({ task, completed: true })
+        const project = projectModel.getProject({ projectID: task.projectID })
+        return taskTemplate({ task, completed: true, project })
       }).join('')}
     </div>
   </main>`
@@ -64,26 +66,43 @@ export function renderPage ({ div, completedTasks, notCompletedTasks, name }) {
 const mainTaskClass = 'main__task'
 const mainTaskIcon = 'main__taskIcon'
 const mainTaskText = 'main__taskText'
+const mainTaskProject = 'main__taskProject'
+const mainTaskProjectText = 'main_taskProjectText'
 const mainTaskDate = 'main__taskDate'
 const mainTaskDelete = 'main__taskDelete'
-function taskTemplate ({ task, completed }) {
+function taskTemplate ({ task, completed, project }) {
   let icon
   if (completed) {
     icon = circleCheck
   } else {
     icon = circle
   }
+
+  let projectTemplate
+  if (project !== undefined) {
+    projectTemplate = `    
+    <div class="${mainTaskProject}">
+      <img>
+      <p class="${mainTaskProjectText}">${project.name}</p>
+    </div>`
+  } else {
+    projectTemplate = `
+    <div class="${mainTaskProject}"></div>
+    `
+  }
+
   return `
   <div class="${mainTaskClass}" data-task-id="${task.id}">
     <img class="${mainTaskIcon}" src="${icon}" alt="icon">
     <p class="${mainTaskText}">${task.title}</p>
+    ${projectTemplate}
     <input type="date" class="${mainTaskDate}" value="${task.date}">
     <button class="${mainTaskDelete}">X</button>
   </div>
   `
 }
 
-export function renderTask ({ task }) {
+export function renderTask ({ task, project }) {
   let div
   let completed
 
@@ -95,7 +114,7 @@ export function renderTask ({ task }) {
     div = document.querySelector(`#${mainTaskListNotCompleted}`)
     completed = false
   }
-  const template = taskTemplate({ task, completed })
+  const template = taskTemplate({ task, completed, project })
 
   div.insertAdjacentHTML('beforeend', template)
 }

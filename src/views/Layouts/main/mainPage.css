@@ -70,7 +70,7 @@
 }
     .main__task{
         background-color: var(--color-secondary);
-        min-height: 40px;
+        height: 45px;
 
         display: flex;
         flex-wrap: wrap;
@@ -91,14 +91,35 @@
         }
 
         .main__taskText {
-            max-width: 85%;
+            max-width: 60%;
             overflow-wrap: break-word;
             margin: 0;
+
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
         }
+
+        .main__taskProject {
+            padding: 0px 10px;
+            margin-left: auto;
+            width: 130px;
+
+            display: flex;
+            gap: 5px;
+
+            outline: 1px solid black;
+            border-radius: 5px;
+        }
+
+            .main_taskProjectText {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
 
         .main__taskDate {
             flex-shrink: 0;
-            margin-left: auto;
         }
 
         .main__taskDelete {

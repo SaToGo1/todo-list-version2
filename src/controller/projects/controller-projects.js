@@ -119,7 +119,8 @@ export default class ControllerProjects {
       div: this.mainDiv,
       completedTasks,
       notCompletedTasks,
-      name: project.name
+      name: project.name,
+      projectModel: this.projectModel
     })
   }
 }

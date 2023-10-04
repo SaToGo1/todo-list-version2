@@ -20,9 +20,9 @@ export default class Controller {
     // Initialize the current project to null (no project selected initially)
     this.currentProject = null
 
-    this.controllerSections = new ControllerSection({ view, sectionModel, taskModel, setCurrentSection: this.setCurrentSection })
+    this.controllerSections = new ControllerSection({ view, sectionModel, projectModel, taskModel, setCurrentSection: this.setCurrentSection })
     this.controllerProjects = new ControllerProjects({ view, projectModel, taskModel, setCurrentProject: this.setCurrentProject })
-    this.controllerMain = new ControllerMain({ view, taskModel, getCurrentProject: this.getCurrentProject, getCurrentSection: this.getCurrentSection })
+    this.controllerMain = new ControllerMain({ view, taskModel, projectModel, getCurrentProject: this.getCurrentProject, getCurrentSection: this.getCurrentSection })
   }
 
   initializeController = () => {

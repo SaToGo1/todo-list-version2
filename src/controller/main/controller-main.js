@@ -19,10 +19,11 @@ import {
 import * as dateFunctions from '../date-functions/dateFunctions.js'
 
 export default class ControllerMain {
-  constructor ({ view, taskModel, getCurrentProject, getCurrentSection }) {
+  constructor ({ view, taskModel, projectModel, getCurrentProject, getCurrentSection }) {
     // CLASSES
     this.view = view
     this.taskModel = taskModel
+    this.projectModel = projectModel
 
     // CALLBAKCS
     this.getCurrentProjectID = getCurrentProject // get project id
@@ -70,9 +71,10 @@ export default class ControllerMain {
       const date = this._getDateBySection()
 
       const { newTask, isStored } = this.taskModel.createTask({ taskTitle, projectID, date })
+      const project = this.projectModel.getProject({ projectID })
 
       if (isStored) {
-        this.view.renderTask({ task: newTask })
+        this.view.renderTask({ task: newTask, project })
       } else {
         console.error('Task Not Stored')
       }
