@@ -65,4 +65,18 @@ export default class TaskModel {
       isDeleted: true
     }
   }
+
+  deleteManyTasks = ({ tasksArray = [] }) => {
+    if (tasksArray.length === 0) {
+      this.tasks = []
+      return 0
+    }
+    const tasksToDeleteSet = new Set(tasksArray.map(task => task.id))
+
+    this.tasks = this.tasks.filter(task => !tasksToDeleteSet.has(task.id))
+
+    return {
+      isDeleted: true
+    }
+  }
 }
