@@ -13,7 +13,8 @@ import {
 // CONSTANTS - task - classes/Ids
 import {
   mainTaskIcon,
-  mainTaskDate
+  mainTaskDate,
+  mainTaskDelete
 } from '../../views/Layouts/main/mainPage'
 
 import {
@@ -67,6 +68,7 @@ export default class ControllerMain {
     // ADD TASK BAR -> adds a task on click
     this._AddTask(event)
     this._completeProjectClick(event)
+    this._deleteTaskClick(event)
   }
 
   _AddTask = (event) => {
@@ -168,6 +170,16 @@ export default class ControllerMain {
           date: updatedDate
         }
       })
+    }
+  }
+
+  _deleteTaskClick = (event) => {
+    const deleteButton = event.target
+    if (deleteButton.classList.contains(mainTaskDelete)) {
+      const taskElement = deleteButton.parentNode
+      const id = taskElement.dataset.taskId
+      this.taskModel.deleteTask({ id })
+      taskElement.remove()
     }
   }
 }

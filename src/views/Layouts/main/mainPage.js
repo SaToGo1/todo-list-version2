@@ -65,7 +65,7 @@ const mainTaskClass = 'main__task'
 export const mainTaskIcon = 'main__taskIcon'
 const mainTaskText = 'main__taskText'
 export const mainTaskDate = 'main__taskDate'
-const mainTaskDelete = 'main__taskDelete'
+export const mainTaskDelete = 'main__taskDelete'
 function taskTemplate ({ task, completed }) {
   let icon
   if (completed) {
