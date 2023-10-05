@@ -28,4 +28,12 @@ export default class ProjectModel {
   getAllProjects () {
     return this.projects
   }
+
+  deleteProject = ({ id }) => {
+    this.projects = this.projects.filter(project => project.id !== id)
+
+    return {
+      isDeleted: true
+    }
+  }
 }
