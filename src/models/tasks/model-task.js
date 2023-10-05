@@ -56,6 +56,14 @@ export default class TaskModel {
       }
     }
   }
+
+  deleteTask = ({ id }) => {
+    this.tasks = this.tasks.filter(task => task.id !== id)
+
+    return {
+      isDeleted: true
+    }
+  }
 }
 
 // MOCK DATA WILL BE DELETED
