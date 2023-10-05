@@ -1,12 +1,13 @@
 import Project from './project.js'
 
 import { v4 as uuidv4 } from 'uuid'
+import { mockprojects } from '../../mockData/mock.js' // MOCK DATA -- DELETE AFTER
 
 export default class ProjectModel {
   constructor () {
     this.projects = []
 
-    // Add some mock tasks
+    // Add some mock tasks // MOCK DATA -- DELETE AFTER
     this.projects.push(
       ...mockprojects
     )
@@ -28,14 +29,3 @@ export default class ProjectModel {
     return this.projects
   }
 }
-
-const mockprojects = [
-  new Project({
-    id: '13',
-    name: 'Test Project 13'
-  }),
-  new Project({
-    id: '14',
-    name: 'Test Project 14'
-  })
-]
