@@ -28,7 +28,7 @@ import {
 import * as dateFunctions from '../date-functions/dateFunctions.js'
 
 export default class ControllerMain {
-  constructor ({ view, taskModel, getCurrentProject, getCurrentSection }) {
+  constructor ({ view, taskModel, getCurrentProject, getCurrentSection, reloadSection }) {
     // CLASSES
     this.view = view
     this.taskModel = taskModel
@@ -36,6 +36,7 @@ export default class ControllerMain {
     // CALLBAKCS
     this.getCurrentProjectID = getCurrentProject // get project id
     this.getCurrentSection = getCurrentSection // get section string
+    this.reloadSection = reloadSection
 
     // DOM
     this.mainDiv = document.querySelector('.main')
@@ -170,6 +171,8 @@ export default class ControllerMain {
           date: updatedDate
         }
       })
+
+      this.reloadSection({})
     }
   }
 

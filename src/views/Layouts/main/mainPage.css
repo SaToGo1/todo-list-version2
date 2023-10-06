@@ -115,9 +115,9 @@
             text-shadow: 0px 0px 1px #000;
         }
 
-        .main__taskDelete:hover {
-            color: var(--color-delete-hover);
-        }
+            .main__taskDelete:hover {
+                color: var(--color-delete-hover);
+            }
 
     .activeTask {
         outline: 2px solid var(--color-accent);

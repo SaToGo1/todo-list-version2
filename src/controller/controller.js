@@ -39,7 +39,8 @@ export default class Controller {
       view,
       taskModel,
       getCurrentProject: this.getCurrentProject,
-      getCurrentSection: this.getCurrentSection
+      getCurrentSection: this.getCurrentSection,
+      reloadSection: this.reloadSection
     })
   }
 
