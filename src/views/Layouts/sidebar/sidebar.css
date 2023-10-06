@@ -156,7 +156,7 @@
 
 .nav__ProjectDeleteButton {
     height: 22px;
-    background-color: inherit;
+    background-color: transparent;
     border: none;
     border-radius: 50%;
 
