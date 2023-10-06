@@ -10,8 +10,6 @@ import {
   taskModel
 } from '../models/model.js'
 
-import { HOME_SECTION } from '../constants/section-constants'
-
 export default class Controller {
   constructor (view) {
     this.view = view
@@ -26,7 +24,8 @@ export default class Controller {
       view,
       sectionModel,
       taskModel,
-      setCurrentSection: this.setCurrentSection
+      setCurrentSection: this.setCurrentSection,
+      getCurrentSection: this.getCurrentSection
     })
     this.controllerProjects = new ControllerProjects({
       view,
@@ -34,7 +33,7 @@ export default class Controller {
       taskModel,
       setCurrentProject: this.setCurrentProject,
       getCurrentProject: this.getCurrentProject,
-      loadHome: this.loadHome
+      reloadSection: this.reloadSection
     })
     this.controllerMain = new ControllerMain({
       view,
@@ -73,7 +72,7 @@ export default class Controller {
     return this.currentProject
   }
 
-  loadHome = () => {
-    this.controllerSections._sectionLoad(HOME_SECTION)
+  reloadSection = ({ loadHome = false }) => {
+    this.controllerSections.reloadSection({ loadHome })
   }
 }

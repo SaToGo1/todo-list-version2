@@ -13,7 +13,7 @@ import {
 } from '../filterTasks/filterTasks.js'
 
 export default class ControllerSection {
-  constructor ({ view, sectionModel, taskModel, setCurrentSection }) {
+  constructor ({ view, sectionModel, taskModel, setCurrentSection, getCurrentSection }) {
     // CLASSES
     this.view = view
     this.sectionModel = sectionModel
@@ -21,6 +21,7 @@ export default class ControllerSection {
 
     // CALLBAKCS
     this.setCurrentSection = setCurrentSection
+    this.getCurrentSection = getCurrentSection
 
     // DOM
     this.sectionDiv = document.querySelector('.nav__sectionsDiv')
@@ -83,5 +84,15 @@ export default class ControllerSection {
       notCompletedTasks,
       name: section
     })
+  }
+
+  reloadSection = ({ loadHome = false }) => {
+    const currentSection = this.getCurrentSection()
+    if (currentSection !== '') {
+      this._sectionLoad(currentSection)
+    }
+    if (loadHome === true) {
+      this._sectionLoad(HOME_SECTION)
+    }
   }
 }

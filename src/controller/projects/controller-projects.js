@@ -14,7 +14,7 @@ import {
 } from '../filterTasks/filterTasks'
 
 export default class ControllerProjects {
-  constructor ({ view, projectModel, taskModel, setCurrentProject, getCurrentProject, loadHome }) {
+  constructor ({ view, projectModel, taskModel, setCurrentProject, getCurrentProject, reloadSection }) {
     // CLASSES
     this.view = view
     this.projectModel = projectModel
@@ -23,7 +23,7 @@ export default class ControllerProjects {
     // CALLBAKCS
     this.setCurrentProject = setCurrentProject
     this.getCurrentProject = getCurrentProject
-    this.loadHome = loadHome
+    this.reloadSection = reloadSection
 
     // DOM
     this.projectsDiv = document.querySelector('.nav__projectsDiv')
@@ -132,17 +132,26 @@ export default class ControllerProjects {
       const projectElement = event.target.parentNode
       const projectID = projectElement.dataset.projectId
 
+      // DELETE DATA
       const tasks = this.taskModel.getAllTasks()
       const projectTasks = filterByProject({ tasks, projectID })
       this.taskModel.deleteManyTasks({ tasksArray: projectTasks })
       this.projectModel.deleteProject({ projectID })
 
+      // DELETE VIEW
       projectElement.remove()
-      // If we delete the project currently displayed change page to Home page
+
+      // If we delete the project currently rendered, then load Home page
       const currentProjectID = this.getCurrentProject()
       if (currentProjectID === projectID) {
-        this.loadHome()
+        this.reloadSection({ loadHome: true })
       }
+
+      // If we are in a section, reload the section.
+      if (currentProjectID === null) {
+        this.reloadSection({ loadHome: false })
+      }
+
       return true
     }
   }
