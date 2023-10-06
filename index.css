@@ -20,6 +20,8 @@
   /* --color-delete-hover2: #D32F2F;  */
 
   --color-task-active: #00000020;
+
+  --color-task-dashed: rgba(206, 9, 9, 0.712);
 }
 
 *, *:before, *:after {

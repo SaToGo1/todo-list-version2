@@ -90,11 +90,15 @@
             flex-shrink: 0;
         }
 
-        .main__taskText {
+        .main__taskText, .main__taskText-Completed {
             max-width: 85%;
             overflow-wrap: break-word;
             margin: 0;
         }
+
+            .main__taskText-Completed {
+                text-decoration: line-through var(--color-task-dashed);
+            }
 
         .main__taskDate {
             flex-shrink: 0;

@@ -64,19 +64,23 @@ export function renderPage ({ div, completedTasks, notCompletedTasks, name }) {
 const mainTaskClass = 'main__task'
 export const mainTaskIcon = 'main__taskIcon'
 const mainTaskText = 'main__taskText'
+const mainTaskTextCompleted = 'main__taskText-Completed'
 export const mainTaskDate = 'main__taskDate'
 export const mainTaskDelete = 'main__taskDelete'
 function taskTemplate ({ task, completed }) {
   let icon
+  let inputClass
   if (completed) {
     icon = circleCheck
+    inputClass = mainTaskTextCompleted
   } else {
     icon = circle
+    inputClass = mainTaskText
   }
   return `
   <div class="${mainTaskClass}" data-task-id="${task.id}">
     <img class="${mainTaskIcon}" src="${icon}" alt="icon">
-    <p class="${mainTaskText}">${task.title}</p>
+    <p class="${inputClass}">${task.title}</p>
     <input type="date" class="${mainTaskDate}" value="${task.date}">
     <button class="${mainTaskDelete}">X</button>
   </div>
