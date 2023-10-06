@@ -118,7 +118,7 @@ export default class ControllerMain {
   _completeProjectClick = (event) => {
     if (event.target.classList.contains(mainTaskIcon)) {
       const taskDOM = event.target.parentNode
-      const taskID = taskDOM.getAttribute('data-task-id')
+      const taskID = taskDOM.dataset.taskId
       const { task, isStored } = this.taskModel.getTask({ id: taskID })
 
       if (!isStored) {
@@ -156,7 +156,7 @@ export default class ControllerMain {
       const updatedDate = event.target.value
 
       const taskDOM = event.target.parentNode
-      const taskID = taskDOM.getAttribute('data-task-id')
+      const taskID = taskDOM.dataset.taskId
       const { isStored } = this.taskModel.getTask({ id: taskID })
 
       if (!isStored) {

@@ -93,8 +93,8 @@ export default class ControllerProjects {
     // checks if we clicked in the project div in sidebar or in one of his sons
     // the sons are the name of the project and the icon of the project.
     // clicking on the son should also load the page.
-    const clickedId = event.target.id.trim()
-    const parentClickedId = event.target.parentNode.id.trim()
+    const clickedId = event.target.dataset.projectId
+    const parentClickedId = event.target.parentNode.dataset.projectId
 
     const isClickedIdInArray = projectsArr.some(project => project.id === clickedId)
     const isParentClickedIdInArray = projectsArr.some(project => project.id === parentClickedId)
