@@ -122,11 +122,13 @@ export function renderAddProjectButton ({ div }) {
   }
 }
 
+export const projectDeleteButton = 'nav__ProjectDeleteButton'
 function projectTemplate ({ id, name }) {
   return `
   <div class="${navContainer}" id="${id} "data-project-id="${id}">
     <img src="${projectTagIcon}" alt="Project color: ..." class="${navIcon}">
     <button class="${navButton}">${name}</button>
+    <button class="${projectDeleteButton}">X</button>
   </div>`
 }
 

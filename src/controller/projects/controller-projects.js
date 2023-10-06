@@ -3,7 +3,8 @@ import {
   confirmationAccept,
   confirmationCancel,
   addProjectButtonClass,
-  addProjectIconClass
+  addProjectIconClass,
+  projectDeleteButton
 } from '../../views/Layouts/sidebar/sidebar'
 
 import {
@@ -13,7 +14,7 @@ import {
 } from '../filterTasks/filterTasks'
 
 export default class ControllerProjects {
-  constructor ({ view, projectModel, taskModel, setCurrentProject }) {
+  constructor ({ view, projectModel, taskModel, setCurrentProject, getCurrentProject, loadHome }) {
     // CLASSES
     this.view = view
     this.projectModel = projectModel
@@ -21,6 +22,8 @@ export default class ControllerProjects {
 
     // CALLBAKCS
     this.setCurrentProject = setCurrentProject
+    this.getCurrentProject = getCurrentProject
+    this.loadHome = loadHome
 
     // DOM
     this.projectsDiv = document.querySelector('.nav__projectsDiv')
@@ -28,23 +31,23 @@ export default class ControllerProjects {
   }
 
   initializeControllerProjects = () => {
-    this.projectsDiv.addEventListener('click', this._ProjectDivHandler)
+    this.projectsDiv.addEventListener('click', this._projectDivHandler)
 
     const projects = this.projectModel.getAllProjects()
     this.view.renderAllProjects({ div: this.projectsDiv, projects })
   }
 
-  _ProjectDivHandler = (event) => {
+  _projectDivHandler = (event) => {
     // Add project button
-    if (this._ClickOnAddProjectButton(event)) return 0
+    if (this._clickOnAddProjectButton(event)) return 0
     // confirm project and project name
-    else if (this._ClickOnConfirmationDiv(event)) return 0
-
+    else if (this._clickOnConfirmationDiv(event)) return 0
+    else if (this._deleteProjectClick(event)) return 0
     // other
-    this._ClickOnProject(event)
+    this._clickOnProject(event)
   }
 
-  _ClickOnAddProjectButton = (event) => {
+  _clickOnAddProjectButton = (event) => {
     // CLICK on add new Project
     if (event.target.id === addProjectButtonClass ||
     event.target.id === addProjectIconClass) {
@@ -55,7 +58,7 @@ export default class ControllerProjects {
     return false
   }
 
-  _ClickOnConfirmationDiv = (event) => {
+  _clickOnConfirmationDiv = (event) => {
     // Handle click on Accept or Cancel in the confirmation Div
     // that appears after clicking the add new Project button.
     // ACCEPT BUTTON
@@ -84,7 +87,7 @@ export default class ControllerProjects {
   }
 
   // Checks if we clicked a project
-  _ClickOnProject = (event) => {
+  _clickOnProject = (event) => {
     const projectsArr = this.projectModel.getAllProjects()
 
     // checks if we clicked in the project div in sidebar or in one of his sons
@@ -121,5 +124,26 @@ export default class ControllerProjects {
       notCompletedTasks,
       name: project.name
     })
+  }
+
+  _deleteProjectClick = (event) => {
+    const deleteProjectButton = event.target
+    if (deleteProjectButton.classList.contains(projectDeleteButton)) {
+      const projectElement = event.target.parentNode
+      const projectID = projectElement.dataset.projectId
+
+      const tasks = this.taskModel.getAllTasks()
+      const projectTasks = filterByProject({ tasks, projectID })
+      this.taskModel.deleteManyTasks({ tasksArray: projectTasks })
+      this.projectModel.deleteProject({ projectID })
+
+      projectElement.remove()
+      // If we delete the project currently displayed change page to Home page
+      const currentProjectID = this.getCurrentProject()
+      if (currentProjectID === projectID) {
+        this.loadHome()
+      }
+      return true
+    }
   }
 }

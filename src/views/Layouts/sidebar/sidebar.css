@@ -153,3 +153,23 @@
         .navConfirmation__cancel:active{
             background-color: rgb(150, 0, 0);
         }
+
+.nav__ProjectDeleteButton {
+    height: 22px;
+    background-color: inherit;
+    border: none;
+    border-radius: 50%;
+
+    padding: 0px 5px;
+
+    cursor: pointer;
+    color: var(--color-negative);
+
+    text-shadow: 0px 0px 1px #000;
+
+    margin-left: auto;
+}
+
+    .nav__ProjectDeleteButton:hover {
+        color: var(--color-delete-hover);
+    }
