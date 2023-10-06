@@ -44,31 +44,26 @@ export default class ControllerSection {
     // HOME
     if (event.target.classList.contains(`navSection__${HOME_SECTION}-click`)) {
       this._sectionLoad(HOME_SECTION)
-      this.setCurrentSection({ section: HOME_SECTION })
       this.view.activePageStyle({ div: event.target })
 
     // TODAY
     } else if (event.target.classList.contains(`navSection__${TODAY_SECTION}-click`)) {
       this._sectionLoad(TODAY_SECTION)
-      this.setCurrentSection({ section: TODAY_SECTION })
       this.view.activePageStyle({ div: event.target })
 
     // TOMORROW
     } else if (event.target.classList.contains(`navSection__${TOMORROW_SECTION}-click`)) {
       this._sectionLoad(TOMORROW_SECTION)
-      this.setCurrentSection({ section: TOMORROW_SECTION })
       this.view.activePageStyle({ div: event.target })
 
     // WEEK
     } else if (event.target.classList.contains(`navSection__${WEEK_SECTION}-click`)) {
       this._sectionLoad(WEEK_SECTION)
-      this.setCurrentSection({ section: WEEK_SECTION })
       this.view.activePageStyle({ div: event.target })
 
     // MONTH
     } else if (event.target.classList.contains(`navSection__${MONTH_SECTION}-click`)) {
       this._sectionLoad(MONTH_SECTION)
-      this.setCurrentSection({ section: MONTH_SECTION })
       this.view.activePageStyle({ div: event.target })
     }
   }
@@ -84,6 +79,8 @@ export default class ControllerSection {
       notCompletedTasks,
       name: section
     })
+
+    this.setCurrentSection({ section })
   }
 
   reloadSection = ({ loadHome = false }) => {
