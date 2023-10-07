@@ -4,11 +4,13 @@ import Project from '../models/projects/project'
 const mockprojects = [
   new Project({
     id: '13',
-    name: 'Test Project 13'
+    name: 'Test Project 13',
+    color: '#000000'
   }),
   new Project({
     id: '14',
-    name: 'Test Project 14'
+    name: 'Test Project 14',
+    color: '#000000'
   })
 ]
 

@@ -4,7 +4,8 @@ import {
   confirmationCancel,
   addProjectButtonClass,
   addProjectIconClass,
-  projectDeleteButton
+  projectDeleteButton,
+  projectColor
 } from '../../views/Layouts/sidebar/sidebar'
 
 import {
@@ -32,6 +33,7 @@ export default class ControllerProjects {
 
   initializeControllerProjects = () => {
     this.projectsDiv.addEventListener('click', this._projectDivHandler)
+    this.projectsDiv.addEventListener('input', this._colorInput)
 
     const projects = this.projectModel.getAllProjects()
     this.view.renderAllProjects({ div: this.projectsDiv, projects })
@@ -43,6 +45,7 @@ export default class ControllerProjects {
     // confirm project and project name
     else if (this._clickOnConfirmationDiv(event)) return 0
     else if (this._deleteProjectClick(event)) return 0
+    else if (this._colorInputClick(event)) return 0
     // other
     this._clickOnProject(event)
   }
@@ -70,7 +73,7 @@ export default class ControllerProjects {
       const id = newProject.id
 
       if (isStored) {
-        this.view.renderProject({ div: this.projectsDiv, id, name })
+        this.view.renderProject({ div: this.projectsDiv, id, name, color: newProject.color })
         this.view.renderAddProjectButton({ div: this.projectsDiv })
         return true
       } else {
@@ -138,7 +141,7 @@ export default class ControllerProjects {
       const tasks = this.taskModel.getAllTasks()
       const projectTasks = filterByProject({ tasks, projectID })
       this.taskModel.deleteManyTasks({ tasksArray: projectTasks })
-      this.projectModel.deleteProject({ projectID })
+      this.projectModel.deleteProject({ id: projectID })
 
       // DELETE VIEW
       projectElement.remove()
@@ -154,6 +157,33 @@ export default class ControllerProjects {
         this.reloadSection({ loadHome: false })
       }
 
+      return true
+    }
+  }
+
+  _colorInput = (event) => {
+    const colorInput = event.target
+    if (colorInput.classList.contains(projectColor)) {
+      const projectID = colorInput.parentNode.dataset.projectId
+      const updateValue = colorInput.value
+      console.log(updateValue)
+
+      this.projectModel.updateProject({
+        id: projectID,
+        updatedFields: {
+          color: updateValue
+        }
+      })
+
+      return true
+    }
+  }
+
+  // This is just so we don't select the project when trying to
+  // change the color of the color input.
+  _colorInputClick = (event) => {
+    const colorInput = event.target
+    if (colorInput.classList.contains(projectColor)) {
       return true
     }
   }

@@ -45,13 +45,38 @@ export default class ProjectModel {
   }
 
   deleteProject = ({ id }) => {
+    console.log(id)
     this.projects = this.projects.filter(project => project.id !== id)
 
+    console.log(this.projects)
     // LOCAL STORAGE
     saveLocalStorage({ item: localStorageItem, array: this.projects })
 
     return {
       isDeleted: true
+    }
+  }
+
+  updateProject = ({ id, updatedFields }) => {
+    const projectToUpdate = this.projects.find(project => project.id === id)
+
+    if (projectToUpdate) {
+      // Update the specified fields
+      Object.assign(projectToUpdate, updatedFields)
+
+      // LOCAL STORAGE
+      saveLocalStorage({ item: localStorageItem, array: this.projects })
+
+      return {
+        updatedProject: projectToUpdate,
+        isUpdated: true
+      }
+    } else {
+      // Task with the provided ID not found
+      return {
+        updatedProject: null,
+        isUpdated: false
+      }
     }
   }
 }

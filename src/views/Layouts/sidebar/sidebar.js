@@ -123,17 +123,18 @@ export function renderAddProjectButton ({ div }) {
 }
 
 export const projectDeleteButton = 'nav__ProjectDeleteButton'
-function projectTemplate ({ id, name }) {
+export const projectColor = 'nav_projectColor'
+function projectTemplate ({ id, name, color = '#000000' }) {
   return `
   <div class="${navContainer}" data-project-id="${id}">
-    <img src="${projectTagIcon}" alt="Project color: ..." class="${navIcon}">
+    <input type="color" class="${projectColor}" value="${color}">
     <button class="${navButton}">${name}</button>
     <button class="${projectDeleteButton}">X</button>
   </div>`
 }
 
-export function renderProject ({ div, id, name }) {
-  const template = projectTemplate({ id, name })
+export function renderProject ({ div, id, name, color = '#000000' }) {
+  const template = projectTemplate({ id, name, color })
 
   div.insertAdjacentHTML('beforeend', template)
 }
@@ -145,7 +146,7 @@ export function renderAllProjects ({ div, projects }) {
   `
 
   projects.forEach(project => {
-    const template = projectTemplate({ id: project.id, name: project.name })
+    const template = projectTemplate({ id: project.id, name: project.name, color: project.color })
     projectDiv += `${template}`
   })
 
