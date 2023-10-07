@@ -3,7 +3,8 @@ import {
   confirmationAccept,
   confirmationCancel,
   addProjectButtonClass,
-  addProjectIconClass
+  addProjectIconClass,
+  projectDeleteButton
 } from '../../views/Layouts/sidebar/sidebar'
 
 import {
@@ -13,7 +14,7 @@ import {
 } from '../filterTasks/filterTasks'
 
 export default class ControllerProjects {
-  constructor ({ view, projectModel, taskModel, setCurrentProject }) {
+  constructor ({ view, projectModel, taskModel, setCurrentProject, getCurrentProject, reloadSection }) {
     // CLASSES
     this.view = view
     this.projectModel = projectModel
@@ -21,6 +22,8 @@ export default class ControllerProjects {
 
     // CALLBAKCS
     this.setCurrentProject = setCurrentProject
+    this.getCurrentProject = getCurrentProject
+    this.reloadSection = reloadSection
 
     // DOM
     this.projectsDiv = document.querySelector('.nav__projectsDiv')
@@ -28,23 +31,23 @@ export default class ControllerProjects {
   }
 
   initializeControllerProjects = () => {
-    this.projectsDiv.addEventListener('click', this._ProjectDivHandler)
+    this.projectsDiv.addEventListener('click', this._projectDivHandler)
 
     const projects = this.projectModel.getAllProjects()
     this.view.renderAllProjects({ div: this.projectsDiv, projects })
   }
 
-  _ProjectDivHandler = (event) => {
+  _projectDivHandler = (event) => {
     // Add project button
-    if (this._ClickOnAddProjectButton(event)) return 0
+    if (this._clickOnAddProjectButton(event)) return 0
     // confirm project and project name
-    else if (this._ClickOnConfirmationDiv(event)) return 0
-
+    else if (this._clickOnConfirmationDiv(event)) return 0
+    else if (this._deleteProjectClick(event)) return 0
     // other
-    this._ClickOnProject(event)
+    this._clickOnProject(event)
   }
 
-  _ClickOnAddProjectButton = (event) => {
+  _clickOnAddProjectButton = (event) => {
     // CLICK on add new Project
     if (event.target.id === addProjectButtonClass ||
     event.target.id === addProjectIconClass) {
@@ -55,12 +58,13 @@ export default class ControllerProjects {
     return false
   }
 
-  _ClickOnConfirmationDiv = (event) => {
+  _clickOnConfirmationDiv = (event) => {
     // Handle click on Accept or Cancel in the confirmation Div
     // that appears after clicking the add new Project button.
     // ACCEPT BUTTON
     if (event.target.id === confirmationAccept) {
       const name = document.querySelector('.navConfirmation__input').value
+      if (name === '') return 0
 
       const { newProject, isStored } = this.projectModel.createProjects({ name })
       const id = newProject.id
@@ -84,14 +88,14 @@ export default class ControllerProjects {
   }
 
   // Checks if we clicked a project
-  _ClickOnProject = (event) => {
+  _clickOnProject = (event) => {
     const projectsArr = this.projectModel.getAllProjects()
 
     // checks if we clicked in the project div in sidebar or in one of his sons
     // the sons are the name of the project and the icon of the project.
     // clicking on the son should also load the page.
-    const clickedId = event.target.id.trim()
-    const parentClickedId = event.target.parentNode.id.trim()
+    const clickedId = event.target.dataset.projectId
+    const parentClickedId = event.target.parentNode.dataset.projectId
 
     const isClickedIdInArray = projectsArr.some(project => project.id === clickedId)
     const isParentClickedIdInArray = projectsArr.some(project => project.id === parentClickedId)
@@ -104,7 +108,6 @@ export default class ControllerProjects {
       const project = projectsArr.find(project => project.id === id)
       this._projectLoad({ projectID: id, project })
       this.view.activePageStyle({ div: event.target })
-      this.setCurrentProject({ projectId: id })
     }
   }
 
@@ -121,5 +124,37 @@ export default class ControllerProjects {
       notCompletedTasks,
       name: project.name
     })
+
+    this.setCurrentProject({ projectId: projectID })
+  }
+
+  _deleteProjectClick = (event) => {
+    const deleteProjectButton = event.target
+    if (deleteProjectButton.classList.contains(projectDeleteButton)) {
+      const projectElement = event.target.parentNode
+      const projectID = projectElement.dataset.projectId
+
+      // DELETE DATA
+      const tasks = this.taskModel.getAllTasks()
+      const projectTasks = filterByProject({ tasks, projectID })
+      this.taskModel.deleteManyTasks({ tasksArray: projectTasks })
+      this.projectModel.deleteProject({ projectID })
+
+      // DELETE VIEW
+      projectElement.remove()
+
+      // If we delete the project currently rendered, then load Home page
+      const currentProjectID = this.getCurrentProject()
+      if (currentProjectID === projectID) {
+        this.reloadSection({ loadHome: true })
+      }
+
+      // If we are in a section, reload the section.
+      if (currentProjectID === null) {
+        this.reloadSection({ loadHome: false })
+      }
+
+      return true
+    }
   }
 }

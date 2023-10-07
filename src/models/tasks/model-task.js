@@ -3,14 +3,26 @@ import Task from './task.js'
 import { v4 as uuidv4 } from 'uuid'
 import { mocktasks } from '../../mockData/mock.js' // MOCK DATA -- DELETE AFTER
 
+import { saveLocalStorage, loadLocalStorage } from '../localStorage/localStorage.js'
+const localStorageItem = 'taskArray'
+
 export default class TaskModel {
   constructor () {
-    this.tasks = []
+    const {
+      isStoredInLocal,
+      storedData: storedTasks
+    } = loadLocalStorage({ item: localStorageItem })
 
-    // Add some mock tasks // MOCK DATA -- DELETE AFTER
-    this.tasks.push(
-      ...mocktasks
-    )
+    if (isStoredInLocal) {
+      this.tasks = storedTasks
+    } else {
+      this.tasks = []
+
+      // Add some mock tasks // MOCK DATA -- DELETE AFTER
+      this.tasks.push(
+        ...mocktasks
+      )
+    }
   }
 
   getAllTasks = () => {
@@ -33,6 +45,9 @@ export default class TaskModel {
 
     this.tasks.push(newTask)
 
+    // LOCAL STORAGE
+    saveLocalStorage({ item: localStorageItem, array: this.tasks })
+
     return {
       newTask,
       isStored: true
@@ -45,6 +60,10 @@ export default class TaskModel {
     if (taskToUpdate) {
       // Update the specified fields
       Object.assign(taskToUpdate, updatedFields)
+
+      // LOCAL STORAGE
+      saveLocalStorage({ item: localStorageItem, array: this.tasks })
+
       return {
         updatedTask: taskToUpdate,
         isUpdated: true
@@ -61,6 +80,9 @@ export default class TaskModel {
   deleteTask = ({ id }) => {
     this.tasks = this.tasks.filter(task => task.id !== id)
 
+    // LOCAL STORAGE
+    saveLocalStorage({ item: localStorageItem, array: this.tasks })
+
     return {
       isDeleted: true
     }
@@ -74,6 +96,9 @@ export default class TaskModel {
     const tasksToDeleteSet = new Set(tasksArray.map(task => task.id))
 
     this.tasks = this.tasks.filter(task => !tasksToDeleteSet.has(task.id))
+
+    // LOCAL STORAGE
+    saveLocalStorage({ item: localStorageItem, array: this.tasks })
 
     return {
       isDeleted: true

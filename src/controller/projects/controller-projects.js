@@ -64,6 +64,7 @@ export default class ControllerProjects {
     // ACCEPT BUTTON
     if (event.target.id === confirmationAccept) {
       const name = document.querySelector('.navConfirmation__input').value
+      if (name === '') return 0
 
       const { newProject, isStored } = this.projectModel.createProjects({ name })
       const id = newProject.id

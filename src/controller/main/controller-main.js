@@ -66,7 +66,6 @@ export default class ControllerMain {
   }
 
   _handleClick = (event) => {
-    // ADD TASK BAR -> adds a task on click
     this._AddTask(event)
     this._completeProjectClick(event)
     this._deleteTaskClick(event)
@@ -77,6 +76,8 @@ export default class ControllerMain {
     if (event.target.id === mainAddTaskButton ||
     event.target.id === mainAddTaskIcon) {
       const taskTitle = document.querySelector(`#${mainAddTaskInput}`).value
+      if (taskTitle === '') return 0
+
       const projectID = this.getCurrentProjectID() // null or ID
 
       // by default return today so if we are in a project we get today.
