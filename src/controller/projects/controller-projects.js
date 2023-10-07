@@ -5,7 +5,9 @@ import {
   addProjectButtonClass,
   addProjectIconClass,
   projectDeleteButton,
-  projectColor
+  projectColor,
+  confirmationDiv,
+  navContainer
 } from '../../views/Layouts/sidebar/sidebar'
 
 import {
@@ -87,29 +89,29 @@ export default class ControllerProjects {
       return true
     }
 
+    if (event.target.classList.contains(confirmationDiv)) {
+      return true
+    }
+
     return false
   }
 
   // Checks if we clicked a project
   _clickOnProject = (event) => {
+    // get the container whatever we clikc container or element inside the container
+    // like the title of the project.
+    const projectContainer = event.target.classList.contains(navContainer) ? event.target : event.target.parentNode
+    if (!projectContainer.classList.contains(navContainer)) return 0
+
     const projectsArr = this.projectModel.getAllProjects()
 
-    // checks if we clicked in the project div in sidebar or in one of his sons
-    // the sons are the name of the project and the icon of the project.
-    // clicking on the son should also load the page.
-    const clickedId = event.target.dataset.projectId
-    const parentClickedId = event.target.parentNode.dataset.projectId
+    const projectID = projectContainer.dataset.projectId
+    const isClickedIdInArray = projectsArr.some(project => project.id === projectID)
 
-    const isClickedIdInArray = projectsArr.some(project => project.id === clickedId)
-    const isParentClickedIdInArray = projectsArr.some(project => project.id === parentClickedId)
-
-    if (isClickedIdInArray || isParentClickedIdInArray) {
-      // gets the id whatever it is from parent or actual element clicked
-      const id = isClickedIdInArray ? clickedId : parentClickedId
-
+    if (isClickedIdInArray) {
       // find the project that we clicked in the project array
-      const project = projectsArr.find(project => project.id === id)
-      this._projectLoad({ projectID: id, project })
+      const project = projectsArr.find(project => project.id === projectID)
+      this._projectLoad({ projectID, project })
       this.view.activePageStyle({ div: event.target })
     }
   }
@@ -174,7 +176,6 @@ export default class ControllerProjects {
     if (colorInput.classList.contains(projectColor)) {
       const projectID = colorInput.parentNode.dataset.projectId
       const updateValue = colorInput.value
-      console.log(updateValue)
 
       this.projectModel.updateProject({
         id: projectID,

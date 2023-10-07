@@ -72,6 +72,8 @@
         background-color: var(--color-secondary);
         min-height: 40px;
 
+        outline: 1px solid #FFF;
+
         display: flex;
         flex-wrap: wrap;
         align-items: center;

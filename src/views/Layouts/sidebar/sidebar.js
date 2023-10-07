@@ -24,7 +24,7 @@ const projectsClass = 'nav__projectsDiv'
 const navClass = 'nav'
 const navHrClass = 'nav__hr'
 
-const navContainer = 'nav__container'
+export const navContainer = 'nav__container'
 
 const navIcon = 'nav__icon'
 const navButton = 'nav__button'
@@ -89,7 +89,7 @@ const addProjectButtonTemplate = () => {
   `
 }
 
-const confirmationDiv = 'nav__Confirmation'
+export const confirmationDiv = 'nav__Confirmation'
 const confirmationInput = 'navConfirmation__input'
 export const confirmationAccept = 'navConfirmation__accept'
 export const confirmationCancel = 'navConfirmation__cancel'

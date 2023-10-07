@@ -182,7 +182,6 @@ input[type="color"] {
     -webkit-appearance: none;
     border: none;
     padding: 0;
-    outline: none;
   }
 
     /* Additional styling for WebKit browsers (like Chrome, Safari) */
@@ -200,5 +199,8 @@ input[type="color"] {
         height: 12px;
         margin: 4px;
         border-radius: 50%;
+        outline: 1px solid #000;
+
+        cursor: pointer;
     }
 /*End of color picker*/
