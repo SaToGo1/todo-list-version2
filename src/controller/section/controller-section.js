@@ -9,15 +9,17 @@ import {
 import {
   filterCompletedTasks,
   filterNotCompletedTasks,
-  filterBySection
+  filterBySection,
+  colorfilter
 } from '../filterTasks/filterTasks.js'
 
 export default class ControllerSection {
-  constructor ({ view, sectionModel, taskModel, setCurrentSection, getCurrentSection }) {
+  constructor ({ view, sectionModel, taskModel, projectModel, setCurrentSection, getCurrentSection }) {
     // CLASSES
     this.view = view
     this.sectionModel = sectionModel
     this.taskModel = taskModel
+    this.projectModel = projectModel
 
     // CALLBAKCS
     this.setCurrentSection = setCurrentSection
@@ -71,13 +73,23 @@ export default class ControllerSection {
   _sectionLoad = (section) => {
     let tasks = this.taskModel.getAllTasks()
     tasks = filterBySection({ tasks, section })
+
+    // Make the arrays of completed/not completed tasks
     const completedTasks = filterCompletedTasks({ tasks })
     const notCompletedTasks = filterNotCompletedTasks({ tasks })
+
+    // Make the arrays of colors for completed/not completed tasks
+    const projects = this.projectModel.getAllProjects()
+    const colorCompletedTasks = colorfilter({ tasks: completedTasks, projects })
+    const colorNotCompletedTasks = colorfilter({ tasks: notCompletedTasks, projects })
+
     this.view.renderPage({
       div: this.mainDiv,
       completedTasks,
       notCompletedTasks,
-      name: section
+      name: section,
+      colorCompletedTasks,
+      colorNotCompletedTasks
     })
 
     this.setCurrentSection({ section })

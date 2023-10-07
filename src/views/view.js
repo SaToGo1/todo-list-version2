@@ -75,11 +75,13 @@ export default class View {
   /* ###########
      # Main    #
      ########### */
-  renderPage = ({ div, completedTasks, notCompletedTasks, name }) => {
-    renderPage({ div, completedTasks, notCompletedTasks, name })
+  // not/completedtasks are Arrays of tasks
+  // not/completedColor are arrays of strings with color, same size as tasks arrays.
+  renderPage = ({ div, completedTasks, notCompletedTasks, name, colorCompletedTasks, colorNotCompletedTasks }) => {
+    renderPage({ div, completedTasks, notCompletedTasks, name, colorCompletedTasks, colorNotCompletedTasks })
   }
 
-  renderTask = ({ task }) => {
-    renderTask({ task })
+  renderTask = ({ task, color }) => {
+    renderTask({ task, color })
   }
 }

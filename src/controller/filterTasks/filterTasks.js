@@ -71,3 +71,15 @@ function MonthFilter ({ tasks }) {
 
   return tasks.filter(task => task.date >= startOfMonth && task.date <= endOfMonth)
 }
+
+// to be fair this is not a filter but it makes sense to have it here
+export function colorfilter ({ tasks, projects }) {
+  return tasks.map(task => {
+    if (task.projectID === null) {
+      return null
+    }
+
+    const project = projects.find(project => project.id === task.projectID)
+    return project.color
+  })
+}

@@ -44,6 +44,16 @@ export default class ProjectModel {
     return this.projects
   }
 
+  getProject = ({ id }) => {
+    const project = this.projects.find(project => project.id === id)
+    const isStored = project !== undefined
+
+    return {
+      project,
+      isStored
+    }
+  }
+
   deleteProject = ({ id }) => {
     console.log(id)
     this.projects = this.projects.filter(project => project.id !== id)

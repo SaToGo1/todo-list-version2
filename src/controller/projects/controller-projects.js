@@ -121,11 +121,19 @@ export default class ControllerProjects {
     tasks = filterByProject({ tasks, projectID })
     const completedTasks = filterCompletedTasks({ tasks })
     const notCompletedTasks = filterNotCompletedTasks({ tasks })
+
+    // array same size as completed tasks with the color of the project
+    // as all the tasks are same project -> will have same color.
+    const colorCompletedTasks = completedTasks.map(el => project.color)
+    const colorNotCompletedTasks = notCompletedTasks.map(el => project.color)
+
     this.view.renderPage({
       div: this.mainDiv,
       completedTasks,
       notCompletedTasks,
-      name: project.name
+      name: project.name,
+      colorCompletedTasks,
+      colorNotCompletedTasks
     })
 
     this.setCurrentProject({ projectId: projectID })

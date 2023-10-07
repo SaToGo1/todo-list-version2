@@ -28,10 +28,11 @@ import {
 import * as dateFunctions from '../date-functions/dateFunctions.js'
 
 export default class ControllerMain {
-  constructor ({ view, taskModel, getCurrentProject, getCurrentSection, reloadSection }) {
+  constructor ({ view, taskModel, projectModel, getCurrentProject, getCurrentSection, reloadSection }) {
     // CLASSES
     this.view = view
     this.taskModel = taskModel
+    this.projectModel = projectModel
 
     // CALLBAKCS
     this.getCurrentProjectID = getCurrentProject // get project id
@@ -67,7 +68,7 @@ export default class ControllerMain {
 
   _handleClick = (event) => {
     this._AddTask(event)
-    this._completeProjectClick(event)
+    this._completeTaskClick(event)
     this._deleteTaskClick(event)
   }
 
@@ -86,8 +87,10 @@ export default class ControllerMain {
 
       const { newTask, isStored } = this.taskModel.createTask({ taskTitle, projectID, date })
 
+      const { project } = this.projectModel.getProject({ id: projectID })
+
       if (isStored) {
-        this.view.renderTask({ task: newTask })
+        this.view.renderTask({ task: newTask, color: project?.color })
       } else {
         console.error('Task Not Stored')
       }
@@ -116,7 +119,7 @@ export default class ControllerMain {
     }
   }
 
-  _completeProjectClick = (event) => {
+  _completeTaskClick = (event) => {
     if (event.target.classList.contains(mainTaskIcon)) {
       const taskDOM = event.target.parentNode
       const taskID = taskDOM.dataset.taskId
@@ -140,8 +143,9 @@ export default class ControllerMain {
         return 0
       }
 
+      const { project } = this.projectModel.getProject({ id: task.projectID })
       taskDOM.remove()
-      this.view.renderTask({ task: updatedTask })
+      this.view.renderTask({ task: updatedTask, color: project?.color })
 
       // Mark the task changed for 2 seconds.
       const element = document.querySelector(`[data-task-id="${taskID}"]`)

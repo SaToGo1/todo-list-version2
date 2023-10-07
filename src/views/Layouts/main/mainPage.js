@@ -39,21 +39,23 @@ function inputTaskBarTemplate () {
 const mainTaskList = 'main__taskList'
 const mainTaskListCompleted = 'main__taskListCompleted'
 const mainTaskListNotCompleted = 'main__taskListNotCompleted'
-export function renderPage ({ div, completedTasks, notCompletedTasks, name }) {
+export function renderPage ({ div, completedTasks, notCompletedTasks, name, colorCompletedTasks, colorNotCompletedTasks }) {
   const template = `
   <main class="${mainClass}">
     <h2>${name}</h2>
     ${inputTaskBarTemplate()}
     <h3>Tasks</h3>
     <div class="${mainTaskList}" id="${mainTaskListNotCompleted}">
-      ${notCompletedTasks.map(task => {
-        return taskTemplate({ task, completed: false })
+      ${notCompletedTasks.map((task, index) => {
+        const color = colorNotCompletedTasks[index]
+        return taskTemplate({ task, completed: false, color })
       }).join('')}
     </div>
     <h3>Completed</h3>
     <div class="${mainTaskList}" id="${mainTaskListCompleted}">
-      ${completedTasks.map(task => {
-        return taskTemplate({ task, completed: true })
+      ${completedTasks.map((task, index) => {
+        const color = colorCompletedTasks[index]
+        return taskTemplate({ task, completed: true, color })
       }).join('')}
     </div>
   </main>`
@@ -67,9 +69,11 @@ const mainTaskText = 'main__taskText'
 const mainTaskTextCompleted = 'main__taskText-Completed'
 export const mainTaskDate = 'main__taskDate'
 export const mainTaskDelete = 'main__taskDelete'
-function taskTemplate ({ task, completed }) {
+function taskTemplate ({ task, completed, color }) {
   let icon
   let inputClass
+  let colorBg = ''
+
   if (completed) {
     icon = circleCheck
     inputClass = mainTaskTextCompleted
@@ -77,8 +81,17 @@ function taskTemplate ({ task, completed }) {
     icon = circle
     inputClass = mainTaskText
   }
+
+  if (color) {
+    // 33 is like adding 0.2 alpha
+    let bgColor
+    if (color === '#ffffff') bgColor = color
+    else bgColor = color + '33'
+
+    colorBg = `style="background-color: ${bgColor}"`
+  }
   return `
-  <div class="${mainTaskClass}" data-task-id="${task.id}">
+  <div class="${mainTaskClass}" ${colorBg} data-task-id="${task.id}">
     <img class="${mainTaskIcon}" src="${icon}" alt="icon">
     <p class="${inputClass}">${task.title}</p>
     <input type="date" class="${mainTaskDate}" value="${task.date}">
@@ -87,7 +100,7 @@ function taskTemplate ({ task, completed }) {
   `
 }
 
-export function renderTask ({ task }) {
+export function renderTask ({ task, color }) {
   let div
   let completed
 
@@ -99,7 +112,7 @@ export function renderTask ({ task }) {
     div = document.querySelector(`#${mainTaskListNotCompleted}`)
     completed = false
   }
-  const template = taskTemplate({ task, completed })
+  const template = taskTemplate({ task, completed, color })
 
   div.insertAdjacentHTML('beforeend', template)
 }
