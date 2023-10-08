@@ -4,7 +4,10 @@ import {
   confirmationCancel,
   addProjectButtonClass,
   addProjectIconClass,
-  projectDeleteButton
+  projectDeleteButton,
+  projectColor,
+  confirmationDiv,
+  navContainer
 } from '../../views/Layouts/sidebar/sidebar'
 
 import {
@@ -32,6 +35,7 @@ export default class ControllerProjects {
 
   initializeControllerProjects = () => {
     this.projectsDiv.addEventListener('click', this._projectDivHandler)
+    this.projectsDiv.addEventListener('input', this._colorInput)
 
     const projects = this.projectModel.getAllProjects()
     this.view.renderAllProjects({ div: this.projectsDiv, projects })
@@ -43,6 +47,7 @@ export default class ControllerProjects {
     // confirm project and project name
     else if (this._clickOnConfirmationDiv(event)) return 0
     else if (this._deleteProjectClick(event)) return 0
+    else if (this._colorInputClick(event)) return 0
     // other
     this._clickOnProject(event)
   }
@@ -70,7 +75,7 @@ export default class ControllerProjects {
       const id = newProject.id
 
       if (isStored) {
-        this.view.renderProject({ div: this.projectsDiv, id, name })
+        this.view.renderProject({ div: this.projectsDiv, id, name, color: newProject.color })
         this.view.renderAddProjectButton({ div: this.projectsDiv })
         return true
       } else {
@@ -84,29 +89,29 @@ export default class ControllerProjects {
       return true
     }
 
+    if (event.target.classList.contains(confirmationDiv)) {
+      return true
+    }
+
     return false
   }
 
   // Checks if we clicked a project
   _clickOnProject = (event) => {
+    // get the container whatever we clikc container or element inside the container
+    // like the title of the project.
+    const projectContainer = event.target.classList.contains(navContainer) ? event.target : event.target.parentNode
+    if (!projectContainer.classList.contains(navContainer)) return 0
+
     const projectsArr = this.projectModel.getAllProjects()
 
-    // checks if we clicked in the project div in sidebar or in one of his sons
-    // the sons are the name of the project and the icon of the project.
-    // clicking on the son should also load the page.
-    const clickedId = event.target.dataset.projectId
-    const parentClickedId = event.target.parentNode.dataset.projectId
+    const projectID = projectContainer.dataset.projectId
+    const isClickedIdInArray = projectsArr.some(project => project.id === projectID)
 
-    const isClickedIdInArray = projectsArr.some(project => project.id === clickedId)
-    const isParentClickedIdInArray = projectsArr.some(project => project.id === parentClickedId)
-
-    if (isClickedIdInArray || isParentClickedIdInArray) {
-      // gets the id whatever it is from parent or actual element clicked
-      const id = isClickedIdInArray ? clickedId : parentClickedId
-
+    if (isClickedIdInArray) {
       // find the project that we clicked in the project array
-      const project = projectsArr.find(project => project.id === id)
-      this._projectLoad({ projectID: id, project })
+      const project = projectsArr.find(project => project.id === projectID)
+      this._projectLoad({ projectID, project })
       this.view.activePageStyle({ div: event.target })
     }
   }
@@ -118,11 +123,19 @@ export default class ControllerProjects {
     tasks = filterByProject({ tasks, projectID })
     const completedTasks = filterCompletedTasks({ tasks })
     const notCompletedTasks = filterNotCompletedTasks({ tasks })
+
+    // array same size as completed tasks with the color of the project
+    // as all the tasks are same project -> will have same color.
+    const colorCompletedTasks = completedTasks.map(el => project.color)
+    const colorNotCompletedTasks = notCompletedTasks.map(el => project.color)
+
     this.view.renderPage({
       div: this.mainDiv,
       completedTasks,
       notCompletedTasks,
-      name: project.name
+      name: project.name,
+      colorCompletedTasks,
+      colorNotCompletedTasks
     })
 
     this.setCurrentProject({ projectId: projectID })
@@ -138,7 +151,7 @@ export default class ControllerProjects {
       const tasks = this.taskModel.getAllTasks()
       const projectTasks = filterByProject({ tasks, projectID })
       this.taskModel.deleteManyTasks({ tasksArray: projectTasks })
-      this.projectModel.deleteProject({ projectID })
+      this.projectModel.deleteProject({ id: projectID })
 
       // DELETE VIEW
       projectElement.remove()
@@ -154,6 +167,32 @@ export default class ControllerProjects {
         this.reloadSection({ loadHome: false })
       }
 
+      return true
+    }
+  }
+
+  _colorInput = (event) => {
+    const colorInput = event.target
+    if (colorInput.classList.contains(projectColor)) {
+      const projectID = colorInput.parentNode.dataset.projectId
+      const updateValue = colorInput.value
+
+      this.projectModel.updateProject({
+        id: projectID,
+        updatedFields: {
+          color: updateValue
+        }
+      })
+
+      return true
+    }
+  }
+
+  // This is just so we don't select the project when trying to
+  // change the color of the color input.
+  _colorInputClick = (event) => {
+    const colorInput = event.target
+    if (colorInput.classList.contains(projectColor)) {
       return true
     }
   }

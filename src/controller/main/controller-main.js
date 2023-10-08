@@ -67,9 +67,16 @@ export default class ControllerMain {
   }
 
   _handleClick = (event) => {
-    this._AddTask(event)
-    this._completeTaskClick(event)
-    this._deleteTaskClick(event)
+    let eventExecuted = false
+
+    eventExecuted = this._AddTask(event)
+    if (eventExecuted) return 0
+
+    eventExecuted = this._completeTaskClick(event)
+    if (eventExecuted) return 0
+
+    eventExecuted = this._deleteTaskClick(event)
+    if (eventExecuted) return 0
   }
 
   _AddTask = (event) => {
@@ -94,7 +101,10 @@ export default class ControllerMain {
       } else {
         console.error('Task Not Stored')
       }
+      return true
     }
+
+    return false
   }
 
   _getDateBySection = () => {
@@ -127,7 +137,7 @@ export default class ControllerMain {
 
       if (!isStored) {
         console.error('task not stored')
-        return 0
+        return true
       }
 
       const completed = task.completed
@@ -140,7 +150,7 @@ export default class ControllerMain {
 
       if (!isUpdated) {
         console.error('task not updated')
-        return 0
+        return true
       }
 
       const { project } = this.projectModel.getProject({ id: task.projectID })
@@ -153,7 +163,10 @@ export default class ControllerMain {
       setTimeout(() => {
         element.classList.remove('activeTask')
       }, 2000)
+
+      return true
     }
+    return false
   }
 
   _dateInputChange = (event) => {
@@ -166,7 +179,7 @@ export default class ControllerMain {
 
       if (!isStored) {
         console.error('task not stored on change date')
-        return 0
+        return true
       }
 
       // const { updatedTask, isUpdated } =
@@ -178,7 +191,9 @@ export default class ControllerMain {
       })
 
       this.reloadSection({})
+      return true
     }
+    return false
   }
 
   _deleteTaskClick = (event) => {
@@ -188,6 +203,8 @@ export default class ControllerMain {
       const id = taskElement.dataset.taskId
       this.taskModel.deleteTask({ id })
       taskElement.remove()
+      return true
     }
+    return false
   }
 }

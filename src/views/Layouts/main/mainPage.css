@@ -131,3 +131,41 @@
         outline-offset: -3px;
         margin: -1px /* so it does not move after quiting the border style */
     }
+
+/* TASK DETAILS */
+.taskDetails__div {
+    padding: 5px;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+    .taskDetails__divTitle {
+        display: flex;
+        gap: 5px;
+    }
+
+        .taskDetails__icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .taskDetails__title {
+
+        }
+
+    .taskDetails__projects {
+
+    }
+
+    .taskDetails__date {
+
+    }
+
+    .taskDetails__description {
+
+    }

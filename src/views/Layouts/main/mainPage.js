@@ -116,3 +116,34 @@ export function renderTask ({ task, color }) {
 
   div.insertAdjacentHTML('beforeend', template)
 }
+
+const taskDetailDiv = 'taskDetails__div'
+const taskDetailDivTitle = 'taskDetails__divTitle'
+const taskDetailIcon = 'taskDetails__icon'
+const taskDetailTitle = 'taskDetails__title'
+const taskDetailProject = 'taskDetails__projects'
+const taskDetailDate = 'taskDetails__date'
+const taskDetailDescription = 'taskDetails__description'
+export function taskDetailTemplate ({ task, project, projectArray }) {
+  let icon
+
+  if (task.completed) {
+    icon = circleCheck
+  } else {
+    icon = circle
+  }
+
+  return `
+  <div class="${taskDetailDiv}" data-task-id="${task.id}">
+    <div class="${taskDetailDivTitle}">
+      <img class="${taskDetailIcon}" src="${icon}" alt="icon">
+      <input type="text" class="${taskDetailTitle}" value="${task.title}">
+    <div>
+    <select class="${taskDetailProject}">
+      ${projectArray.map(proj => `<option>${proj}</option>`).join('')}
+    </select>
+    <input type="date" class="${taskDetailDate}" value="${task.date}">
+    <input type="text" class="${taskDetailDescription}" value="${task.title}">
+  </div>
+  `
+}
