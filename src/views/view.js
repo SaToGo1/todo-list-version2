@@ -4,7 +4,8 @@ import { headerTemplate } from './Layouts/header/header'
 import {
   mainTemplate,
   renderPage,
-  renderTask
+  renderTask,
+  renderTaskDetail
 } from './Layouts/main/mainPage.js'
 
 import {
@@ -83,5 +84,9 @@ export default class View {
 
   renderTask = ({ task, color }) => {
     renderTask({ task, color })
+  }
+
+  renderTaskDetail = ({ div, task, project, projectArray }) => {
+    renderTaskDetail({ div, task, project, projectArray })
   }
 }

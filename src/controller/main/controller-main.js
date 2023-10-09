@@ -14,7 +14,8 @@ import {
 import {
   mainTaskIcon,
   mainTaskDate,
-  mainTaskDelete
+  mainTaskDelete,
+  mainTaskClass
 } from '../../views/Layouts/main/mainPage'
 
 import {
@@ -69,13 +70,20 @@ export default class ControllerMain {
   _handleClick = (event) => {
     let eventExecuted = false
 
+    // ADD TASK
     eventExecuted = this._AddTask(event)
     if (eventExecuted) return 0
 
+    // COMPLETE TASK
     eventExecuted = this._completeTaskClick(event)
     if (eventExecuted) return 0
 
+    // DELETE TASK
     eventExecuted = this._deleteTaskClick(event)
+    if (eventExecuted) return 0
+
+    // CLICK ON THE TASK
+    eventExecuted = this._taskDetailClick(event)
     if (eventExecuted) return 0
   }
 
@@ -206,5 +214,20 @@ export default class ControllerMain {
       return true
     }
     return false
+  }
+
+  _taskDetailClick = (event) => {
+    const taskContainer = event.target.classList.contains(mainTaskClass) ? event.target : event.target.parentNode
+    if (!taskContainer.classList.contains(mainTaskClass)) return 0
+
+    console.log('testing if im in')
+    const taskID = taskContainer.dataset.taskId
+    console.log('controller main task detalclick task ID', taskID)
+
+    const { task } = this.taskModel.getTask({ id: taskID })
+    const projectArray = this.projectModel.getAllProjects()
+    const { project } = this.projectModel.getProject({ id: task.projectID })
+
+    this.view.renderTaskDetail({ div: this.mainDiv, task, project, projectArray })
   }
 }

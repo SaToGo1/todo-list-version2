@@ -36,12 +36,13 @@ function inputTaskBarTemplate () {
   `
 }
 
+const mainTaskPage = 'main__taskPage'
 const mainTaskList = 'main__taskList'
 const mainTaskListCompleted = 'main__taskListCompleted'
 const mainTaskListNotCompleted = 'main__taskListNotCompleted'
 export function renderPage ({ div, completedTasks, notCompletedTasks, name, colorCompletedTasks, colorNotCompletedTasks }) {
   const template = `
-  <main class="${mainClass}">
+  <div class=${mainTaskPage}>
     <h2>${name}</h2>
     ${inputTaskBarTemplate()}
     <h3>Tasks</h3>
@@ -58,12 +59,12 @@ export function renderPage ({ div, completedTasks, notCompletedTasks, name, colo
         return taskTemplate({ task, completed: true, color })
       }).join('')}
     </div>
-  </main>`
+  </div>`
 
   div.innerHTML = template
 }
 
-const mainTaskClass = 'main__task'
+export const mainTaskClass = 'main__task'
 export const mainTaskIcon = 'main__taskIcon'
 const mainTaskText = 'main__taskText'
 const mainTaskTextCompleted = 'main__taskText-Completed'
@@ -123,6 +124,7 @@ const taskDetailIcon = 'taskDetails__icon'
 const taskDetailTitle = 'taskDetails__title'
 const taskDetailProject = 'taskDetails__projects'
 const taskDetailDate = 'taskDetails__date'
+const taskDetailDivDescription = 'taskDetails__divDescription'
 const taskDetailDescription = 'taskDetails__description'
 export function taskDetailTemplate ({ task, project, projectArray }) {
   let icon
@@ -133,17 +135,32 @@ export function taskDetailTemplate ({ task, project, projectArray }) {
     icon = circle
   }
 
+  // <input type="text" class="${taskDetailTitle}" value="${task.title}">
+
   return `
-  <div class="${taskDetailDiv}" data-task-id="${task.id}">
-    <div class="${taskDetailDivTitle}">
-      <img class="${taskDetailIcon}" src="${icon}" alt="icon">
-      <input type="text" class="${taskDetailTitle}" value="${task.title}">
-    <div>
-    <select class="${taskDetailProject}">
-      ${projectArray.map(proj => `<option>${proj}</option>`).join('')}
-    </select>
-    <input type="date" class="${taskDetailDate}" value="${task.date}">
-    <input type="text" class="${taskDetailDescription}" value="${task.title}">
-  </div>
+    <div class="${taskDetailDiv}" data-task-id="${task.id}">
+      <div class="${taskDetailDivTitle}">
+        <img class="${taskDetailIcon}" src="${icon}" alt="icon">
+        <div class="${taskDetailTitle}" contenteditable="true">${task.title}</div>
+      </div>
+      <label for="${taskDetailProject}">Select Project:</label>
+      <select id="${taskDetailProject}" class="${taskDetailProject}">
+        ${projectArray.map(proj => `<option data-project-selection-id=${proj.id}>${proj.name}</option>`).join('')}
+      </select>
+      <label for="${taskDetailDate}">Due Date:</label>
+      <input id="${taskDetailDate}" type="date" class="${taskDetailDate}" value="${task.date}">
+
+      <label for="${taskDetailDescription}">Task Description:</label>
+      <div class="${taskDetailDivDescription}">
+        <div id="${taskDetailDescription}" class="${taskDetailDescription}" contenteditable="true">${task.description}</div>
+      </div>
+    </div>
+
   `
+}
+
+export function renderTaskDetail ({ div, task, project, projectArray }) {
+  const template = taskDetailTemplate({ task, project, projectArray })
+
+  div.insertAdjacentHTML('beforeend', template)
 }
