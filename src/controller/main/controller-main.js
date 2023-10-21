@@ -100,7 +100,7 @@ export default class ControllerMain {
 
     let containsTaskDetails = false
     for (let i = 0; i < classList.length; i++) {
-      if (classList[i].startsWith('taskDetails__')) {
+      if (classList[i].startsWith('taskDetails')) {
         containsTaskDetails = true
         break
       }

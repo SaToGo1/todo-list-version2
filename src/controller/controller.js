@@ -54,6 +54,7 @@ export default class Controller {
     // TASKS.
     this.controllerMain.initializeControllerMain()
     // ...
+    this.removeTaskDetails()
     return 0
   }
 
@@ -77,5 +78,12 @@ export default class Controller {
 
   reloadSection = ({ loadHome = false }) => {
     this.controllerSections.reloadSection({ loadHome })
+  }
+
+  removeTaskDetails = () => {
+    const nav = document.querySelector('nav')
+    const header = document.querySelector('header')
+    nav.addEventListener('click', this.controllerMain._removeDetails)
+    header.addEventListener('click', this.controllerMain._removeDetails)
   }
 }

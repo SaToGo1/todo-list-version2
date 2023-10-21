@@ -141,6 +141,7 @@ export function taskDetailTemplate ({ task, project, projectArray }) {
         <img class="${taskDetailIcon}" src="${icon}" alt="icon">
         <div class="${taskDetailTitle}" contenteditable="true">${task.title}</div>
       </div>
+      <hr class="taskDetail__hr">
       <label for="${taskDetailProject}">Select Project:</label>
       <select id="${taskDetailProject}" class="${taskDetailProject}">
         ${projectArray.map(proj => `<option data-project-selection-id=${proj.id}>${proj.name}</option>`).join('')}
