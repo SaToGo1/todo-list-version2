@@ -3,15 +3,14 @@
 
 // CONSTANTS - add task bar - classes/Ids
 import {
+  // CONSTANTS - add task bar - classes/Ids
   mainAddTaskDiv,
   mainAddTaskButton,
   mainAddTaskInput,
   mainAddTaskIcon,
-  mainAddTaskDiv_focus
-} from '../../views/Layouts/main/mainPage'
+  mainAddTaskDiv_focus,
 
-// CONSTANTS - task - classes/Ids
-import {
+  // CONSTANTS - task - classes/Ids
   mainTaskIcon,
   mainTaskDate,
   mainTaskDelete,
@@ -42,6 +41,9 @@ export default class ControllerMain {
 
     // DOM
     this.mainDiv = document.querySelector('.main')
+
+    // CONTROLL VARIABLES
+    this._isDetailOpen = false
   }
 
   initializeControllerMain = () => {
@@ -82,9 +84,30 @@ export default class ControllerMain {
     eventExecuted = this._deleteTaskClick(event)
     if (eventExecuted) return 0
 
-    // CLICK ON THE TASK
+    // CLICK ON THE TASK TO OPEN DETAILS
+    eventExecuted = this._taskOpenDetailClick(event)
+    if (eventExecuted) return 0
+
+    // DetailClicks
     eventExecuted = this._taskDetailClick(event)
     if (eventExecuted) return 0
+
+    this._removeDetails()
+  }
+
+  _taskDetailClick = (event) => {
+    const classList = event.target.classList
+
+    let containsTaskDetails = false
+    for (let i = 0; i < classList.length; i++) {
+      if (classList[i].startsWith('taskDetails__')) {
+        containsTaskDetails = true
+        break
+      }
+    }
+
+    if (!containsTaskDetails) return false
+    return true
   }
 
   _AddTask = (event) => {
@@ -172,6 +195,7 @@ export default class ControllerMain {
         element.classList.remove('activeTask')
       }, 2000)
 
+      this._reloadDetails()
       return true
     }
     return false
@@ -198,7 +222,9 @@ export default class ControllerMain {
         }
       })
 
+      this._saveDetails()
       this.reloadSection({})
+      this._loadDetails()
       return true
     }
     return false
@@ -216,18 +242,49 @@ export default class ControllerMain {
     return false
   }
 
-  _taskDetailClick = (event) => {
+  _taskOpenDetailClick = (event) => {
+    // click on task or son of task(text inside task div)
     const taskContainer = event.target.classList.contains(mainTaskClass) ? event.target : event.target.parentNode
-    if (!taskContainer.classList.contains(mainTaskClass)) return 0
+    if (!taskContainer.classList.contains(mainTaskClass)) return false
 
-    console.log('testing if im in')
     const taskID = taskContainer.dataset.taskId
-    console.log('controller main task detalclick task ID', taskID)
 
-    const { task } = this.taskModel.getTask({ id: taskID })
+    this._openTaskDetails({ id: taskID })
+    return true
+  }
+
+  _openTaskDetails = ({ id }) => {
+    const { task } = this.taskModel.getTask({ id })
     const projectArray = this.projectModel.getAllProjects()
     const { project } = this.projectModel.getProject({ id: task.projectID })
 
+    // if details is open remove details and load new ones.
+    const taskDetail = document.querySelector('.taskDetails__div')
+    taskDetail?.remove()
+
     this.view.renderTaskDetail({ div: this.mainDiv, task, project, projectArray })
+  }
+
+  _saveDetails = () => {
+    const taskDetailID = document.querySelector('.taskDetails__div')?.dataset.taskId
+    if (taskDetailID === undefined) return
+    this.detailsSaved = taskDetailID
+  }
+
+  _loadDetails = () => {
+    if (this.detailsSaved === undefined) return
+    this._openTaskDetails({ id: this.detailsSaved })
+    this.detailsSaved = undefined
+  }
+
+  // not very efficient
+  _reloadDetails = () => {
+    this._saveDetails()
+    this._loadDetails()
+  }
+
+  _removeDetails = () => {
+    const taskDetail = document.querySelector('.taskDetails__div')
+    taskDetail?.remove()
   }
 }

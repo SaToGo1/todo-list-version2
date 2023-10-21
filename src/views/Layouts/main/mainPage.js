@@ -30,7 +30,7 @@ function inputTaskBarTemplate () {
         >
       </button>
       <input class="${mainAddTaskInput}" id="${mainAddTaskInput}" 
-        type="text" 
+        type="text"
       >
     </div>
   `
@@ -134,8 +134,6 @@ export function taskDetailTemplate ({ task, project, projectArray }) {
   } else {
     icon = circle
   }
-
-  // <input type="text" class="${taskDetailTitle}" value="${task.title}">
 
   return `
     <div class="${taskDetailDiv}" data-task-id="${task.id}">
