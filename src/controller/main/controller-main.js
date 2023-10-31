@@ -47,14 +47,18 @@ export default class ControllerMain {
   }
 
   initializeControllerMain = () => {
+    // FOCUS EVENT
     this.mainDiv.addEventListener('focusin', this._addTaskBarFocusOutline)
     this.mainDiv.addEventListener('focusout', this._addTaskBarFocusOutline)
 
-    this.mainDiv.addEventListener('click', this._handleClick)
-
+    // CHANGE EVENT
     this.mainDiv.addEventListener('change', this._dateInputChange)
+
+    // CLICK EVENT
+    this.mainDiv.addEventListener('click', this._handleClick)
   }
 
+  // FOCUS EVENT
   _addTaskBarFocusOutline = (event) => {
     if (event.target.id === mainAddTaskDiv ||
     event.target.id === mainAddTaskButton ||
@@ -69,47 +73,65 @@ export default class ControllerMain {
     }
   }
 
+  // CHANGE EVENT
+  _dateInputChange = (event) => {
+    if (event.target.classList.contains(mainTaskDate)) {
+      const updatedDate = event.target.value
+
+      const taskDOM = event.target.parentNode
+      const taskID = taskDOM.dataset.taskId
+      const { isStored } = this.taskModel.getTask({ id: taskID })
+
+      if (!isStored) {
+        console.error('task not stored on change date')
+        return true
+      }
+
+      // const { updatedTask, isUpdated } =
+      this.taskModel.updateTask({
+        id: taskID,
+        updatedFields: {
+          date: updatedDate
+        }
+      })
+
+      this._saveDetails()
+      this.reloadSection({})
+      this._loadDetails()
+      return true
+    }
+    return false
+  }
+
+  // CLICK EVENT
   _handleClick = (event) => {
     let eventExecuted = false
 
-    // ADD TASK
+    // 1. ADD TASK
     eventExecuted = this._AddTask(event)
     if (eventExecuted) return 0
 
-    // COMPLETE TASK
+    // 2. COMPLETE TASK
     eventExecuted = this._completeTaskClick(event)
     if (eventExecuted) return 0
 
-    // DELETE TASK
+    // 3. DELETE TASK
     eventExecuted = this._deleteTaskClick(event)
     if (eventExecuted) return 0
 
-    // CLICK ON THE TASK TO OPEN DETAILS
+    // 4. CLICK ON THE TASK TO OPEN DETAILS
     eventExecuted = this._taskOpenDetailClick(event)
     if (eventExecuted) return 0
 
-    // DetailClicks
+    // 5. CLICK INSIDE DETAILS
     eventExecuted = this._taskDetailClick(event)
     if (eventExecuted) return 0
 
+    // If clicking out of details, remove details.
     this._removeDetails()
   }
 
-  _taskDetailClick = (event) => {
-    const classList = event.target.classList
-
-    let containsTaskDetails = false
-    for (let i = 0; i < classList.length; i++) {
-      if (classList[i].startsWith('taskDetails')) {
-        containsTaskDetails = true
-        break
-      }
-    }
-
-    if (!containsTaskDetails) return false
-    return true
-  }
-
+  // 1. ADD TASK
   _AddTask = (event) => {
     // click on the + button on the ADD TASK BAR
     if (event.target.id === mainAddTaskButton ||
@@ -138,28 +160,7 @@ export default class ControllerMain {
     return false
   }
 
-  _getDateBySection = () => {
-    const section = this.getCurrentSection()
-
-    switch (section) {
-      case HOME_SECTION:
-      case TODAY_SECTION:
-        return dateFunctions.today()
-
-      case TOMORROW_SECTION:
-        return dateFunctions.tomorrow()
-
-      case WEEK_SECTION:
-        return dateFunctions.endOfWeek()
-
-      case MONTH_SECTION:
-        return dateFunctions.endOfMonth()
-
-      default:
-        return dateFunctions.today()
-    }
-  }
-
+  // 2. COMPLETE TASK
   _completeTaskClick = (event) => {
     if (event.target.classList.contains(mainTaskIcon)) {
       const taskDOM = event.target.parentNode
@@ -201,35 +202,7 @@ export default class ControllerMain {
     return false
   }
 
-  _dateInputChange = (event) => {
-    if (event.target.classList.contains(mainTaskDate)) {
-      const updatedDate = event.target.value
-
-      const taskDOM = event.target.parentNode
-      const taskID = taskDOM.dataset.taskId
-      const { isStored } = this.taskModel.getTask({ id: taskID })
-
-      if (!isStored) {
-        console.error('task not stored on change date')
-        return true
-      }
-
-      // const { updatedTask, isUpdated } =
-      this.taskModel.updateTask({
-        id: taskID,
-        updatedFields: {
-          date: updatedDate
-        }
-      })
-
-      this._saveDetails()
-      this.reloadSection({})
-      this._loadDetails()
-      return true
-    }
-    return false
-  }
-
+  // 3. DELETE TASK
   _deleteTaskClick = (event) => {
     const deleteButton = event.target
     if (deleteButton.classList.contains(mainTaskDelete)) {
@@ -242,6 +215,29 @@ export default class ControllerMain {
     return false
   }
 
+  _getDateBySection = () => {
+    const section = this.getCurrentSection()
+
+    switch (section) {
+      case HOME_SECTION:
+      case TODAY_SECTION:
+        return dateFunctions.today()
+
+      case TOMORROW_SECTION:
+        return dateFunctions.tomorrow()
+
+      case WEEK_SECTION:
+        return dateFunctions.endOfWeek()
+
+      case MONTH_SECTION:
+        return dateFunctions.endOfMonth()
+
+      default:
+        return dateFunctions.today()
+    }
+  }
+
+  // 4. CLICK ON THE TASK TO OPEN DETAILS
   _taskOpenDetailClick = (event) => {
     // click on task or son of task(text inside task div)
     const taskContainer = event.target.classList.contains(mainTaskClass) ? event.target : event.target.parentNode
@@ -250,6 +246,22 @@ export default class ControllerMain {
     const taskID = taskContainer.dataset.taskId
 
     this._openTaskDetails({ id: taskID })
+    return true
+  }
+
+  // 5. CLICK INSIDE DETAILS
+  _taskDetailClick = (event) => {
+    const classList = event.target.classList
+
+    let containsTaskDetails = false
+    for (let i = 0; i < classList.length; i++) {
+      if (classList[i].startsWith('taskDetails')) {
+        containsTaskDetails = true
+        break
+      }
+    }
+
+    if (!containsTaskDetails) return false
     return true
   }
 
