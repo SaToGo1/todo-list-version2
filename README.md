@@ -19,6 +19,6 @@ Additionally, I introduced new features, including project colors and detailed t
 ![Pasted image 20230726035515](https://github.com/SaToGo1/todo-list-version2/assets/85353835/b2a2e321-b241-43e4-9647-da261e745a6c)
 
 #### Icons from
-https://fontawesome.com/icons
-https://boxicons.com/
-http://www.evericons.com/
+- https://fontawesome.com/icons
+- https://boxicons.com/
+- http://www.evericons.com/
