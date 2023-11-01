@@ -86,6 +86,10 @@ export default class View {
     renderTask({ task, color })
   }
 
+  // renderMultipleTasks ({ completedTasks, notCompletedTasks, colorCompletedTasks, colorNotCompletedTasks }) {
+  //   renderMultipleTasks({ completedTasks, notCompletedTasks, colorCompletedTasks, colorNotCompletedTasks })
+  // }
+
   renderTaskDetail = ({ div, task, project, projectArray }) => {
     renderTaskDetail({ div, task, project, projectArray })
   }

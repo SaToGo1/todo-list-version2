@@ -4,7 +4,7 @@ import {
   TOMORROW_SECTION,
   WEEK_SECTION,
   MONTH_SECTION
-} from '../../constants/section-constants.js'
+} from '../../../constants/section-constants.js'
 
 import * as dateFunctions from '../date-functions/dateFunctions.js'
 

@@ -28,6 +28,7 @@ export default class Controller {
       setCurrentSection: this.setCurrentSection,
       getCurrentSection: this.getCurrentSection
     })
+
     this.controllerProjects = new ControllerProjects({
       view,
       projectModel,
@@ -36,6 +37,7 @@ export default class Controller {
       getCurrentProject: this.getCurrentProject,
       reloadSection: this.reloadSection
     })
+
     this.controllerMain = new ControllerMain({
       view,
       taskModel,

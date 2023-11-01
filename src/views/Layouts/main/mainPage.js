@@ -101,6 +101,30 @@ function taskTemplate ({ task, completed, color }) {
   `
 }
 
+// export function renderMultipleTasks ({ completedTasks, notCompletedTasks, colorCompletedTasks, colorNotCompletedTasks }) {
+//   const notCompletedDiv = document.querySelector(`#${mainTaskListNotCompleted}`)
+//   const completedDiv = document.querySelector(`#${mainTaskListCompleted}`)
+
+//   notCompletedDiv.innerHTML = ''
+//   completedDiv.innerHTML = ''
+
+//   const notCompletedTasksTemplate = `
+//     ${notCompletedTasks.map((task, index) => {
+//       const color = colorNotCompletedTasks[index]
+//       return taskTemplate({ task, completed: false, color })
+//     }).join('')}
+//   `
+
+//   const completedTasksTemplate = `
+//     ${completedTasks.map((task, index) => {
+//       const color = colorCompletedTasks[index]
+//       return taskTemplate({ task, completed: true, color })
+//     }).join('')}
+//   `
+//   notCompletedDiv.append(notCompletedTasksTemplate)
+//   completedDiv.append(completedTasksTemplate)
+// }
+
 export function renderTask ({ task, color }) {
   let div
   let completed

@@ -11,7 +11,7 @@ import {
   filterNotCompletedTasks,
   filterBySection,
   colorfilter
-} from '../filterTasks/filterTasks.js'
+} from '../utils/filterTasks/filterTasks.js'
 
 export default class ControllerSection {
   constructor ({ view, sectionModel, taskModel, projectModel, setCurrentSection, getCurrentSection }) {

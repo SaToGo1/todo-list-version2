@@ -14,7 +14,9 @@ import {
   filterByProject,
   filterCompletedTasks,
   filterNotCompletedTasks
-} from '../filterTasks/filterTasks'
+} from '../utils/filterTasks/filterTasks'
+
+import debounce from '../utils/debounce'
 
 export default class ControllerProjects {
   constructor ({ view, projectModel, taskModel, setCurrentProject, getCurrentProject, reloadSection }) {
@@ -171,7 +173,7 @@ export default class ControllerProjects {
     }
   }
 
-  _colorInput = (event) => {
+  _colorInput = debounce((event) => {
     const colorInput = event.target
     if (colorInput.classList.contains(projectColor)) {
       const projectID = colorInput.parentNode.dataset.projectId
@@ -184,9 +186,16 @@ export default class ControllerProjects {
         }
       })
 
+      // TOO MANY petitions
+      // this slows down the app
+      // it should only change when the color is decided.
+      const projectsArr = this.projectModel.getAllProjects()
+      const project = projectsArr.find(project => project.id === projectID)
+      this._projectLoad({ projectID, project })
+
       return true
     }
-  }
+  }, 1000)
 
   // This is just so we don't select the project when trying to
   // change the color of the color input.

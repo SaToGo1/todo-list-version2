@@ -25,7 +25,7 @@ import {
   MONTH_SECTION
 } from '../../constants/section-constants.js'
 
-import * as dateFunctions from '../date-functions/dateFunctions.js'
+import * as dateFunctions from '../utils/date-functions/dateFunctions.js'
 
 export default class ControllerMain {
   constructor ({ view, taskModel, projectModel, getCurrentProject, getCurrentSection, reloadSection }) {

@@ -1,7 +1,7 @@
 import Task from '../models/tasks/task'
 import Project from '../models/projects/project'
 
-import { endOfWeek } from '../controller/date-functions/dateFunctions'
+import { endOfWeek } from '../controller/utils/date-functions/dateFunctions'
 const mockprojects = [
   new Project({
     id: '1',
