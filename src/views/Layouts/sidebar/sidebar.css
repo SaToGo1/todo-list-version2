@@ -203,4 +203,8 @@ input[type="color"] {
 
         cursor: pointer;
     }
+
+    .nav_projectColor:hover {
+        outline: 3px solid #000;
+    }
 /*End of color picker*/
