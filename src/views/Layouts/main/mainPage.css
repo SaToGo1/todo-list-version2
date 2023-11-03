@@ -96,11 +96,17 @@
         overflow: visible;
     }
 
-        .activeTask {
-            outline: 2px solid var(--color-accent);
-            border: 1px solid black;
-            outline-offset: -3px;
-        }
+            .main__task-active {
+                outline: 2px solid var(--color-accent);
+                border: 1px solid black;
+                outline-offset: -3px;
+            }
+
+            .activeTask {
+                outline: 2px solid var(--color-accent);
+                border: 1px solid black;
+                outline-offset: -3px;
+            }
 
         .main__taskIcon {
             width: 20px;

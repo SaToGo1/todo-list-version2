@@ -187,3 +187,12 @@ export function renderTaskDetail ({ div, task, project, projectArray }) {
 
   div.insertAdjacentHTML('beforeend', template)
 }
+
+const mainTaskActive = 'main__task-active'
+export function activeTaskStyle ({ div }) {
+  // Delete the active class of the previous active page.
+  const tasks = document.querySelectorAll(`.${mainTaskClass}`)
+  tasks.forEach(task => task.classList.remove(mainTaskActive))
+
+  div?.classList.add(mainTaskActive)
+}

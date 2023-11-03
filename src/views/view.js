@@ -5,7 +5,8 @@ import {
   mainTemplate,
   renderPage,
   renderTask,
-  renderTaskDetail
+  renderTaskDetail,
+  activeTaskStyle
 } from './Layouts/main/mainPage.js'
 
 import {
@@ -92,5 +93,9 @@ export default class View {
 
   renderTaskDetail = ({ div, task, project, projectArray }) => {
     renderTaskDetail({ div, task, project, projectArray })
+  }
+
+  activeTaskStyle ({ div }) {
+    activeTaskStyle({ div })
   }
 }

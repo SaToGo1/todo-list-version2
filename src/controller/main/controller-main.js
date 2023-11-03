@@ -119,6 +119,9 @@ export default class ControllerMain {
     eventExecuted = this._deleteTaskClick(event)
     if (eventExecuted) return 0
 
+    // CLICK ON DATE -> DON'T OPEN DETAILS
+    if (event.target.classList.contains(mainTaskDate)) return 0
+
     // 4. CLICK ON THE TASK TO OPEN DETAILS
     eventExecuted = this._taskOpenDetailClick(event)
     if (eventExecuted) return 0
@@ -249,6 +252,7 @@ export default class ControllerMain {
     const taskID = taskContainer.dataset.taskId
 
     this._openTaskDetails({ id: taskID })
+    this.view.activeTaskStyle({ div: taskContainer })
     return true
   }
 
@@ -301,6 +305,10 @@ export default class ControllerMain {
   _removeDetails = () => {
     const taskDetail = document.querySelector('.taskDetails__div')
     taskDetail?.remove()
+
+    // when closing the task also
+    // remove active style from task
+    this.view.activeTaskStyle({})
   }
 
   _isDetailsOpenById = ({ id }) => {
