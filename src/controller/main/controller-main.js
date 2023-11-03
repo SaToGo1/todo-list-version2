@@ -210,6 +210,9 @@ export default class ControllerMain {
       const id = taskElement.dataset.taskId
       this.taskModel.deleteTask({ id })
       taskElement.remove()
+
+      // if details is open close details
+      if (this._isDetailsOpenById({ id })) this._removeDetails()
       return true
     }
     return false
@@ -298,5 +301,15 @@ export default class ControllerMain {
   _removeDetails = () => {
     const taskDetail = document.querySelector('.taskDetails__div')
     taskDetail?.remove()
+  }
+
+  _isDetailsOpenById = ({ id }) => {
+    const taskDetail = document.querySelector('.taskDetails__div')
+    const taskId = taskDetail?.dataset.taskId
+
+    if (taskId === undefined) return false
+    if (taskId !== id) return false
+
+    return true
   }
 }
