@@ -6,7 +6,8 @@ import {
   renderPage,
   renderTask,
   renderTaskDetail,
-  activeTaskStyle
+  activeTaskStyle,
+  updatedTask
 } from './Layouts/main/mainPage.js'
 
 import {
@@ -85,6 +86,10 @@ export default class View {
 
   renderTask = ({ task, color }) => {
     renderTask({ task, color })
+  }
+
+  updateTask = ({ task }) => {
+    updatedTask({ task })
   }
 
   // renderMultipleTasks ({ completedTasks, notCompletedTasks, colorCompletedTasks, colorNotCompletedTasks }) {

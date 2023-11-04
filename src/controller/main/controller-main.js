@@ -14,7 +14,11 @@ import {
   mainTaskIcon,
   mainTaskDate,
   mainTaskDelete,
-  mainTaskClass
+  mainTaskClass,
+
+  // CONSTANTS - task details - classes/Ids
+  taskDetailTitle,
+  taskDetailDescription
 } from '../../views/Layouts/main/mainPage'
 
 import {
@@ -26,6 +30,8 @@ import {
 } from '../../constants/section-constants.js'
 
 import * as dateFunctions from '../utils/date-functions/dateFunctions.js'
+
+import debounce from '../utils/debounce'
 
 export default class ControllerMain {
   constructor ({ view, taskModel, projectModel, getCurrentProject, getCurrentSection, reloadSection }) {
@@ -48,11 +54,14 @@ export default class ControllerMain {
 
   initializeControllerMain = () => {
     // FOCUS EVENT
-    this.mainDiv.addEventListener('focusin', this._addTaskBarFocusOutline)
-    this.mainDiv.addEventListener('focusout', this._addTaskBarFocusOutline)
+    this.mainDiv.addEventListener('focusin', this._addTaskBarFocusOutline) // add task bar
+    this.mainDiv.addEventListener('focusout', this._addTaskBarFocusOutline) // add task bar
 
     // CHANGE EVENT
-    this.mainDiv.addEventListener('change', this._dateInputChange)
+    this.mainDiv.addEventListener('change', this._dateInputChange) // task date
+
+    // INPUT EVENT
+    this.mainDiv.addEventListener('input', this._changeDetails) // task details
 
     // CLICK EVENT
     this.mainDiv.addEventListener('click', this._handleClick)
@@ -73,7 +82,7 @@ export default class ControllerMain {
     }
   }
 
-  // CHANGE EVENT
+  // CHANGE EVENT DATE
   _dateInputChange = (event) => {
     if (event.target.classList.contains(mainTaskDate)) {
       const updatedDate = event.target.value
@@ -270,6 +279,54 @@ export default class ControllerMain {
 
     if (!containsTaskDetails) return false
     return true
+  }
+
+  // CHANGE EVENT DETAILS
+  _changeDetails = (event) => {
+    this._titleChangeDetails(event)
+    this._detailsDescriptionChange(event)
+  }
+
+  _titleChangeDetails = debounce((event) => {
+    const titleElement = event.target
+    if (!titleElement.classList.contains(taskDetailTitle)) return
+
+    const taskID = titleElement.dataset.taskId
+    const title = titleElement.textContent
+
+    const { updatedTask, isUpdated } = this.taskModel.updateTask({
+      id: taskID,
+      updatedFields: {
+        title
+      }
+    })
+
+    if (!isUpdated) {
+      console.error('task title not updated')
+      return
+    }
+
+    // Update the task in the task list
+    this.view.updateTask({ task: updatedTask })
+  }, 1000)
+
+  _detailsDescriptionChange = (event) => {
+    const descriptionElement = event.target
+    if (!descriptionElement.classList.contains(taskDetailDescription)) return false
+
+    const taskID = descriptionElement.dataset.taskId
+    const description = descriptionElement.textContent
+
+    const { isUpdated } = this.taskModel.updateTask({
+      id: taskID,
+      updatedFields: {
+        description
+      }
+    })
+
+    if (!isUpdated) {
+      console.error('task description not updated')
+    }
   }
 
   _openTaskDetails = ({ id }) => {

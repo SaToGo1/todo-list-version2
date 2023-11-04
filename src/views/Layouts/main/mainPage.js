@@ -142,14 +142,23 @@ export function renderTask ({ task, color }) {
   div.insertAdjacentHTML('beforeend', template)
 }
 
+export function updatedTask ({ task }) {
+  const taskElement = document.querySelector(`[data-task-id="${task.id}"]`)
+  const paragraph = taskElement.querySelector('p')
+  const date = taskElement.querySelector('input')
+
+  paragraph.textContent = task.title
+  date.value = task.date
+}
+
 const taskDetailDiv = 'taskDetails__div'
 const taskDetailDivTitle = 'taskDetails__divTitle'
 const taskDetailIcon = 'taskDetails__icon'
-const taskDetailTitle = 'taskDetails__title'
+export const taskDetailTitle = 'taskDetails__title'
 const taskDetailProject = 'taskDetails__projects'
 const taskDetailDate = 'taskDetails__date'
 const taskDetailDivDescription = 'taskDetails__divDescription'
-const taskDetailDescription = 'taskDetails__description'
+export const taskDetailDescription = 'taskDetails__description'
 export function taskDetailTemplate ({ task, project, projectArray }) {
   let icon
 
@@ -163,7 +172,7 @@ export function taskDetailTemplate ({ task, project, projectArray }) {
     <div class="${taskDetailDiv}" data-task-id="${task.id}">
       <div class="${taskDetailDivTitle}">
         <img class="${taskDetailIcon}" src="${icon}" alt="icon">
-        <div class="${taskDetailTitle}" contenteditable="true">${task.title}</div>
+        <div class="${taskDetailTitle}" contenteditable="true" data-task-id="${task.id}">${task.title}</div>
       </div>
       <hr class="taskDetail__hr">
       <label for="${taskDetailProject}">Select Project:</label>
@@ -175,7 +184,7 @@ export function taskDetailTemplate ({ task, project, projectArray }) {
 
       <label for="${taskDetailDescription}">Task Description:</label>
       <div class="${taskDetailDivDescription}">
-        <div id="${taskDetailDescription}" class="${taskDetailDescription}" contenteditable="true">${task.description}</div>
+        <div id="${taskDetailDescription}" class="${taskDetailDescription}" contenteditable="true" data-task-id="${task.id}">${task.description}</div>
       </div>
     </div>
 

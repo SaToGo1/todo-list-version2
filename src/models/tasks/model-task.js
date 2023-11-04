@@ -57,6 +57,14 @@ export default class TaskModel {
   updateTask = ({ id, updatedFields }) => {
     const taskToUpdate = this.tasks.find(task => task.id === id)
 
+    // VoidTitle
+    if (updatedFields.title === '') {
+      return {
+        updatedTask: taskToUpdate,
+        isUpdated: false
+      }
+    }
+
     if (taskToUpdate) {
       // Update the specified fields
       Object.assign(taskToUpdate, updatedFields)
