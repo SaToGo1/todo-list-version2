@@ -299,7 +299,7 @@ export default class ControllerMain {
     }
 
     const completed = task.completed
-    const { updatedTask, isUpdated } = this.taskModel.updateTask({
+    const { isUpdated } = this.taskModel.updateTask({
       id: taskID,
       updatedFields: {
         completed: !completed

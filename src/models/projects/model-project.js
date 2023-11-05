@@ -41,7 +41,7 @@ export default class ProjectModel {
   }
 
   getAllProjects () {
-    return this.projects
+    return [...this.projects]
   }
 
   getProject = ({ id }) => {

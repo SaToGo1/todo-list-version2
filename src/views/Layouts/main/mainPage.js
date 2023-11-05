@@ -163,6 +163,11 @@ const taskDetailsLabel = 'taskDetails__label'
 export function taskDetailTemplate ({ task, project, projectArray }) {
   let icon
 
+  projectArray.unshift({
+    name: 'none',
+    id: null
+  })
+
   if (task.completed) {
     icon = circleCheck
   } else {
@@ -178,7 +183,15 @@ export function taskDetailTemplate ({ task, project, projectArray }) {
       <hr class="taskDetail__hr">
       <label for="${taskDetailProject}" class="${taskDetailsLabel}">Select Project:</label>
       <select id="${taskDetailProject}" class="${taskDetailProject}">
-        ${projectArray.map(proj => `<option data-project-selection-id=${proj.id}>${proj.name}</option>`).join('')}
+        ${projectArray.map(proj => {
+          if (project === undefined && proj.name === 'none') {
+            return `<option data-project-selection-id="${proj.id}" selected>None</option>`
+          } else if (project?.name === proj.name) {
+            return `<option data-project-selection-id=${proj.id} selected>${proj.name}</option>`
+          }
+
+          return `<option data-project-selection-id=${proj.id}>${proj.name}</option>`
+        }).join('')}
       </select>
       <label for="${taskDetailDate}" class="${taskDetailsLabel}">Due Date:</label>
       <input id="${taskDetailDate}" type="date" class="${taskDetailDate}" value="${task.date}">
