@@ -100,7 +100,6 @@ export default class ControllerMain {
         return true
       }
 
-      // const { updatedTask, isUpdated } =
       this.taskModel.updateTask({
         id: taskID,
         updatedFields: {
@@ -281,10 +280,7 @@ export default class ControllerMain {
       }
     }
 
-    if (!containsTaskDetails) {
-      console.log('not details')
-      return false
-    }
+    if (!containsTaskDetails) return false
 
     this._clickCompleteDetails(event)
     return true
@@ -294,7 +290,6 @@ export default class ControllerMain {
     const completeDetails = event.target
     if (!completeDetails.classList.contains(taskDetailIcon)) return
 
-    // TODO TODO TODO TODO TODO
     const taskID = completeDetails.parentNode.parentNode.dataset.taskId
     const { task, isStored } = this.taskModel.getTask({ id: taskID })
 
@@ -322,13 +317,33 @@ export default class ControllerMain {
     this._loadDetails()
   }
 
-  // CHANGE EVENT DETAILS
+  // CHANGE EVENT DATE DETAILS
   _changeDateDetails = (event) => {
-    const completeDetails = event.target
-    if (!completeDetails.classList.contains(taskDetailDate)) return false
+    const dateDetails = event.target
+    if (!dateDetails.classList.contains(taskDetailDate)) return false
 
-    // TODO TODO TODO TODO TODO
-    console.log('Date Details')
+    const updatedDate = dateDetails.value
+
+    const taskID = dateDetails.parentNode.dataset.taskId
+    const { isStored } = this.taskModel.getTask({ id: taskID })
+
+    if (!isStored) {
+      console.error('task not stored on change date')
+      return true
+    }
+
+    this.taskModel.updateTask({
+      id: taskID,
+      updatedFields: {
+        date: updatedDate
+      }
+    })
+
+    this._saveDetails()
+    this.reloadSection({})
+    this.reloadProject()
+    this._loadDetails()
+    return true
   }
 
   // INPUT EVENT DETAILS
@@ -399,7 +414,14 @@ export default class ControllerMain {
 
   _loadDetails = () => {
     if (this.detailsSaved === undefined) return
+
+    // Open details
     this._openTaskDetails({ id: this.detailsSaved })
+
+    // Active style of the task
+    const taskContainer = document.getElementById(`${this.detailsSaved}`)
+    this.view.activeTaskStyle({ div: taskContainer })
+
     this.detailsSaved = undefined
   }
 

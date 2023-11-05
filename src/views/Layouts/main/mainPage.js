@@ -92,7 +92,7 @@ function taskTemplate ({ task, completed, color }) {
     colorBg = `style="background-color: ${bgColor}"`
   }
   return `
-  <div class="${mainTaskClass}" ${colorBg} data-task-id="${task.id}">
+  <div class="${mainTaskClass}" id="${task.id}" ${colorBg} data-task-id="${task.id}">
     <img class="${mainTaskIcon}" src="${icon}" alt="icon">
     <p class="${inputClass}">${task.title}</p>
     <input type="date" class="${mainTaskDate}" value="${task.date}">
