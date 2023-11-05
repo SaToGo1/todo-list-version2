@@ -205,4 +205,13 @@ export default class ControllerProjects {
       return true
     }
   }
+
+  reloadProject = () => {
+    const currentProjectID = this.getCurrentProject()
+    const { project } = this.projectModel.getProject({ id: currentProjectID })
+
+    if (currentProjectID !== '') {
+      this._projectLoad({ projectID: currentProjectID, project })
+    }
+  }
 }

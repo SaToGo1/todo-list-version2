@@ -44,7 +44,8 @@ export default class Controller {
       projectModel,
       getCurrentProject: this.getCurrentProject,
       getCurrentSection: this.getCurrentSection,
-      reloadSection: this.reloadSection
+      reloadSection: this.reloadSection,
+      reloadProject: this.reloadProject
     })
   }
 
@@ -80,6 +81,10 @@ export default class Controller {
 
   reloadSection = ({ loadHome = false }) => {
     this.controllerSections.reloadSection({ loadHome })
+  }
+
+  reloadProject = () => {
+    this.controllerProjects.reloadProject()
   }
 
   removeTaskDetails = () => {

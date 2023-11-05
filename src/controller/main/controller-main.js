@@ -18,7 +18,9 @@ import {
 
   // CONSTANTS - task details - classes/Ids
   taskDetailTitle,
-  taskDetailDescription
+  taskDetailDescription,
+  taskDetailIcon,
+  taskDetailDate
 } from '../../views/Layouts/main/mainPage'
 
 import {
@@ -34,7 +36,7 @@ import * as dateFunctions from '../utils/date-functions/dateFunctions.js'
 import debounce from '../utils/debounce'
 
 export default class ControllerMain {
-  constructor ({ view, taskModel, projectModel, getCurrentProject, getCurrentSection, reloadSection }) {
+  constructor ({ view, taskModel, projectModel, getCurrentProject, getCurrentSection, reloadSection, reloadProject }) {
     // CLASSES
     this.view = view
     this.taskModel = taskModel
@@ -44,6 +46,7 @@ export default class ControllerMain {
     this.getCurrentProjectID = getCurrentProject // get project id
     this.getCurrentSection = getCurrentSection // get section string
     this.reloadSection = reloadSection
+    this.reloadProject = reloadProject
 
     // DOM
     this.mainDiv = document.querySelector('.main')
@@ -59,9 +62,10 @@ export default class ControllerMain {
 
     // CHANGE EVENT
     this.mainDiv.addEventListener('change', this._dateInputChange) // task date
+    this.mainDiv.addEventListener('change', this._changeDateDetails) // details date
 
     // INPUT EVENT
-    this.mainDiv.addEventListener('input', this._changeDetails) // task details
+    this.mainDiv.addEventListener('input', this._inputDetails) // task details
 
     // CLICK EVENT
     this.mainDiv.addEventListener('click', this._handleClick)
@@ -277,17 +281,63 @@ export default class ControllerMain {
       }
     }
 
-    if (!containsTaskDetails) return false
+    if (!containsTaskDetails) {
+      console.log('not details')
+      return false
+    }
+
+    this._clickCompleteDetails(event)
     return true
   }
 
-  // CHANGE EVENT DETAILS
-  _changeDetails = (event) => {
-    this._titleChangeDetails(event)
-    this._detailsDescriptionChange(event)
+  _clickCompleteDetails = (event) => {
+    const completeDetails = event.target
+    if (!completeDetails.classList.contains(taskDetailIcon)) return
+
+    // TODO TODO TODO TODO TODO
+    const taskID = completeDetails.parentNode.parentNode.dataset.taskId
+    const { task, isStored } = this.taskModel.getTask({ id: taskID })
+
+    if (!isStored) {
+      console.error('task not stored')
+      return true
+    }
+
+    const completed = task.completed
+    const { updatedTask, isUpdated } = this.taskModel.updateTask({
+      id: taskID,
+      updatedFields: {
+        completed: !completed
+      }
+    })
+
+    if (!isUpdated) {
+      console.error('task not updated')
+      return true
+    }
+
+    this._saveDetails()
+    this.reloadSection({})
+    this.reloadProject()
+    this._loadDetails()
   }
 
-  _titleChangeDetails = debounce((event) => {
+  // CHANGE EVENT DETAILS
+  _changeDateDetails = (event) => {
+    const completeDetails = event.target
+    if (!completeDetails.classList.contains(taskDetailDate)) return false
+
+    // TODO TODO TODO TODO TODO
+    console.log('Date Details')
+  }
+
+  // INPUT EVENT DETAILS
+  _inputDetails = (event) => {
+    this._changeTitleDetails(event)
+    this._changeDescriptionDetails(event)
+  }
+
+  _changeTitleDetails = debounce((event) => {
     const titleElement = event.target
     if (!titleElement.classList.contains(taskDetailTitle)) return
 
@@ -310,7 +360,7 @@ export default class ControllerMain {
     this.view.updateTask({ task: updatedTask })
   }, 1000)
 
-  _detailsDescriptionChange = (event) => {
+  _changeDescriptionDetails = debounce((event) => {
     const descriptionElement = event.target
     if (!descriptionElement.classList.contains(taskDetailDescription)) return false
 
@@ -327,7 +377,7 @@ export default class ControllerMain {
     if (!isUpdated) {
       console.error('task description not updated')
     }
-  }
+  }, 1000)
 
   _openTaskDetails = ({ id }) => {
     const { task } = this.taskModel.getTask({ id })

@@ -153,12 +153,13 @@ export function updatedTask ({ task }) {
 
 const taskDetailDiv = 'taskDetails__div'
 const taskDetailDivTitle = 'taskDetails__divTitle'
-const taskDetailIcon = 'taskDetails__icon'
+export const taskDetailIcon = 'taskDetails__icon'
 export const taskDetailTitle = 'taskDetails__title'
 const taskDetailProject = 'taskDetails__projects'
-const taskDetailDate = 'taskDetails__date'
+export const taskDetailDate = 'taskDetails__date'
 const taskDetailDivDescription = 'taskDetails__divDescription'
 export const taskDetailDescription = 'taskDetails__description'
+const taskDetailsLabel = 'taskDetails__label'
 export function taskDetailTemplate ({ task, project, projectArray }) {
   let icon
 
@@ -175,14 +176,14 @@ export function taskDetailTemplate ({ task, project, projectArray }) {
         <div class="${taskDetailTitle}" contenteditable="true" data-task-id="${task.id}">${task.title}</div>
       </div>
       <hr class="taskDetail__hr">
-      <label for="${taskDetailProject}">Select Project:</label>
+      <label for="${taskDetailProject}" class="${taskDetailsLabel}">Select Project:</label>
       <select id="${taskDetailProject}" class="${taskDetailProject}">
         ${projectArray.map(proj => `<option data-project-selection-id=${proj.id}>${proj.name}</option>`).join('')}
       </select>
-      <label for="${taskDetailDate}">Due Date:</label>
+      <label for="${taskDetailDate}" class="${taskDetailsLabel}">Due Date:</label>
       <input id="${taskDetailDate}" type="date" class="${taskDetailDate}" value="${task.date}">
 
-      <label for="${taskDetailDescription}">Task Description:</label>
+      <label for="${taskDetailDescription}" class="${taskDetailsLabel}">Task Description:</label>
       <div class="${taskDetailDivDescription}">
         <div id="${taskDetailDescription}" class="${taskDetailDescription}" contenteditable="true" data-task-id="${task.id}">${task.description}</div>
       </div>
