@@ -20,7 +20,8 @@ import {
   taskDetailTitle,
   taskDetailDescription,
   taskDetailIcon,
-  taskDetailDate
+  taskDetailDate,
+  taskDetailProject
 } from '../../views/Layouts/main/mainPage'
 
 import {
@@ -62,7 +63,7 @@ export default class ControllerMain {
 
     // CHANGE EVENT
     this.mainDiv.addEventListener('change', this._dateInputChange) // task date
-    this.mainDiv.addEventListener('change', this._changeDateDetails) // details date
+    this.mainDiv.addEventListener('change', this._changeDetailsHandler) // details change
 
     // INPUT EVENT
     this.mainDiv.addEventListener('input', this._inputDetails) // task details
@@ -317,14 +318,20 @@ export default class ControllerMain {
     this._loadDetails()
   }
 
-  // CHANGE EVENT DATE DETAILS
+  // CHANGE DETAILS
+  _changeDetailsHandler = (event) => {
+    this._changeDateDetails(event)
+    this._changeProjectDetails(event)
+  }
+
+  // CHANGE DATE DETAILS
   _changeDateDetails = (event) => {
-    const dateDetails = event.target
-    if (!dateDetails.classList.contains(taskDetailDate)) return false
+    const dateInputDetails = event.target
+    if (!dateInputDetails.classList.contains(taskDetailDate)) return false
 
-    const updatedDate = dateDetails.value
+    const updatedDate = dateInputDetails.value
 
-    const taskID = dateDetails.parentNode.dataset.taskId
+    const taskID = dateInputDetails.parentNode.dataset.taskId
     const { isStored } = this.taskModel.getTask({ id: taskID })
 
     if (!isStored) {
@@ -344,6 +351,36 @@ export default class ControllerMain {
     this.reloadProject()
     this._loadDetails()
     return true
+  }
+
+  // CHANGE PROJECT DETAILS
+  _changeProjectDetails = (event) => {
+    const projectSelectDetails = event.target
+    if (!projectSelectDetails.classList.contains(taskDetailProject)) return false
+
+    const selectedOption = projectSelectDetails.options[projectSelectDetails.selectedIndex]
+    const projectID = selectedOption.dataset.projectSelectionId
+
+    const taskID = projectSelectDetails.parentNode.dataset.taskId
+    const { isStored } = this.taskModel.getTask({ id: taskID })
+
+    if (!isStored) {
+      console.error('task not stored on change date')
+      return true
+    }
+
+    this.taskModel.updateTask({
+      id: taskID,
+      updatedFields: {
+        projectID
+      }
+    })
+
+    // Actualize tasks and details
+    this._saveDetails()
+    this.reloadSection({})
+    this.reloadProject()
+    this._loadDetails()
   }
 
   // INPUT EVENT DETAILS
