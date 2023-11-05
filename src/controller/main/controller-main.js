@@ -415,17 +415,26 @@ export default class ControllerMain {
   _loadDetails = () => {
     if (this.detailsSaved === undefined) return
 
+    // Active style of the task
+    const taskContainer = document.getElementById(`${this.detailsSaved}`) // task in the task list
+    this.view.activeTaskStyle({ div: taskContainer })
+
+    // Next code works as intended, but i don't know if letting the details open
+    // even if the task is not in the task list, so even if you change the task date
+    // by mistake, you can just change again back from details.
+
+    // DONT OPEN DETAILS --> task is not in the task list
+    // if (taskContainer == null) {
+    //   this.detailsSaved = undefined
+    //   return
+    // }
+
     // Open details
     this._openTaskDetails({ id: this.detailsSaved })
-
-    // Active style of the task
-    const taskContainer = document.getElementById(`${this.detailsSaved}`)
-    this.view.activeTaskStyle({ div: taskContainer })
 
     this.detailsSaved = undefined
   }
 
-  // not very efficient
   _reloadDetails = () => {
     this._saveDetails()
     this._loadDetails()
