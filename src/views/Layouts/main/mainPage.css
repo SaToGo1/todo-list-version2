@@ -267,25 +267,17 @@
         flex: 1 1 0;
     }
 
-
 .animate-taskPage {
-    animation: main-animation 2s ease;
+    animation: main-animation 1s ease;
+}
+
+.animate-taskPage-close {
+    animation: main-animation-close 2s ease;
 }
 
 .animate-details {
-    animation: details-animation 2s ease;
+    animation: details-animation 1s ease;
 }
-
-/* @keyframes main-animation {
-    from {
-        transform: translateX(100%) scaleX(1);
-        transform-origin: right;
-    }
-    to {
-        transform: translateX(0) scaleX(0);
-        transform-origin: right;
-    }
-} */
 
 @keyframes details-animation {
     0% {
@@ -293,24 +285,16 @@
         right: 20px;
         top: 20px;
         bottom: 20px;
-        width: 35%;
+        width: 34%;
     } 
     
-    98% {
+    100% {
         position: absolute;
         right: 20px;
         top: 20px;
         bottom: 20px;
-        width: 35%;
+        width: 34%;
       }
-      
-    99% {
-        position: static;
-    }
-
-    100% {
-        position: static;
-    }
 }
 
 @keyframes main-animation {
@@ -318,16 +302,17 @@
         margin-right: 0;
       }
 
-    97% {
-        margin-right: 33%;
-    }
+    100% {
+        margin-right: 37%;
+    }  
+}
 
-    98% {
-        margin-right: 0%;
-    }
+@keyframes main-animation-close {
+    0% {
+        margin-right: 37%;
+      }
 
     100% {
         margin-right: 0;
-    }
-    
+    }  
 }

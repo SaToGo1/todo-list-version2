@@ -264,7 +264,7 @@ export default class ControllerMain {
 
     const taskID = taskContainer.dataset.taskId
 
-    this._openTaskDetails({ id: taskID })
+    this._openTaskDetailsWithAnimation({ id: taskID })
     this.view.activeTaskStyle({ div: taskContainer })
     return true
   }
@@ -441,6 +441,12 @@ export default class ControllerMain {
     taskDetail?.remove()
 
     this.view.renderTaskDetail({ div: this.mainDiv, task, project, projectArray })
+
+    return taskDetail
+  }
+
+  _openTaskDetailsWithAnimation = ({ id }) => {
+    const taskDetail = this._openTaskDetails({ id })
     if (!taskDetail) animateOpenDetails()
   }
 
@@ -508,5 +514,5 @@ const animateOpenDetails = () => {
   setTimeout(() => {
     taskPage.classList.remove('animate-taskPage')
     details.classList.remove('animate-details')
-  }, 2000)
+  }, 1000)
 }
