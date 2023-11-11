@@ -208,9 +208,9 @@ export default class ControllerProjects {
 
   reloadProject = () => {
     const currentProjectID = this.getCurrentProject()
-    const { project } = this.projectModel.getProject({ id: currentProjectID })
 
-    if (currentProjectID !== '') {
+    if (currentProjectID !== null) {
+      const { project } = this.projectModel.getProject({ id: currentProjectID })
       this._projectLoad({ projectID: currentProjectID, project })
     }
   }

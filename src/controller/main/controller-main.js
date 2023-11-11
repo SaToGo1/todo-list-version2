@@ -441,6 +441,7 @@ export default class ControllerMain {
     taskDetail?.remove()
 
     this.view.renderTaskDetail({ div: this.mainDiv, task, project, projectArray })
+    if (!taskDetail) animateOpenDetails()
   }
 
   _saveDetails = () => {
@@ -495,4 +496,17 @@ export default class ControllerMain {
 
     return true
   }
+}
+
+const animateOpenDetails = () => {
+  const taskPage = document.querySelector('.main__taskPage')
+  const details = document.querySelector('.taskDetails__div')
+
+  taskPage.classList.add('animate-taskPage')
+  details.classList.add('animate-details')
+
+  setTimeout(() => {
+    taskPage.classList.remove('animate-taskPage')
+    details.classList.remove('animate-details')
+  }, 2000)
 }

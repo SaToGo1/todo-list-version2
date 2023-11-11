@@ -5,6 +5,8 @@
     grid-area: "page";
 
     display: flex;
+
+    position: relative; /*For Animation*/
 }
 
 .main__taskPage {
@@ -264,3 +266,68 @@
         margin: 0px 10px 10px 10px;
         flex: 1 1 0;
     }
+
+
+.animate-taskPage {
+    animation: main-animation 2s ease;
+}
+
+.animate-details {
+    animation: details-animation 2s ease;
+}
+
+/* @keyframes main-animation {
+    from {
+        transform: translateX(100%) scaleX(1);
+        transform-origin: right;
+    }
+    to {
+        transform: translateX(0) scaleX(0);
+        transform-origin: right;
+    }
+} */
+
+@keyframes details-animation {
+    0% {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        bottom: 20px;
+        width: 35%;
+    } 
+    
+    98% {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        bottom: 20px;
+        width: 35%;
+      }
+      
+    99% {
+        position: static;
+    }
+
+    100% {
+        position: static;
+    }
+}
+
+@keyframes main-animation {
+    0% {
+        margin-right: 0;
+      }
+
+    97% {
+        margin-right: 33%;
+    }
+
+    98% {
+        margin-right: 0%;
+    }
+
+    100% {
+        margin-right: 0;
+    }
+    
+}
