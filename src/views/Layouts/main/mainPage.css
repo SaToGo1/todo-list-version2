@@ -268,51 +268,32 @@
     }
 
 .animate-taskPage {
-    animation: main-animation 1s ease;
+    transform-origin: left;
+    animation: shiftRight 0.6s ease;
 }
 
-.animate-taskPage-close {
-    animation: main-animation-close 2s ease;
-}
+/* .animate-details {
+    animation: moveRight 0.6s ease;
+} */
 
-.animate-details {
-    animation: details-animation 1s ease;
-}
-
-@keyframes details-animation {
+@keyframes shiftRight {
     0% {
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        bottom: 20px;
-        width: 34%;
+        transform: scaleX(166%);
     } 
-    
+
     100% {
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        bottom: 20px;
-        width: 34%;
-      }
+        transform: scaleX(100%);
+    }
 }
 
-@keyframes main-animation {
+/* @keyframes moveRight {
     0% {
-        margin-right: 0;
+        opacity: 0;
+        transform: translateX(100px);
       }
 
     100% {
-        margin-right: 37%;
+        opacity: 1;
+        transform: translateX(0px);
     }  
-}
-
-@keyframes main-animation-close {
-    0% {
-        margin-right: 37%;
-      }
-
-    100% {
-        margin-right: 0;
-    }  
-}
+}  */
