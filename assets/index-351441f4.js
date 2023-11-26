@@ -10,9 +10,16 @@ var Ct=Object.defineProperty;var Pt=(s,t,e)=>t in s?Ct(s,t,{enumerable:!0,config
     </main>
   `}const v="main__addTaskDiv",K="main__addTaskDiv-focus",M="main__addTaskButton",T="main__addTaskInput",L="main__addTaskIcon";function ct(){return`
     <div class=${v} id=${v}>
-      <button class=${M} id="${M}">
-        <img class="${L}" id="${L}" 
+      <button 
+        class=${M} 
+        id="${M}"
+        aria-label="Add Task"
+      >
+        <img 
+          class="${L}" 
+          id="${L}" 
           src="${$t}"
+          alt="Add Task"
         >
       </button>
       <input class="${T}" id="${T}" 
