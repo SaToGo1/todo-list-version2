@@ -17,6 +17,7 @@
 
 .nav__icon {
     width: 20px;
+    height: auto;
     cursor: pointer;
 }
 
@@ -52,7 +53,7 @@
 
     cursor: pointer;
 
-    transition: all 0.3s linear;
+    transition: margin-left 0.3s linear;
 }
     .nav__container:hover {
         background-color: var(--color-grey-light);

@@ -24,9 +24,16 @@ export const mainAddTaskIcon = 'main__addTaskIcon'
 function inputTaskBarTemplate () {
   return `
     <div class=${mainAddTaskDiv} id=${mainAddTaskDiv}>
-      <button class=${mainAddTaskButton} id="${mainAddTaskButton}">
-        <img class="${mainAddTaskIcon}" id="${mainAddTaskIcon}" 
+      <button 
+        class=${mainAddTaskButton} 
+        id="${mainAddTaskButton}"
+        aria-label="Add Task"
+      >
+        <img 
+          class="${mainAddTaskIcon}" 
+          id="${mainAddTaskIcon}" 
           src="${addProjectIcon}"
+          alt="Add Task"
         >
       </button>
       <input class="${mainAddTaskInput}" id="${mainAddTaskInput}" 
